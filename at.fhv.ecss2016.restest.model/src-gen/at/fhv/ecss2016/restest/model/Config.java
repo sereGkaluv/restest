@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.fhv.ecss2016.restest.model.Config#getVerb <em>Verb</em>}</li>
  *   <li>{@link at.fhv.ecss2016.restest.model.Config#getContentType <em>Content Type</em>}</li>
  *   <li>{@link at.fhv.ecss2016.restest.model.Config#getRequestBody <em>Request Body</em>}</li>
+ *   <li>{@link at.fhv.ecss2016.restest.model.Config#getResponse <em>Response</em>}</li>
  * </ul>
  *
  * @see at.fhv.ecss2016.restest.model.ModelPackage#getConfig()
@@ -133,5 +134,31 @@ public interface Config extends EObject {
 	 * @generated
 	 */
 	void setRequestBody(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Response</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Response</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Response</em>' reference.
+	 * @see #setResponse(Response)
+	 * @see at.fhv.ecss2016.restest.model.ModelPackage#getConfig_Response()
+	 * @model
+	 * @generated
+	 */
+	Response getResponse();
+
+	/**
+	 * Sets the value of the '{@link at.fhv.ecss2016.restest.model.Config#getResponse <em>Response</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Response</em>' reference.
+	 * @see #getResponse()
+	 * @generated
+	 */
+	void setResponse(Response value);
 
 } // Config
