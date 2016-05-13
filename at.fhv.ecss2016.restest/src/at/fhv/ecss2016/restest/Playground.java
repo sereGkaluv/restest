@@ -17,7 +17,7 @@ public class Playground {
 		HttpGet httpget = new HttpGet("http://localhost/api/user/");
 		
 		try (CloseableHttpResponse response = httpclient.execute(httpget)){
-
+			// test commit 
 			response.getAllHeaders();
 		} catch (IOException e) {
 			e.printStackTrace();
