@@ -5,7 +5,7 @@
       <children xsi:type="advanced:Perspective" xmi:id="_jNiOIBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.perspective.0">
         <children xsi:type="basic:PartSashContainer" xmi:id="_l6QTEBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partsashcontainer.0" horizontal="true">
           <children xsi:type="basic:PartStack" xmi:id="_q5VcMBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partstack.0">
-            <children xsi:type="basic:Part" xmi:id="_s_iTsBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.part.configpart" label="CONFIG" closeable="true">
+            <children xsi:type="basic:Part" xmi:id="_s_iTsBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.part.configpart" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.ConfigPart" label="CONFIG" closeable="true">
               <menus xmi:id="_IrI4EBjTEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.menu.config">
                 <children xsi:type="menu:HandledMenuItem" xmi:id="_KPJBcBjTEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.handledmenuitem.config.load" label="Load"/>
                 <children xsi:type="menu:HandledMenuItem" xmi:id="_O_XPMBjTEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.handledmenuitem.config.save" label="Save"/>
@@ -23,7 +23,7 @@
     <children xmi:id="_c3AF2sjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_c3AF28jYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
-  <descriptors xmi:id="_xriIwBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partdescriptor.response" label="Response" allowMultiple="true" closeable="true"/>
+  <descriptors xmi:id="_xriIwBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partdescriptor.response" label="Response" allowMultiple="true" closeable="true" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.ResponsePart"/>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
