@@ -104,13 +104,22 @@ public interface ModelPackage extends EPackage {
 	int CONFIG__REQUEST_BODY = 3;
 
 	/**
+	 * The feature id for the '<em><b>Response</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONFIG__RESPONSE = 4;
+
+	/**
 	 * The number of structural features of the '<em>Config</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONFIG_FEATURE_COUNT = 4;
+	int CONFIG_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Config</em>' class.
@@ -408,6 +417,17 @@ public interface ModelPackage extends EPackage {
 	EAttribute getConfig_RequestBody();
 
 	/**
+	 * Returns the meta object for the reference '{@link at.fhv.ecss2016.restest.model.Config#getResponse <em>Response</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Response</em>'.
+	 * @see at.fhv.ecss2016.restest.model.Config#getResponse()
+	 * @see #getConfig()
+	 * @generated
+	 */
+	EReference getConfig_Response();
+
+	/**
 	 * Returns the meta object for class '{@link at.fhv.ecss2016.restest.model.Scenario <em>Scenario</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -652,6 +672,14 @@ public interface ModelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute CONFIG__REQUEST_BODY = eINSTANCE.getConfig_RequestBody();
+
+		/**
+		 * The meta object literal for the '<em><b>Response</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONFIG__RESPONSE = eINSTANCE.getConfig_Response();
 
 		/**
 		 * The meta object literal for the '{@link at.fhv.ecss2016.restest.model.impl.ScenarioImpl <em>Scenario</em>}' class.

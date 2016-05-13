@@ -7,10 +7,12 @@ import at.fhv.ecss2016.restest.model.ContentType;
 import at.fhv.ecss2016.restest.model.HTTPVerb;
 import at.fhv.ecss2016.restest.model.ModelPackage;
 
+import at.fhv.ecss2016.restest.model.Response;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
@@ -26,6 +28,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link at.fhv.ecss2016.restest.model.impl.ConfigImpl#getVerb <em>Verb</em>}</li>
  *   <li>{@link at.fhv.ecss2016.restest.model.impl.ConfigImpl#getContentType <em>Content Type</em>}</li>
  *   <li>{@link at.fhv.ecss2016.restest.model.impl.ConfigImpl#getRequestBody <em>Request Body</em>}</li>
+ *   <li>{@link at.fhv.ecss2016.restest.model.impl.ConfigImpl#getResponse <em>Response</em>}</li>
  * </ul>
  *
  * @generated
@@ -110,6 +113,16 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 	 * @ordered
 	 */
 	protected String requestBody = REQUEST_BODY_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getResponse() <em>Response</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResponse()
+	 * @generated
+	 * @ordered
+	 */
+	protected Response response;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -219,6 +232,44 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Response getResponse() {
+		if (response != null && response.eIsProxy()) {
+			InternalEObject oldResponse = (InternalEObject)response;
+			response = (Response)eResolveProxy(oldResponse);
+			if (response != oldResponse) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.CONFIG__RESPONSE, oldResponse, response));
+			}
+		}
+		return response;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Response basicGetResponse() {
+		return response;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setResponse(Response newResponse) {
+		Response oldResponse = response;
+		response = newResponse;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.CONFIG__RESPONSE, oldResponse, response));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -230,6 +281,9 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 				return getContentType();
 			case ModelPackage.CONFIG__REQUEST_BODY:
 				return getRequestBody();
+			case ModelPackage.CONFIG__RESPONSE:
+				if (resolve) return getResponse();
+				return basicGetResponse();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -253,6 +307,9 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 				return;
 			case ModelPackage.CONFIG__REQUEST_BODY:
 				setRequestBody((String)newValue);
+				return;
+			case ModelPackage.CONFIG__RESPONSE:
+				setResponse((Response)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -278,6 +335,9 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 			case ModelPackage.CONFIG__REQUEST_BODY:
 				setRequestBody(REQUEST_BODY_EDEFAULT);
 				return;
+			case ModelPackage.CONFIG__RESPONSE:
+				setResponse((Response)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -298,6 +358,8 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 				return contentType != CONTENT_TYPE_EDEFAULT;
 			case ModelPackage.CONFIG__REQUEST_BODY:
 				return REQUEST_BODY_EDEFAULT == null ? requestBody != null : !REQUEST_BODY_EDEFAULT.equals(requestBody);
+			case ModelPackage.CONFIG__RESPONSE:
+				return response != null;
 		}
 		return super.eIsSet(featureID);
 	}

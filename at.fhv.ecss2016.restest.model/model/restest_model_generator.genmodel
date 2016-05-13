@@ -27,6 +27,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Config/verb"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Config/contentType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Config/requestBody"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference restest_model.ecore#//Config/response"/>
     </genClasses>
     <genClasses ecoreClass="restest_model.ecore#//Scenario">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Scenario/scenariosFile"/>
