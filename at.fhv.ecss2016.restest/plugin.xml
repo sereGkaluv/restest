@@ -12,6 +12,10 @@
                name="applicationCSS"
                value="platform:/plugin/at.fhv.ecss2016.restest/css/default.css">
          </property>
+         <property
+               name="appName"
+               value="at.fhv.ecss2016.restest">
+         </property>
       </product>
    </extension>
 
