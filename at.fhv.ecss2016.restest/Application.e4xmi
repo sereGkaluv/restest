@@ -17,7 +17,9 @@
       </children>
       <children xsi:type="advanced:Perspective" xmi:id="_jqVe4BjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.perspective.1"/>
     </children>
-    <windows xsi:type="basic:Dialog" xmi:id="_C1c_oBjqEeaZp7-qNQzW0w" elementId="at.fhv.ecss2016.restest.dialog.addNewConfig" label="Add new config to scenario?" x="100" y="100" width="500" height="300"/>
+    <windows xsi:type="basic:Dialog" xmi:id="_C1c_oBjqEeaZp7-qNQzW0w" elementId="at.fhv.ecss2016.restest.dialog.addNewConfig" label="Add new config to scenario?" x="400" y="100" width="400" height="300">
+      <children xsi:type="basic:Part" xmi:id="_0N2K0By_EeaHUZl6zUvDdg" elementId="at.fhv.ecss2016.restest.part.newConfig" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.NewConfigPart"/>
+    </windows>
   </children>
   <rootContext xmi:id="_c3AF2cjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
     <children xmi:id="_c3AF2sjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
