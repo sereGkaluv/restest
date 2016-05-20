@@ -23,7 +23,7 @@ public class NewConfigPart {
 		
 		Label lblName = new Label(parent, SWT.NONE);
 		lblName.setText("Name: ");
-		Text txtName = new Text(parent, SWT.BORDER);
+		new Text(parent, SWT.BORDER);
 		
 		Label lblFileName = new Label(parent, SWT.NONE);
 		lblFileName.setText("Config file: ");
@@ -40,11 +40,11 @@ public class NewConfigPart {
 		
 		Label lblResType = new Label(parent, SWT.NONE);
 		lblResType.setText("Result type: ");
-		Combo resType = new Combo(parent, 0);
+		new Combo(parent, 0);
 		
 		Label lblResBody = new Label(parent, SWT.NONE);
 		lblResBody.setText("Result body: ");
-		Text txtResBody = new Text(parent, SWT.BORDER);
+		 new Text(parent, SWT.BORDER);
 	}
 	
 	

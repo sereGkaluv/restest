@@ -4,7 +4,7 @@
     <children xsi:type="advanced:PerspectiveStack" xmi:id="_iLaCwBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.perspectivestack.0">
       <children xsi:type="advanced:Perspective" xmi:id="_jNiOIBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.perspective.0">
         <children xsi:type="basic:PartSashContainer" xmi:id="_l6QTEBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partsashcontainer.0" horizontal="true">
-          <children xsi:type="basic:PartStack" xmi:id="_q5VcMBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partstack.0">
+          <children xsi:type="basic:PartStack" xmi:id="_q5VcMBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.config.partstack.left">
             <children xsi:type="basic:Part" xmi:id="_s_iTsBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.part.configpart" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.ConfigPart" label="CONFIG" closeable="true">
               <toolbar xmi:id="_lY-YcB5YEeaOiJcIT1En8w" elementId="at.fhv.ecss2016.restest.toolbar.0">
                 <children xsi:type="menu:HandledToolItem" xmi:id="_qlfgoB5YEeaOiJcIT1En8w" elementId="at.fhv.ecss2016.restest.handledmenuitem.config.options" label="Options">
@@ -16,9 +16,7 @@
               </toolbar>
             </children>
           </children>
-          <children xsi:type="basic:PartStack" xmi:id="_reDS0BjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partstack.1">
-            <children xsi:type="basic:Part" xmi:id="_iRAakB5bEeahZtiEs7F6qg" elementId="at.fhv.ecss2016.restest.part.responsepart" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.ResponsePart" label="RESPONSE"/>
-          </children>
+          <children xsi:type="basic:PartStack" xmi:id="_reDS0BjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.config.partstack.right"/>
         </children>
       </children>
       <children xsi:type="advanced:Perspective" xmi:id="_jqVe4BjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.perspective.1"/>
@@ -31,7 +29,7 @@
     <children xmi:id="_c3AF2sjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_c3AF28jYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
-  <descriptors xmi:id="_xriIwBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partdescriptor.response" label="Response" allowMultiple="true" closeable="true" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.ResponsePart"/>
+  <descriptors xmi:id="_xriIwBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partdescriptor.response" label="RESPONSE" allowMultiple="true" closeable="true" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.ResponsePart"/>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

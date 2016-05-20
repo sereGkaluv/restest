@@ -6,9 +6,15 @@ import javax.inject.Inject;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.model.application.ui.MDirtyable;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
+import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
+import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
+import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Font;
@@ -18,15 +24,22 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
+import at.fhv.ecss2016.restest.util.StringConstants;
+
+/**
+ * ConfigPart UI and logic definition.
+ * 
+ * @author sereGkaluv at 15.05.2016
+ */
 public class ConfigPart {
 	
-	private static final String RIGHT_PART_STACK_ID = "at.fhv.ecss2016.homework.task3.todo.partstack.right";
-	private static final String TODO_LIST_SELECTION = "todo.list.selection";
-	private static final String CREATABLE_PART_ID = "at.fhv.ecss2016.homework.task3.todo.partdescriptor.todo.edit";
-	private static final String POPUP_MENU_ID = "at.fhv.ecss2016.homework.task3.todo.popupmenu.listMenu";
+	private static final String CREATABLE_PART_ID = "at.fhv.ecss2016.restest.partdescriptor.response";
+	private static final String RIGHT_PART_STACK_ID = "at.fhv.ecss2016.restest.config.partstack.right";
 	
 	private static final int ELEMENT_VERTICAL_SPACING = 5;
 	private static final int ELEMENT_HORISONTAL_SPACING = 15;
@@ -91,36 +104,23 @@ public class ConfigPart {
 		button.setText("Send");
 		button.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, true, false, 2, 1));
 		
-		
-		
-//		_tableViewer = new TableViewer(parent, SWT.FULL_SELECTION | SWT.MULTI);
-//		menuService.registerContextMenu(_tableViewer.getControl(), POPUP_MENU_ID);
-//	
-//		ComposedAdapterFactory adapterFactory = new ComposedAdapterFactory(
-//			ComposedAdapterFactory.Descriptor.Registry.INSTANCE
-//		);
-//
-//		_tableViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));		
-//		_tableViewer.setContentProvider(new ArrayContentProvider());
-//		
-//		_tableViewer.addDoubleClickListener(new IDoubleClickListener() {
-//			@Override
-//			public void doubleClick(DoubleClickEvent event) {
-//				
-//				StructuredSelection selection = (StructuredSelection) _tableViewer.getSelection();
-//				if (selection != null && !selection.isEmpty()) {
-//					
-//					perspective.getContext().set(TODO_LIST_SELECTION, selection.getFirstElement());
-//					
-//					MPart editPart = partService.createPart(CREATABLE_PART_ID);
-//					
-//					MPartStack partStack = (MPartStack) modelService.find(RIGHT_PART_STACK_ID, perspective);
-//					partStack.getChildren().add(editPart);
-//					
-//					partService.showPart(editPart, PartState.ACTIVATE);
-//				}
-//			}
-//		});
+		button.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+					
+//				perspective.getContext().set(
+//					StringConstants.CONFIG_RESPONSE.getConstant(),
+//					value
+//				);
+				
+				MPart editPart = partService.createPart(CREATABLE_PART_ID);
+				
+				MPartStack partStack = (MPartStack) modelService.find(RIGHT_PART_STACK_ID, perspective);
+				partStack.getChildren().add(editPart);
+				
+				partService.showPart(editPart, PartState.ACTIVATE);
+			}
+		});
 	}
 	
 	@Persist
