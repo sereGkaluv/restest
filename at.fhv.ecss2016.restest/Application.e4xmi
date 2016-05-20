@@ -16,7 +16,9 @@
               </toolbar>
             </children>
           </children>
-          <children xsi:type="basic:PartStack" xmi:id="_reDS0BjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partstack.1"/>
+          <children xsi:type="basic:PartStack" xmi:id="_reDS0BjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partstack.1">
+            <children xsi:type="basic:Part" xmi:id="_iRAakB5bEeahZtiEs7F6qg" elementId="at.fhv.ecss2016.restest.part.responsepart" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.ResponsePart" label="RESPONSE"/>
+          </children>
         </children>
       </children>
       <children xsi:type="advanced:Perspective" xmi:id="_jqVe4BjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.perspective.1"/>

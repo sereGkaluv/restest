@@ -1,9 +1,6 @@
  
 package at.fhv.ecss2016.restest.parts;
 
-import javax.inject.Inject;
-import javax.annotation.PostConstruct;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -15,12 +12,12 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 public class NewConfigPart {
-	@Inject
+	
+	//@Inject
 	public NewConfigPart() {
-		
 	}
 	
-	@PostConstruct
+	//@PostConstruct
 	public void postConstruct(Composite parent) {
 		parent.setLayout(new GridLayout(2,false));
 		
