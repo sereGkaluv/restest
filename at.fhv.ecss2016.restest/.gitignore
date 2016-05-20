@@ -28,3 +28,4 @@ logs/
 
 #netbeans ignore
 /webclient/nb-configuration.xml
+/bin/

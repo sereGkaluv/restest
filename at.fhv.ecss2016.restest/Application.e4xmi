@@ -6,10 +6,14 @@
         <children xsi:type="basic:PartSashContainer" xmi:id="_l6QTEBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partsashcontainer.0" horizontal="true">
           <children xsi:type="basic:PartStack" xmi:id="_q5VcMBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partstack.0">
             <children xsi:type="basic:Part" xmi:id="_s_iTsBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.part.configpart" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.ConfigPart" label="CONFIG" closeable="true">
-              <menus xmi:id="_IrI4EBjTEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.menu.config">
-                <children xsi:type="menu:HandledMenuItem" xmi:id="_KPJBcBjTEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.handledmenuitem.config.load" label="Load"/>
-                <children xsi:type="menu:HandledMenuItem" xmi:id="_O_XPMBjTEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.handledmenuitem.config.save" label="Save"/>
-              </menus>
+              <toolbar xmi:id="_lY-YcB5YEeaOiJcIT1En8w" elementId="at.fhv.ecss2016.restest.toolbar.0">
+                <children xsi:type="menu:HandledToolItem" xmi:id="_qlfgoB5YEeaOiJcIT1En8w" elementId="at.fhv.ecss2016.restest.handledmenuitem.config.options" label="Options">
+                  <menu xmi:id="_WV920B5ZEeaOiJcIT1En8w" elementId="at.fhv.ecss2016.restest.menu.0">
+                    <children xsi:type="menu:HandledMenuItem" xmi:id="_ejob0B5ZEeaOiJcIT1En8w" elementId="at.fhv.ecss2016.restest.handledmenuitem.config.save" label="Save"/>
+                    <children xsi:type="menu:HandledMenuItem" xmi:id="_gydD0B5ZEeaOiJcIT1En8w" elementId="at.fhv.ecss2016.restest.handledmenuitem.config.load" label="Load"/>
+                  </menu>
+                </children>
+              </toolbar>
             </children>
           </children>
           <children xsi:type="basic:PartStack" xmi:id="_reDS0BjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partstack.1"/>
