@@ -43,6 +43,7 @@
   </rootContext>
   <descriptors xmi:id="_xriIwBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partdescriptor.response" label="RESPONSE" allowMultiple="true" closeable="true" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.ResponsePart"/>
   <descriptors xmi:id="_3vdTYCGAEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.part.newConfig" label="Add new config to scenario?" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.NewConfigPart"/>
+  <descriptors xmi:id="_urXUUCGOEeaRFb8j9NNpNA" elementId="at.fhv.ecss2016.restest.partdescriptor.FileSelectorPart" label="Select file" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.FileSelectorPart"/>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
