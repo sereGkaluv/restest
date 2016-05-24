@@ -1,5 +1,7 @@
 package at.fhv.ecss2016.restest.parts;
 
+import java.io.IOException;
+
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
@@ -9,6 +11,7 @@ import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Font;
@@ -21,7 +24,10 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 /**
  * ConfigPart UI and logic definition.
@@ -36,6 +42,10 @@ public class ScenarioPart {
 	private static final int ELEMENT_VERTICAL_SPACING = 5;
 	private static final int ELEMENT_HORISONTAL_SPACING = 15;
 	
+	private final int _width = 500;
+	private final int _height = 300;
+	private final String _dialogTitle = "Test dialog";
+	
 	@Inject
 	public MDirtyable _dirty;
 	
@@ -44,7 +54,7 @@ public class ScenarioPart {
 	}
 	
 	@PostConstruct
-	public void postConstruct(Display display, Composite parent, EMenuService menuService, EPartService partService, EModelService modelService, MPerspective perspective) {
+	public void postConstruct(Display display, Shell shell, Composite parent, EMenuService menuService, EPartService partService, EModelService modelService, MPerspective perspective) {
 		
 		// Setting parent layout
 		GridLayout gridLayout = new GridLayout(7, false);
@@ -93,6 +103,30 @@ public class ScenarioPart {
 		Button addScenarioButton = new Button(parent, SWT.NONE);
 		addScenarioButton.setText("+");
 		addScenarioButton.setLayoutData(new GridData(SWT.CENTER));
+		addScenarioButton.addListener(SWT.Selection, new Listener(){
+			@Override
+			public void handleEvent(Event event) {
+				
+//				try {
+					// opens new config dialog
+					NewConfigDialog newConfigDialog = new NewConfigDialog(
+						_width,
+						_height,
+						_dialogTitle,
+						shell
+					);
+					
+					int statusCode = newConfigDialog.open();
+					
+					if (statusCode == Window.OK) {
+						newConfigDialog.getConfigName();
+					}
+					
+//				} catch (JsonProcessingException | IOException e) {
+//					e.printStackTrace();
+//				}
+			}
+		});
 		
 		Button removeScenarioButton = new Button(parent, SWT.NONE);
 		removeScenarioButton.setText("-");
