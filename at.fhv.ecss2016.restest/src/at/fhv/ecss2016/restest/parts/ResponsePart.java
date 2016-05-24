@@ -2,76 +2,150 @@ package at.fhv.ecss2016.restest.parts;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.AbstractMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Map.Entry;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
-import at.fhv.ecss2016.restest.response.HttpProvider;
-import at.fhv.ecss2016.restest.response.JsonProvider;
+import com.fasterxml.jackson.databind.JsonNode;
+
+import at.fhv.ecss2016.restest.controller.JsonProvider;
+import at.fhv.ecss2016.restest.model.Response;
+import at.fhv.ecss2016.restest.util.StringConstants;
 
 public class ResponsePart {
+
+	private static final String CONTENT_TYPE_JSON = "application/json";
+	private static final String ROOT_ELEMENT = "JSON";
+	private static final String ARRAY_PLACEHOLDER = "{}";
+	private static final String KEY_VALUE_DELIMITER = " : ";
 	
 	private static final JsonProvider JSON_PROVIDER = new JsonProvider();
-	private static final HttpProvider HTTP_PROVIDER = new HttpProvider();
-	
+
 	@Inject
 	public ResponsePart() {
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	@PostConstruct
-	public void postConstruct(Composite parent, IEclipseContext context) throws MalformedURLException, IOException {
-		//TODO class for Mathew
-		parent.setLayout(new GridLayout(1, true));
+	public void postConstruct(Display display, Composite parent, IEclipseContext context)
+	throws MalformedURLException, IOException {
+
+		parent.setLayout(new GridLayout(2, false));
 		
-		Map<String, Object> jsonMap = JSON_PROVIDER.getJsonMap();
+		// Setting parent font
+		FontData initFontData = parent.getFont().getFontData()[0];
 		
-		final Tree tree = new Tree(parent, SWT.BORDER | SWT.V_SCROLL);
-		tree.setLayoutData(new GridData(GridData.FILL_BOTH));
+		FontData fontData = new FontData(initFontData.getName(), initFontData.getHeight(), SWT.BOLD);
+		Font defaultFont = new Font(parent.getDisplay(), fontData);
+
+		Response response = (Response) context.get(
+			StringConstants.CONFIG_RESPONSE.getConstant()
+		);
 		
-		//Iterates over the map to create the tree items. If the value is a HashMap, iterates over that map to create children
-		TreeItem jsonItem = new TreeItem(tree, 0);
-		jsonItem.setText("JSON");
-		for (Map.Entry<String, Object> entry : jsonMap.entrySet()) {
-			TreeItem treeParent = new TreeItem(jsonItem, 0);
-			treeParent.setText(entry.getKey());
-			System.out.println("parent set");
-			if (entry.getValue() == null) {
-			} else if (entry.getValue().getClass() != LinkedHashMap.class) {
-				TreeItem treeChild = new TreeItem(treeParent, 0);
-				treeChild.setText(entry.getValue().toString());
-				System.out.println("child set");
-			} else {
-				Object childJsonMap = entry.getValue();
-				for (Map.Entry<String, Object> childEntry : ((Map<String, Object>) childJsonMap).entrySet()) {
-					TreeItem treeChild = new TreeItem(treeParent, 0);
-					treeChild.setText(childEntry.getKey());
-					if (childEntry.getValue() != null & childEntry.getValue().toString() != "") {
-						TreeItem treeChildsChild = new TreeItem(treeChild, 0);
-						treeChildsChild.setText(childEntry.getValue().toString());
-					} 
+		// If we received a response
+		if (response != null) {
+			
+			// Starting async task so GUI will not freeze //TODO update ui
+			display.syncExec(() -> {
+				
+				if (CONTENT_TYPE_JSON.equals(response.getResponseContentType())) {
+					
+					// Displaying JSON response
+					Tree tree = new Tree(parent, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+					tree.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
+		
+					TreeItem treeRoot = new TreeItem(tree, SWT.NONE);
+					treeRoot.setText(ROOT_ELEMENT + KEY_VALUE_DELIMITER + ARRAY_PLACEHOLDER);
+
+					try {
+						
+						// Getting iterator for the JSON tree
+						Iterator<Entry<String, JsonNode>> jsonTreeIterator = JSON_PROVIDER.readJSON(response.getResponseBody());
+						
+						// Displaying JSON tree as a root of {@code treeRoot}
+						displayJsonTree(treeRoot, jsonTreeIterator);
+						
+					} catch (Exception e) { e.printStackTrace(); }
+				
+				} else {
+					
+					// Displaying not a JSON response
+					StyledText styledText = new StyledText(parent, SWT.BORDER);
+					styledText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
+					styledText.setText(response.getResponseBody());
 				}
+				
+				// Showing additional information
+				Label contentTypeLabel = new Label(parent, SWT.NONE);
+				contentTypeLabel.setText("Content-Type:");
+				contentTypeLabel.setFont(defaultFont);
+				
+				Label contentTypeValueLabel = new Label(parent, SWT.NONE);
+				contentTypeValueLabel.setText(response.getResponseContentType());
+				
+				Label responseCodeLabel = new Label(parent, SWT.NONE);
+				responseCodeLabel.setText("Response code:");
+				responseCodeLabel.setFont(defaultFont);
+				
+				Label responseCodeValueLabel = new Label(parent, SWT.NONE);
+				responseCodeValueLabel.setText(response.getResponseCode());
+			});
+		}
+	}
+	
+	private void displayJsonTree(TreeItem treeRootElement, Iterator<Entry<String, JsonNode>> jsonTreeIterator) {
+	
+		// Adding root elements to the queue
+		LinkedList<Entry<TreeItem, Iterator<Entry<String, JsonNode>>>> jsonTreeQueue = new LinkedList<>();
+		jsonTreeQueue.add(new AbstractMap.SimpleImmutableEntry<>(treeRootElement, jsonTreeIterator));
+
+		// Handling all available pairs
+		while (!jsonTreeQueue.isEmpty()) {
+		
+			Entry<TreeItem, Iterator<Entry<String, JsonNode>>> currentPair = jsonTreeQueue.poll();
+			
+			TreeItem currentRootElement = currentPair.getKey();
+			Iterator<Entry<String, JsonNode>> currentIterator = currentPair.getValue();
+			
+			// Iterates over the collection to create the tree items
+			// If child value is a JsonNode, adds to the queue for further processing
+			while (currentIterator.hasNext()) {
+				Entry<String, JsonNode> currentEntry = currentIterator.next();
+				
+				TreeItem currentTreeElement = new TreeItem(currentRootElement, SWT.NONE);
+				String stringEntry = currentEntry.getKey();
+				JsonNode entryValue = currentEntry.getValue();
+				
+				if (entryValue.isValueNode()) {
+					// We have reached the deepest value for this tree, branch traversing is finished
+					stringEntry = stringEntry + KEY_VALUE_DELIMITER + entryValue.toString();
+				} else {
+					// There are child elements in this value adding to the queue for further processing
+					stringEntry = stringEntry + KEY_VALUE_DELIMITER + ARRAY_PLACEHOLDER;
+					jsonTreeQueue.add(new AbstractMap.SimpleImmutableEntry<>(currentTreeElement, entryValue.fields()));
+				}
+				
+				currentTreeElement.setText(stringEntry);
 			}
 		}
-		jsonItem.setExpanded(true);
 		
-		Label responseCodeLabel = new Label(parent, SWT.NONE);
-		try {
-			responseCodeLabel.setText(HTTP_PROVIDER.getResponseCode());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+		// Expanding root tree element
+		treeRootElement.setExpanded(true);
 	}
 }

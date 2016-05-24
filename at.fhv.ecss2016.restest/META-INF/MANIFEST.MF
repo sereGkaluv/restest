@@ -15,7 +15,12 @@ Require-Bundle: javax.inject;bundle-version="0.0.0",
  org.eclipse.e4.core.contexts;bundle-version="0.0.0",
  com.fasterxml.jackson.core.jackson-core;bundle-version="2.5.0",
  com.fasterxml.jackson.core.jackson-databind;bundle-version="2.5.0",
- org.eclipse.emf.edit
+ org.apache.httpcomponents.httpclient;bundle-version="4.3.6",
+ org.apache.httpcomponents.httpcore;bundle-version="4.3.3",
+ org.eclipse.emf.edit,
+ at.fhv.ecss2016.restest.controller;bundle-version="1.0.0",
+ at.fhv.ecss2016.restest.model,
+ org.eclipse.emf.edit.ui;bundle-version="2.11.1"
 Import-Package: javax.annotation;version="1.0.0";resolution:=optional,
  javax.inject;version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
