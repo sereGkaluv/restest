@@ -1,7 +1,6 @@
 
 package at.fhv.ecss2016.restest.parts;
 
-import org.apache.http.HttpStatus;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -10,7 +9,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -44,23 +42,25 @@ public class NewConfigPart {
 		Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
 		separator.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false, 2, 1));
 
+		Button containsBodyBtn = new Button(parent, SWT.CHECK);
+		containsBodyBtn.setText("Contains body");
+
 		Label lblResType = new Label(parent, SWT.NONE);
 		lblResType.setText("Result type: ");
 
-		ComboViewer contentTypeCombo = new ComboViewer(parent, SWT.DROP_DOWN | SWT.READ_ONLY);
-		contentTypeCombo.getCombo().setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		contentTypeCombo.setContentProvider(new ArrayContentProvider());
-		contentTypeCombo.setLabelProvider(new LabelProvider() {
+		ComboViewer resultTypeCombo = new ComboViewer(parent, SWT.DROP_DOWN | SWT.READ_ONLY);
+		resultTypeCombo.getCombo().setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		resultTypeCombo.setContentProvider(new ArrayContentProvider());
+		resultTypeCombo.setLabelProvider(new LabelProvider() {
 			@Override
 			public String getText(Object element) {
-				if (element instanceof ContentType) return ((ContentType) element).getName();
-				else return super.getText(element);
+				if (element instanceof ContentType)
+					return ((ContentType) element).getName();
+				else
+					return super.getText(element);
 			}
 		});
-		contentTypeCombo.setInput(ContentType.values());
-
-		Button containsBodyBtn = new Button(parent, SWT.CHECK);
-		containsBodyBtn.setText("Contains body");
+		resultTypeCombo.setInput(ContentType.values());
 
 		Label lblResBody = new Label(parent, SWT.NONE);
 		lblResBody.setText("Result body: ");
