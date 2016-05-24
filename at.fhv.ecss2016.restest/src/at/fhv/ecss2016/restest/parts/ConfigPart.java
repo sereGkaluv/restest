@@ -160,14 +160,16 @@ public class ConfigPart {
 	throws IOException {
 		RemoteConnection remoteConnection = new RemoteConnection();
 		
-		switch (httpVerb) {
-			case GET: return remoteConnection.sendGetRequest(url, contentType);
-			case POST: return remoteConnection.sendPostRequest(url, contentType, body);
-			case PUT: return remoteConnection.sendPutRequest(url, contentType, body);
-			case DELETE: return remoteConnection.sendDeleteRequest(url, contentType);
-				
-			default: return null;
+		if (httpVerb != null) {
+			switch (httpVerb) {
+				case GET: return remoteConnection.sendGetRequest(url, contentType);
+				case POST: return remoteConnection.sendPostRequest(url, contentType, body);
+				case PUT: return remoteConnection.sendPutRequest(url, contentType, body);
+				case DELETE: return remoteConnection.sendDeleteRequest(url, contentType);
+			}
 		}
+		
+		return null;
 	}
 	
 	private void openResponsePerspective(Response response, MPerspective perspective, EPartService partService, EModelService modelService) {
