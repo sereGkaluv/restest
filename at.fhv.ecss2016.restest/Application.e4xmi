@@ -21,10 +21,10 @@
       </children>
       <children xsi:type="advanced:Perspective" xmi:id="_jqVe4BjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.perspective.1">
         <children xsi:type="basic:PartSashContainer" xmi:id="_HsXcACGBEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.partsashcontainer.1" horizontal="true">
-          <children xsi:type="basic:PartStack" xmi:id="_JYSyUCGBEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.partstack.0">
+          <children xsi:type="basic:PartStack" xmi:id="_JYSyUCGBEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.scenario.partstack.left">
             <children xsi:type="basic:Part" xmi:id="_LCj7wCGBEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.part.scenario" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.ScenarioPart" label="SCENARIO">
               <toolbar xmi:id="_OPoUsCGBEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.toolbar.1">
-                <children xsi:type="menu:HandledToolItem" xmi:id="_QjLEoCGBEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.handledmenuitem.config.options" label="Options">
+                <children xsi:type="menu:HandledToolItem" xmi:id="_QjLEoCGBEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.handledmenuitem.scenario.options" label="Options">
                   <menu xmi:id="_QjLEoSGBEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.menu.0">
                     <children xsi:type="menu:HandledMenuItem" xmi:id="_QjLEoiGBEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.handledmenuitem.scenario.save" label="Save"/>
                     <children xsi:type="menu:HandledMenuItem" xmi:id="_QjLEoyGBEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.handledmenuitem.scenario.load" label="Load"/>
@@ -33,6 +33,7 @@
               </toolbar>
             </children>
           </children>
+          <children xsi:type="basic:PartStack" xmi:id="_iJUTkCGPEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.scenario.partstack.right"/>
         </children>
       </children>
     </children>
@@ -43,6 +44,10 @@
   </rootContext>
   <descriptors xmi:id="_xriIwBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partdescriptor.response" label="RESPONSE" allowMultiple="true" closeable="true" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.ResponsePart"/>
   <descriptors xmi:id="_3vdTYCGAEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.part.newConfig" label="Add new config to scenario?" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.NewConfigPart"/>
+  <commands xmi:id="_1befwCGaEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.command.switchperspective" commandName="switch perspective">
+    <parameters xmi:id="_9gffECGaEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.commandparameter.perspectivestack.id" name="prespective stack "/>
+    <parameters xmi:id="_96nPQCGaEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.commandparameter.perspectivestack.perspective.id" name="prespective id"/>
+  </commands>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
