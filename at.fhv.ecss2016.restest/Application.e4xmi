@@ -7,12 +7,8 @@
           <children xsi:type="basic:PartStack" xmi:id="_q5VcMBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.config.partstack.left">
             <children xsi:type="basic:Part" xmi:id="_s_iTsBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.part.configpart" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.ConfigPart" label="CONFIG" closeable="true">
               <toolbar xmi:id="_lY-YcB5YEeaOiJcIT1En8w" elementId="at.fhv.ecss2016.restest.toolbar.0">
-                <children xsi:type="menu:HandledToolItem" xmi:id="_qlfgoB5YEeaOiJcIT1En8w" elementId="at.fhv.ecss2016.restest.handledmenuitem.config.options" label="Options">
-                  <menu xmi:id="_WV920B5ZEeaOiJcIT1En8w" elementId="at.fhv.ecss2016.restest.menu.0">
-                    <children xsi:type="menu:HandledMenuItem" xmi:id="_ejob0B5ZEeaOiJcIT1En8w" elementId="at.fhv.ecss2016.restest.handledmenuitem.config.save" label="Save"/>
-                    <children xsi:type="menu:HandledMenuItem" xmi:id="_gydD0B5ZEeaOiJcIT1En8w" elementId="at.fhv.ecss2016.restest.handledmenuitem.config.load" label="Load"/>
-                  </menu>
-                </children>
+                <children xsi:type="menu:HandledToolItem" xmi:id="_qlfgoB5YEeaOiJcIT1En8w" elementId="at.fhv.ecss2016.restest.handledmenuitem.config.save" label="Save" command="_6uj5QCG2Eea-JavvrGpDJg"/>
+                <children xsi:type="menu:HandledToolItem" xmi:id="_DUohwCG4Eea-JavvrGpDJg" elementId="at.fhv.ecss2016.restest.handledmenuitem.config.load" label="Load" command="_-jsXwCG2Eea-JavvrGpDJg"/>
               </toolbar>
             </children>
           </children>
@@ -51,6 +47,8 @@
     </mainMenu>
   </children>
   <handlers xmi:id="_q-_NkCGsEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.handler.0" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.handlers.SwitchPerspectiveHandler" command="_1befwCGaEeaucOyU6NqSaA"/>
+  <handlers xmi:id="_A95JUCG3Eea-JavvrGpDJg" elementId="at.fhv.ecss2016.restest.handler.save" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.handlers.SaveHandler" command="_6uj5QCG2Eea-JavvrGpDJg"/>
+  <handlers xmi:id="_HF_I8CG3Eea-JavvrGpDJg" elementId="at.fhv.ecss2016.restest.handler.config.load" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.handlers.LoadConfigHandler" command="_-jsXwCG2Eea-JavvrGpDJg"/>
   <rootContext xmi:id="_c3AF2cjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
     <children xmi:id="_c3AF2sjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_c3AF28jYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
@@ -61,6 +59,8 @@
     <parameters xmi:id="_9gffECGaEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.commandparameter.perspectivestack.id" name="prespective stack "/>
     <parameters xmi:id="_96nPQCGaEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.commandparameter.perspectivestack.perspective.id" name="perspective id"/>
   </commands>
+  <commands xmi:id="_6uj5QCG2Eea-JavvrGpDJg" elementId="at.fhv.ecss2016.restest.command.save" commandName="Save"/>
+  <commands xmi:id="_-jsXwCG2Eea-JavvrGpDJg" elementId="at.fhv.ecss2016.restest.command..config.load" commandName="Load config"/>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

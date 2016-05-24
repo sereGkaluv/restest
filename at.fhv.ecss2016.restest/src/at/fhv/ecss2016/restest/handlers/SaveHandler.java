@@ -7,11 +7,11 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 /**
- * Handler that provides save functionality for the Config.
+ * Handler that provides save functionality.
  * 
  * @author Sergii Maidanov on 13-05-2016
  */
-public class SaveConfigHandler {
+public class SaveHandler {
 	
 	private static final String DEFAULT_SAVE_MESSAGE = "All entries were saved.";
 	
