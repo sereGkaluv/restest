@@ -44,7 +44,7 @@ public class ScenarioPart {
 	
 	private final int _width = 500;
 	private final int _height = 300;
-	private final String _dialogTitle = "Test dialog";
+	private final String _dialogTitle = "Add new config to scenario?";
 	
 	@Inject
 	public MDirtyable _dirty;

@@ -97,9 +97,9 @@ public class NewConfigDialog extends Dialog {
 			}
 		});
 
-		Label separator = new Label(container, SWT.SEPARATOR | SWT.HORIZONTAL);
-		separator.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false, 2, 1));
-
+		Label lblSpace = new Label(container, SWT.NONE);
+		lblSpace.setText(" ");
+		
 		Button btnContainsBody = new Button(container, SWT.CHECK);
 		btnContainsBody.setText("Contains body");
 
@@ -120,7 +120,9 @@ public class NewConfigDialog extends Dialog {
 
 		Label lblResBody = new Label(container, SWT.NONE);
 		lblResBody.setText("Result body: ");
-		Text bodyText = new Text(container, SWT.BORDER);
+		
+		Text txtBody = new Text(container, SWT.BORDER);
+		txtBody.setLayoutData(new GridData(GridData.FILL_BOTH));
 		
 		return container;
 	}
