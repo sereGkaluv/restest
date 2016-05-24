@@ -352,14 +352,24 @@ public interface ModelPackage extends EPackage {
 	int CONTENT_TYPE = 5;
 
 	/**
-	 * The meta object id for the '{@link at.fhv.ecss2016.restest.model.HTTPVerb <em>HTTP Verb</em>}' enum.
+	 * The meta object id for the '{@link at.fhv.ecss2016.restest.model.HttpVerb <em>Http Verb</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see at.fhv.ecss2016.restest.model.HTTPVerb
-	 * @see at.fhv.ecss2016.restest.model.impl.ModelPackageImpl#getHTTPVerb()
+	 * @see at.fhv.ecss2016.restest.model.HttpVerb
+	 * @see at.fhv.ecss2016.restest.model.impl.ModelPackageImpl#getHttpVerb()
 	 * @generated
 	 */
 	int HTTP_VERB = 6;
+
+	/**
+	 * The meta object id for the '{@link at.fhv.ecss2016.restest.model.StatusCode <em>Status Code</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see at.fhv.ecss2016.restest.model.StatusCode
+	 * @see at.fhv.ecss2016.restest.model.impl.ModelPackageImpl#getStatusCode()
+	 * @generated
+	 */
+	int STATUS_CODE = 7;
 
 
 	/**
@@ -599,14 +609,24 @@ public interface ModelPackage extends EPackage {
 	EEnum getContentType();
 
 	/**
-	 * Returns the meta object for enum '{@link at.fhv.ecss2016.restest.model.HTTPVerb <em>HTTP Verb</em>}'.
+	 * Returns the meta object for enum '{@link at.fhv.ecss2016.restest.model.HttpVerb <em>Http Verb</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>HTTP Verb</em>'.
-	 * @see at.fhv.ecss2016.restest.model.HTTPVerb
+	 * @return the meta object for enum '<em>Http Verb</em>'.
+	 * @see at.fhv.ecss2016.restest.model.HttpVerb
 	 * @generated
 	 */
-	EEnum getHTTPVerb();
+	EEnum getHttpVerb();
+
+	/**
+	 * Returns the meta object for enum '{@link at.fhv.ecss2016.restest.model.StatusCode <em>Status Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Status Code</em>'.
+	 * @see at.fhv.ecss2016.restest.model.StatusCode
+	 * @generated
+	 */
+	EEnum getStatusCode();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -820,14 +840,24 @@ public interface ModelPackage extends EPackage {
 		EEnum CONTENT_TYPE = eINSTANCE.getContentType();
 
 		/**
-		 * The meta object literal for the '{@link at.fhv.ecss2016.restest.model.HTTPVerb <em>HTTP Verb</em>}' enum.
+		 * The meta object literal for the '{@link at.fhv.ecss2016.restest.model.HttpVerb <em>Http Verb</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see at.fhv.ecss2016.restest.model.HTTPVerb
-		 * @see at.fhv.ecss2016.restest.model.impl.ModelPackageImpl#getHTTPVerb()
+		 * @see at.fhv.ecss2016.restest.model.HttpVerb
+		 * @see at.fhv.ecss2016.restest.model.impl.ModelPackageImpl#getHttpVerb()
 		 * @generated
 		 */
-		EEnum HTTP_VERB = eINSTANCE.getHTTPVerb();
+		EEnum HTTP_VERB = eINSTANCE.getHttpVerb();
+
+		/**
+		 * The meta object literal for the '{@link at.fhv.ecss2016.restest.model.StatusCode <em>Status Code</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see at.fhv.ecss2016.restest.model.StatusCode
+		 * @see at.fhv.ecss2016.restest.model.impl.ModelPackageImpl#getStatusCode()
+		 * @generated
+		 */
+		EEnum STATUS_CODE = eINSTANCE.getStatusCode();
 
 	}
 

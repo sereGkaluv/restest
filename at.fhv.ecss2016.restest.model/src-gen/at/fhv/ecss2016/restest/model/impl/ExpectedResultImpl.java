@@ -2,8 +2,10 @@
  */
 package at.fhv.ecss2016.restest.model.impl;
 
+import at.fhv.ecss2016.restest.model.ContentType;
 import at.fhv.ecss2016.restest.model.ExpectedResult;
 import at.fhv.ecss2016.restest.model.ModelPackage;
+import at.fhv.ecss2016.restest.model.StatusCode;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -36,7 +38,7 @@ public class ExpectedResultImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String RESPONSE_CODE_EDEFAULT = null;
+	protected static final StatusCode RESPONSE_CODE_EDEFAULT = StatusCode.CONTINUE;
 
 	/**
 	 * The cached value of the '{@link #getResponseCode() <em>Response Code</em>}' attribute.
@@ -46,7 +48,7 @@ public class ExpectedResultImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected String responseCode = RESPONSE_CODE_EDEFAULT;
+	protected StatusCode responseCode = RESPONSE_CODE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getResponseContentType() <em>Response Content Type</em>}' attribute.
@@ -56,7 +58,7 @@ public class ExpectedResultImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String RESPONSE_CONTENT_TYPE_EDEFAULT = null;
+	protected static final ContentType RESPONSE_CONTENT_TYPE_EDEFAULT = ContentType.TEXT;
 
 	/**
 	 * The cached value of the '{@link #getResponseContentType() <em>Response Content Type</em>}' attribute.
@@ -66,7 +68,7 @@ public class ExpectedResultImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected String responseContentType = RESPONSE_CONTENT_TYPE_EDEFAULT;
+	protected ContentType responseContentType = RESPONSE_CONTENT_TYPE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getResponseBody() <em>Response Body</em>}' attribute.
@@ -112,7 +114,7 @@ public class ExpectedResultImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getResponseCode() {
+	public StatusCode getResponseCode() {
 		return responseCode;
 	}
 
@@ -121,9 +123,9 @@ public class ExpectedResultImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setResponseCode(String newResponseCode) {
-		String oldResponseCode = responseCode;
-		responseCode = newResponseCode;
+	public void setResponseCode(StatusCode newResponseCode) {
+		StatusCode oldResponseCode = responseCode;
+		responseCode = newResponseCode == null ? RESPONSE_CODE_EDEFAULT : newResponseCode;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.EXPECTED_RESULT__RESPONSE_CODE, oldResponseCode, responseCode));
 	}
@@ -133,7 +135,7 @@ public class ExpectedResultImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getResponseContentType() {
+	public ContentType getResponseContentType() {
 		return responseContentType;
 	}
 
@@ -142,9 +144,9 @@ public class ExpectedResultImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setResponseContentType(String newResponseContentType) {
-		String oldResponseContentType = responseContentType;
-		responseContentType = newResponseContentType;
+	public void setResponseContentType(ContentType newResponseContentType) {
+		ContentType oldResponseContentType = responseContentType;
+		responseContentType = newResponseContentType == null ? RESPONSE_CONTENT_TYPE_EDEFAULT : newResponseContentType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.EXPECTED_RESULT__RESPONSE_CONTENT_TYPE, oldResponseContentType, responseContentType));
 	}
@@ -197,10 +199,10 @@ public class ExpectedResultImpl extends MinimalEObjectImpl.Container implements 
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ModelPackage.EXPECTED_RESULT__RESPONSE_CODE:
-				setResponseCode((String)newValue);
+				setResponseCode((StatusCode)newValue);
 				return;
 			case ModelPackage.EXPECTED_RESULT__RESPONSE_CONTENT_TYPE:
-				setResponseContentType((String)newValue);
+				setResponseContentType((ContentType)newValue);
 				return;
 			case ModelPackage.EXPECTED_RESULT__RESPONSE_BODY:
 				setResponseBody((String)newValue);
@@ -239,9 +241,9 @@ public class ExpectedResultImpl extends MinimalEObjectImpl.Container implements 
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case ModelPackage.EXPECTED_RESULT__RESPONSE_CODE:
-				return RESPONSE_CODE_EDEFAULT == null ? responseCode != null : !RESPONSE_CODE_EDEFAULT.equals(responseCode);
+				return responseCode != RESPONSE_CODE_EDEFAULT;
 			case ModelPackage.EXPECTED_RESULT__RESPONSE_CONTENT_TYPE:
-				return RESPONSE_CONTENT_TYPE_EDEFAULT == null ? responseContentType != null : !RESPONSE_CONTENT_TYPE_EDEFAULT.equals(responseContentType);
+				return responseContentType != RESPONSE_CONTENT_TYPE_EDEFAULT;
 			case ModelPackage.EXPECTED_RESULT__RESPONSE_BODY:
 				return RESPONSE_BODY_EDEFAULT == null ? responseBody != null : !RESPONSE_BODY_EDEFAULT.equals(responseBody);
 		}

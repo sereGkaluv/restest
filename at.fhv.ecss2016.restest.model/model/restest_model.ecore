@@ -14,13 +14,13 @@
         eType="#//ConfigResultPair"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Response">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="responseCode" eType="#//ResponseCode"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="responseCode" eType="#//StatusCode"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="responseContentType" eType="#//ContentType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="responseTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="responseBody" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExpectedResult">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="responseCode" eType="#//ResponseCode"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="responseCode" eType="#//StatusCode"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="responseContentType" eType="#//ContentType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="responseBody" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -29,13 +29,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="response" eType="#//Response"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ContentType">
-    <eLiterals name="TEXT" literal=""/>
-    <eLiterals name="TEXT_PLAIN" value="1"/>
-    <eLiterals name="JSON" value="2"/>
-    <eLiterals name="JAVASCRIPT" value="3"/>
-    <eLiterals name="XML_TEXT" value="4"/>
-    <eLiterals name="XML_APPLICATION" value="5"/>
-    <eLiterals name="HTML" value="6"/>
+    <eLiterals name="TEXT" literal="text"/>
+    <eLiterals name="TEXT_PLAIN" value="1" literal="text/plain"/>
+    <eLiterals name="JSON" value="2" literal="application/json"/>
+    <eLiterals name="JAVASCRIPT" value="3" literal="application/javascript"/>
+    <eLiterals name="XML_TEXT" value="4" literal="text/xml"/>
+    <eLiterals name="XML_APPLICATION" value="5" literal="application/xml"/>
+    <eLiterals name="HTML" value="6" literal="text/html"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="HttpVerb">
     <eLiterals name="GET"/>
@@ -43,7 +43,7 @@
     <eLiterals name="PUT" value="2"/>
     <eLiterals name="DELETE" value="3"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="ResponseCode">
+  <eClassifiers xsi:type="ecore:EEnum" name="StatusCode">
     <eLiterals name="CONTINUE" value="100"/>
     <eLiterals name="SWITCHING_PROTOCOLS" value="101"/>
     <eLiterals name="PROCESSING" value="102"/>

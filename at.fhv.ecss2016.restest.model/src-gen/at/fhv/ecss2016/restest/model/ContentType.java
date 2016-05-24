@@ -26,7 +26,7 @@ public enum ContentType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	TEXT(0, "TEXT", ""),
+	TEXT(0, "TEXT", "text"),
 
 	/**
 	 * The '<em><b>TEXT PLAIN</b></em>' literal object.
@@ -36,7 +36,7 @@ public enum ContentType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	TEXT_PLAIN(1, "TEXT_PLAIN", "TEXT_PLAIN"),
+	TEXT_PLAIN(1, "TEXT_PLAIN", "text/plain"),
 
 	/**
 	 * The '<em><b>JSON</b></em>' literal object.
@@ -46,7 +46,7 @@ public enum ContentType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	JSON(2, "JSON", "JSON"),
+	JSON(2, "JSON", "application/json"),
 
 	/**
 	 * The '<em><b>JAVASCRIPT</b></em>' literal object.
@@ -56,7 +56,7 @@ public enum ContentType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	JAVASCRIPT(3, "JAVASCRIPT", "JAVASCRIPT"),
+	JAVASCRIPT(3, "JAVASCRIPT", "application/javascript"),
 
 	/**
 	 * The '<em><b>XML TEXT</b></em>' literal object.
@@ -66,7 +66,7 @@ public enum ContentType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	XML_TEXT(4, "XML_TEXT", "XML_TEXT"),
+	XML_TEXT(4, "XML_TEXT", "text/xml"),
 
 	/**
 	 * The '<em><b>XML APPLICATION</b></em>' literal object.
@@ -76,7 +76,7 @@ public enum ContentType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	XML_APPLICATION(5, "XML_APPLICATION", "XML_APPLICATION"),
+	XML_APPLICATION(5, "XML_APPLICATION", "application/xml"),
 
 	/**
 	 * The '<em><b>HTML</b></em>' literal object.
@@ -86,7 +86,7 @@ public enum ContentType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	HTML(6, "HTML", "HTML");
+	HTML(6, "HTML", "text/html");
 
 	/**
 	 * The '<em><b>TEXT</b></em>' literal value.
@@ -97,7 +97,7 @@ public enum ContentType implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #TEXT
-	 * @model literal=""
+	 * @model literal="text"
 	 * @generated
 	 * @ordered
 	 */
@@ -112,7 +112,7 @@ public enum ContentType implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #TEXT_PLAIN
-	 * @model
+	 * @model literal="text/plain"
 	 * @generated
 	 * @ordered
 	 */
@@ -127,7 +127,7 @@ public enum ContentType implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #JSON
-	 * @model
+	 * @model literal="application/json"
 	 * @generated
 	 * @ordered
 	 */
@@ -142,7 +142,7 @@ public enum ContentType implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #JAVASCRIPT
-	 * @model
+	 * @model literal="application/javascript"
 	 * @generated
 	 * @ordered
 	 */
@@ -157,7 +157,7 @@ public enum ContentType implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #XML_TEXT
-	 * @model
+	 * @model literal="text/xml"
 	 * @generated
 	 * @ordered
 	 */
@@ -172,7 +172,7 @@ public enum ContentType implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #XML_APPLICATION
-	 * @model
+	 * @model literal="application/xml"
 	 * @generated
 	 * @ordered
 	 */
@@ -187,7 +187,7 @@ public enum ContentType implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #HTML
-	 * @model
+	 * @model literal="text/html"
 	 * @generated
 	 * @ordered
 	 */

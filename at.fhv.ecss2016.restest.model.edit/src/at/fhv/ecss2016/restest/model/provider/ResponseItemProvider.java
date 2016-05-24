@@ -5,6 +5,7 @@ package at.fhv.ecss2016.restest.model.provider;
 
 import at.fhv.ecss2016.restest.model.ModelPackage;
 import at.fhv.ecss2016.restest.model.Response;
+import at.fhv.ecss2016.restest.model.StatusCode;
 
 import java.util.Collection;
 import java.util.List;
@@ -175,7 +176,8 @@ public class ResponseItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Response)object).getResponseCode();
+		StatusCode labelValue = ((Response)object).getResponseCode();
+		String label = labelValue == null ? null : labelValue.toString();
 		return label == null || label.length() == 0 ?
 			getString("_UI_Response_type") :
 			getString("_UI_Response_type") + " " + label;
