@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_c3AF0MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.application" bindingContexts="_c3AF2cjYEeSyMNYR5xypkQ">
   <children xsi:type="basic:TrimmedWindow" xmi:id="_c3AF0cjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.window.main" label="RESTest" width="960" height="640">
-    <children xsi:type="advanced:PerspectiveStack" xmi:id="_iLaCwBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.perspectivestack.0">
-      <children xsi:type="advanced:Perspective" xmi:id="_jNiOIBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.perspective.0">
+    <children xsi:type="advanced:PerspectiveStack" xmi:id="_iLaCwBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.perspectivestack.main">
+      <children xsi:type="advanced:Perspective" xmi:id="_jNiOIBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.perspective.config">
         <children xsi:type="basic:PartSashContainer" xmi:id="_l6QTEBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partsashcontainer.0" horizontal="true">
           <children xsi:type="basic:PartStack" xmi:id="_q5VcMBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.config.partstack.left">
             <children xsi:type="basic:Part" xmi:id="_s_iTsBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.part.configpart" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.ConfigPart" label="CONFIG" closeable="true">
@@ -19,7 +19,7 @@
           <children xsi:type="basic:PartStack" xmi:id="_reDS0BjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.config.partstack.right"/>
         </children>
       </children>
-      <children xsi:type="advanced:Perspective" xmi:id="_jqVe4BjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.perspective.1">
+      <children xsi:type="advanced:Perspective" xmi:id="_jqVe4BjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.perspective.scenarios">
         <children xsi:type="basic:PartSashContainer" xmi:id="_HsXcACGBEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.partsashcontainer.1" horizontal="true">
           <children xsi:type="basic:PartStack" xmi:id="_JYSyUCGBEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.scenario.partstack.left">
             <children xsi:type="basic:Part" xmi:id="_LCj7wCGBEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.part.scenario" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.ScenarioPart" label="SCENARIO">
@@ -37,17 +37,29 @@
         </children>
       </children>
     </children>
+    <mainMenu xmi:id="_C2PWkCGtEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.menu.1">
+      <children xsi:type="menu:Menu" xmi:id="_fM0DMCGwEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.menu.perspective" label="PERSPECTIVE" mnemonics="">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_MljpoCGvEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.handledmenuitem.switchtoconfigprterspective" label="Config perspective" selected="true" type="Radio" command="_1befwCGaEeaucOyU6NqSaA">
+          <parameters xmi:id="_PUQrkCGvEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.perspectivestack.id" name="at.fhv.ecss2016.restest.commandparameter.perspectivestack.id" value="at.fhv.ecss2016.restest.perspectivestack.main"/>
+          <parameters xmi:id="_P_rAECGvEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.perspectivestack.perspective.id" name="at.fhv.ecss2016.restest.commandparameter.perspectivestack.perspective.id" value="at.fhv.ecss2016.restest.perspective.config"/>
+        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_FEbFYCGtEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.handledmenuitem.scenariosperspective" label="Scenarios perspective" type="Radio" command="_1befwCGaEeaucOyU6NqSaA">
+          <parameters xmi:id="_N1GQ0CGtEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.perspectivestack.id" name="at.fhv.ecss2016.restest.commandparameter.perspectivestack.id" value="at.fhv.ecss2016.restest.perspectivestack.main"/>
+          <parameters xmi:id="_OQhBgCGtEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.perspectivestack.perspective.id" name="at.fhv.ecss2016.restest.commandparameter.perspectivestack.perspective.id" value="at.fhv.ecss2016.restest.perspective.scenarios"/>
+        </children>
+      </children>
+    </mainMenu>
   </children>
+  <handlers xmi:id="_q-_NkCGsEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.handler.0" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.handlers.SwitchPerspectiveHandler" command="_1befwCGaEeaucOyU6NqSaA"/>
   <rootContext xmi:id="_c3AF2cjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
     <children xmi:id="_c3AF2sjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_c3AF28jYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
   <descriptors xmi:id="_xriIwBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partdescriptor.response" label="RESPONSE" allowMultiple="true" closeable="true" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.ResponsePart"/>
   <descriptors xmi:id="_3vdTYCGAEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.part.newConfig" label="Add new config to scenario?" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.NewConfigPart"/>
-  <descriptors xmi:id="_rxXJ4CGlEeaRFb8j9NNpNA" elementId="at.fhv.ecss2016.restest.partdescriptor.fileSelectorPart" label="Select file" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.FileSelectorPart"/>
   <commands xmi:id="_1befwCGaEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.command.switchperspective" commandName="switch perspective">
     <parameters xmi:id="_9gffECGaEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.commandparameter.perspectivestack.id" name="prespective stack "/>
-    <parameters xmi:id="_96nPQCGaEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.commandparameter.perspectivestack.perspective.id" name="Command Parameter 1"/>
+    <parameters xmi:id="_96nPQCGaEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.commandparameter.perspectivestack.perspective.id" name="perspective id"/>
   </commands>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>

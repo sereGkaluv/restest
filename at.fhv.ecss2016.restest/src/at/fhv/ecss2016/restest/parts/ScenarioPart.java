@@ -75,33 +75,35 @@ public class ScenarioPart {
 		scenariosListLabel.setFont(defaultFont);
 		
 		// Flexible placeholder
-		new Label(parent, SWT.FILL);
+		Label placeholderLabel = new Label(parent, SWT.FILL);
+		placeholderLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		
 		Button scenarioDownButton = new Button(parent, SWT.NONE);
 		scenarioDownButton.setText("⬇");
-		scenarioDownButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, true, false));
+		scenarioDownButton.setLayoutData(new GridData(SWT.CENTER));
 		
 		Button scenarioUpButton = new Button(parent, SWT.NONE);
 		scenarioUpButton.setText("⬆");
-		scenarioUpButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, true, false));
+		scenarioUpButton.setLayoutData(new GridData(SWT.CENTER));
 		
-		Label verticalSeparator = new Label(parent, SWT.SEPARATOR | SWT.VERTICAL);
-		verticalSeparator.setLayoutData(new GridData(SWT.CENTER, SWT.FILL, true, false));
+		Label verticalSeparator = new Label(parent, SWT.NONE);
+		verticalSeparator.setText("|");
+		verticalSeparator.setLayoutData(new GridData(SWT.CENTER));
 		
 		Button addScenarioButton = new Button(parent, SWT.NONE);
 		addScenarioButton.setText("+");
-		addScenarioButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, true, false));
+		addScenarioButton.setLayoutData(new GridData(SWT.CENTER));
 		
 		Button removeScenarioButton = new Button(parent, SWT.NONE);
 		removeScenarioButton.setText("-");
-		removeScenarioButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, true, false));
+		removeScenarioButton.setLayoutData(new GridData(SWT.CENTER));
 		
 		StyledText styledText = new StyledText(parent, SWT.BORDER);
-		styledText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
+		styledText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 7, 1));
 		
 		Button startButton = new Button(parent, SWT.NONE);
 		startButton.setText("Start");
-		startButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, true, false, 2, 1));
+		startButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, true, false, 7, 1));
 		
 		startButton.addListener(SWT.Selection, new Listener() {
 			@Override

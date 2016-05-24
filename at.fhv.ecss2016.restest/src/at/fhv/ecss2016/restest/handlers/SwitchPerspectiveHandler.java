@@ -9,7 +9,7 @@ import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimmedWindow;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 /**
- * Handler that provides save functionality for the Config.
+ * Handler that switches perspectives.
  * 
  * @author Sergii Maidanov on 24-05-2016
  */
@@ -17,7 +17,7 @@ public class SwitchPerspectiveHandler {
 	
 	@Execute
 	public void execute(
-		@Named("at.fhv.ecss2016.restest.perspectivestack.id") final String perspectiveStackId,
+		@Named("at.fhv.ecss2016.restest.commandparameter.perspectivestack.id") final String perspectiveStackId,
 		@Named("at.fhv.ecss2016.restest.commandparameter.perspectivestack.perspective.id") final String perspectiveId,
 		EModelService modelService,
 		MTrimmedWindow window
