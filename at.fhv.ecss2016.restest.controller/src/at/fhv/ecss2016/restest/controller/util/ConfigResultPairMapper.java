@@ -20,22 +20,26 @@ public class ConfigResultPairMapper implements Function<JsonNode, ConfigResultPa
 		ConfigResultPair configResultPair = ModelFactory.eINSTANCE.createConfigResultPair();
 
 		JsonNode configNode = jsonNode.get(CONFIG);
-		if (isNonNullValueNode(configNode)) {
-			Config config = new ConfigMapper().apply(configNode);
-			configResultPair.setConfig(config);
+		if (isNonNullContainerNode(configNode)) {
+			if (configNode.isArray()) {
+				Config config = new ConfigMapper().apply(configNode);
+				configResultPair.setConfig(config);
+			}
 		}
 		
 		JsonNode responseNode = jsonNode.get(RESPONSE);
-		if (isNonNullValueNode(responseNode)) {
-			Response response = new ResponseMapper().apply(responseNode);
-			configResultPair.setResponse(response);
+		if (isNonNullContainerNode(responseNode)) {
+			if (responseNode.isArray()) {
+				Response response = new ResponseMapper().apply(responseNode);
+				configResultPair.setResponse(response);
+			}
 		}
 		
 		return configResultPair;
 	}
 	
-	private boolean isNonNullValueNode(JsonNode jsonNode) {
-		return jsonNode != null && jsonNode.isValueNode();
+	private boolean isNonNullContainerNode(JsonNode jsonNode) {
+		return jsonNode != null && jsonNode.isContainerNode();
 	}
 
 }
