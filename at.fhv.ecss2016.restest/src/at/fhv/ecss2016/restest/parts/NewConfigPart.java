@@ -66,9 +66,11 @@ public class NewConfigPart {
 		lblResBody.setText("Result body: ");
 		new Text(parent, SWT.BORDER);
 
+		// add config to list of custom configs
 		Button addBtn = new Button(parent, SWT.PUSH);
 		addBtn.setText("Add");
 
+		// cancel action & close dialog window
 		Button cancelBtn = new Button(parent, SWT.PUSH);
 		cancelBtn.setText("Cancel");
 	}
