@@ -11,4 +11,5 @@ Require-Bundle: com.fasterxml.jackson.core.jackson-core,
  org.apache.httpcomponents.httpclient,
  org.apache.httpcomponents.httpcore,
  at.fhv.ecss2016.restest.model
-Export-Package: at.fhv.ecss2016.restest.controller
+Export-Package: at.fhv.ecss2016.restest.controller,
+ at.fhv.ecss2016.restest.controller.util

@@ -32,9 +32,10 @@ import at.fhv.ecss2016.restest.controller.util.ScenarioMapper;
 import at.fhv.ecss2016.restest.model.Config;
 import at.fhv.ecss2016.restest.model.ConfigResultPair;
 import at.fhv.ecss2016.restest.model.ContentType;
-import at.fhv.ecss2016.restest.model.HTTPVerb;
+import at.fhv.ecss2016.restest.model.HttpVerb;
 import at.fhv.ecss2016.restest.model.Response;
 import at.fhv.ecss2016.restest.model.Scenario;
+import at.fhv.ecss2016.restest.model.StatusCode;
 import at.fhv.ecss2016.restest.model.impl.ModelFactoryImpl;
 import at.fhv.ecss2016.restest.util.StringConstants;
 
@@ -60,8 +61,8 @@ public class ResponsePart {
 		//Serialize test content
 		Response testResponse = ModelFactoryImpl.eINSTANCE.createResponse();
 		testResponse.setResponseBody("test response");
-		testResponse.setResponseCode("200 OK");
-		testResponse.setResponseContentType("text");
+		testResponse.setResponseCode(StatusCode.OK);
+		testResponse.setResponseContentType(ContentType.TEXT);
 		testResponse.setResponseTime("0 seconds");
 		
 		Config config = ModelFactoryImpl.eINSTANCE.createConfig();
@@ -69,7 +70,7 @@ public class ResponsePart {
 		config.setRequestBody("test request body");
 		config.setRequestURL("http://url.com");
 		config.setResponse(testResponse);
-		config.setVerb(HTTPVerb.GET);
+		config.setVerb(HttpVerb.GET);
 		JSON_PROVIDER.serialize("C:\\Users\\msmith\\Desktop\\output.json", config);
 		
 		Scenario scenario = ModelFactoryImpl.eINSTANCE.createScenario();

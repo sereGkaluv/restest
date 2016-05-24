@@ -1,6 +1,7 @@
 package at.fhv.ecss2016.restest.controller;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,23 +12,29 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.Function;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import at.fhv.ecss2016.restest.model.Config;
+import at.fhv.ecss2016.restest.model.Response;
+
 public class JsonProvider {
     
 	private static final String DEFAULT_ENCODING = "UTF-8";
 	private static final String URL = "https://api.github.com/users/MathewJS/repos";
+	private ObjectMapper mapper = new ObjectMapper();
 	
 	public JsonProvider() {
 	}
 	
 	public Iterator<Entry<String, JsonNode>> readJSON(String jsonString)
-	throws JsonParseException, JsonMappingException, IOException {
+	throws JsonProcessingException, IOException {
         
         //Need to remove [] from the JSON string to work with Jackson
 		String json = jsonString;
@@ -38,23 +45,7 @@ public class JsonProvider {
         
     	JsonNode root = new ObjectMapper().readTree(json);
         return root.fields();
-	}
-	
-
-	
-	public Map<String, Object> readJSON2(String jsonString)
-	throws JsonParseException, JsonMappingException, IOException {
-        
-        //Need to remove [] from the JSON string to work with Jackson
-        String json = jsonString.substring(1, jsonString.length() - 1);
-        
-        //Parse the JSON into a map
-        ObjectMapper mapper = new ObjectMapper();
-        JavaType jsonType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
-        
-        return mapper.readValue(json, jsonType);
-	}
-	
+	}	
 	
 	@SuppressWarnings("unchecked")
 	public Map<String,Object> getJsonMapFactory(String jsonText)
@@ -99,4 +90,36 @@ public class JsonProvider {
 	    
 	    return stringBuilder.toString();
     }
+    
+	public void serialize(String filePath, Object object) {
+		
+        try {
+			mapper.writeValue(new File(filePath), object);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+    
+	public Map<String, Object> deserialize(String filePath) {
+				
+				String jsonString;
+				Map<String, Object> map = null;
+				try {
+					jsonString = mapper.readValue(filePath, String.class);
+					map = getJsonMapFactory(jsonString);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				return map;
+	}
+	
+	public <TReturn, TMapper extends Function<JsonNode, TReturn>> TReturn deserialize(String filePath, TMapper objectMapper)
+	throws JsonProcessingException, IOException {
+		
+    	JsonNode root = new ObjectMapper().readTree(new File(filePath));
+		return objectMapper.apply(root);
+	}
 }
