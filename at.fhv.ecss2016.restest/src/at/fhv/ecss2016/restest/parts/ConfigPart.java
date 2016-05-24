@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.Text;
 
 import at.fhv.ecss2016.restest.controller.RemoteConnection;
 import at.fhv.ecss2016.restest.model.ContentType;
-import at.fhv.ecss2016.restest.model.HTTPVerb;
+import at.fhv.ecss2016.restest.model.HttpVerb;
 import at.fhv.ecss2016.restest.model.Response;
 import at.fhv.ecss2016.restest.util.StringConstants;
 
@@ -92,11 +92,11 @@ public class ConfigPart {
 		verbCombo.setLabelProvider(new LabelProvider() {
 			@Override
 			public String getText(Object element) {
-				if (element instanceof HTTPVerb) return ((HTTPVerb) element).getName();
+				if (element instanceof HttpVerb) return ((HttpVerb) element).getLiteral();
 				else return super.getText(element);
 			}
 		});
-		verbCombo.setInput(HTTPVerb.values());
+		verbCombo.setInput(HttpVerb.values());
 		
 		Label contentTypeLabel = new Label(parent, SWT.NONE);
 		contentTypeLabel.setText("Content-Type:");
@@ -108,7 +108,7 @@ public class ConfigPart {
 		contentTypeCombo.setLabelProvider(new LabelProvider() {
 			@Override
 			public String getText(Object element) {
-				if (element instanceof ContentType) return ((ContentType) element).getName();
+				if (element instanceof ContentType) return ((ContentType) element).getLiteral();
 				else return super.getText(element);
 			}
 		});
@@ -137,7 +137,7 @@ public class ConfigPart {
 					String uri = urlText.getText();
 					
 					IStructuredSelection vSelection = (IStructuredSelection) verbCombo.getSelection();
-					HTTPVerb httpVerb = (vSelection != null && !vSelection.isEmpty()) ? (HTTPVerb) vSelection.getFirstElement() : null;
+					HttpVerb httpVerb = (vSelection != null && !vSelection.isEmpty()) ? (HttpVerb) vSelection.getFirstElement() : null;
 	
 					IStructuredSelection cSelection = (IStructuredSelection) contentTypeCombo.getSelection();
 					ContentType contentType = (cSelection != null && !cSelection.isEmpty()) ? (ContentType) cSelection.getFirstElement() : null;
@@ -156,7 +156,7 @@ public class ConfigPart {
 		});
 	}
 	
-	private Response sendNewRequest(String url, HTTPVerb httpVerb, ContentType contentType, String body)
+	private Response sendNewRequest(String url, HttpVerb httpVerb, ContentType contentType, String body)
 	throws IOException {
 		RemoteConnection remoteConnection = new RemoteConnection();
 		

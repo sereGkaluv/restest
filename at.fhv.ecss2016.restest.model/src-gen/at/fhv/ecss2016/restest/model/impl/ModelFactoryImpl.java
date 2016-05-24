@@ -78,7 +78,9 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.CONTENT_TYPE:
 				return createContentTypeFromString(eDataType, initialValue);
 			case ModelPackage.HTTP_VERB:
-				return createHTTPVerbFromString(eDataType, initialValue);
+				return createHttpVerbFromString(eDataType, initialValue);
+			case ModelPackage.STATUS_CODE:
+				return createStatusCodeFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -95,7 +97,9 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.CONTENT_TYPE:
 				return convertContentTypeToString(eDataType, instanceValue);
 			case ModelPackage.HTTP_VERB:
-				return convertHTTPVerbToString(eDataType, instanceValue);
+				return convertHttpVerbToString(eDataType, instanceValue);
+			case ModelPackage.STATUS_CODE:
+				return convertStatusCodeToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -176,8 +180,8 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public HTTPVerb createHTTPVerbFromString(EDataType eDataType, String initialValue) {
-		HTTPVerb result = HTTPVerb.get(initialValue);
+	public HttpVerb createHttpVerbFromString(EDataType eDataType, String initialValue) {
+		HttpVerb result = HttpVerb.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		return result;
 	}
@@ -187,7 +191,27 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertHTTPVerbToString(EDataType eDataType, Object instanceValue) {
+	public String convertHttpVerbToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StatusCode createStatusCodeFromString(EDataType eDataType, String initialValue) {
+		StatusCode result = StatusCode.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertStatusCodeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

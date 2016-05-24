@@ -133,14 +133,15 @@ public class ResponsePart {
 				contentTypeLabel.setFont(defaultFont);
 				
 				Label contentTypeValueLabel = new Label(parent, SWT.NONE);
-				contentTypeValueLabel.setText(response.getResponseContentType());
+				contentTypeValueLabel.setText(response.getResponseContentType().getLiteral());
 				
 				Label responseCodeLabel = new Label(parent, SWT.NONE);
 				responseCodeLabel.setText("Response code:");
 				responseCodeLabel.setFont(defaultFont);
 				
 				Label responseCodeValueLabel = new Label(parent, SWT.NONE);
-				responseCodeValueLabel.setText(response.getResponseCode());
+				int responseCode = response.getResponseCode().getValue();
+				responseCodeValueLabel.setText(String.valueOf(responseCode));
 			});
 		}
 	}

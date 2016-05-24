@@ -4,15 +4,15 @@ package at.fhv.ecss2016.restest.model.impl;
 
 import at.fhv.ecss2016.restest.model.Config;
 import at.fhv.ecss2016.restest.model.ContentType;
-import at.fhv.ecss2016.restest.model.HTTPVerb;
+import at.fhv.ecss2016.restest.model.HttpVerb;
 import at.fhv.ecss2016.restest.model.ModelPackage;
-
 import at.fhv.ecss2016.restest.model.Response;
+
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
@@ -62,7 +62,7 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final HTTPVerb VERB_EDEFAULT = HTTPVerb.GET;
+	protected static final HttpVerb VERB_EDEFAULT = HttpVerb.GET;
 
 	/**
 	 * The cached value of the '{@link #getVerb() <em>Verb</em>}' attribute.
@@ -72,7 +72,7 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 	 * @generated
 	 * @ordered
 	 */
-	protected HTTPVerb verb = VERB_EDEFAULT;
+	protected HttpVerb verb = VERB_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getContentType() <em>Content Type</em>}' attribute.
@@ -169,7 +169,7 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public HTTPVerb getVerb() {
+	public HttpVerb getVerb() {
 		return verb;
 	}
 
@@ -178,8 +178,8 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setVerb(HTTPVerb newVerb) {
-		HTTPVerb oldVerb = verb;
+	public void setVerb(HttpVerb newVerb) {
+		HttpVerb oldVerb = verb;
 		verb = newVerb == null ? VERB_EDEFAULT : newVerb;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.CONFIG__VERB, oldVerb, verb));
@@ -300,7 +300,7 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 				setRequestURL((String)newValue);
 				return;
 			case ModelPackage.CONFIG__VERB:
-				setVerb((HTTPVerb)newValue);
+				setVerb((HttpVerb)newValue);
 				return;
 			case ModelPackage.CONFIG__CONTENT_TYPE:
 				setContentType((ContentType)newValue);

@@ -6,11 +6,12 @@ import at.fhv.ecss2016.restest.model.Config;
 import at.fhv.ecss2016.restest.model.ConfigResultPair;
 import at.fhv.ecss2016.restest.model.ContentType;
 import at.fhv.ecss2016.restest.model.ExpectedResult;
-import at.fhv.ecss2016.restest.model.HTTPVerb;
+import at.fhv.ecss2016.restest.model.HttpVerb;
 import at.fhv.ecss2016.restest.model.ModelFactory;
 import at.fhv.ecss2016.restest.model.ModelPackage;
 import at.fhv.ecss2016.restest.model.Response;
 import at.fhv.ecss2016.restest.model.Scenario;
+import at.fhv.ecss2016.restest.model.StatusCode;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -75,6 +76,13 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * @generated
 	 */
 	private EEnum httpVerbEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum statusCodeEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -340,8 +348,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EEnum getHTTPVerb() {
+	public EEnum getHttpVerb() {
 		return httpVerbEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getStatusCode() {
+		return statusCodeEEnum;
 	}
 
 	/**
@@ -401,6 +418,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		// Create enums
 		contentTypeEEnum = createEEnum(CONTENT_TYPE);
 		httpVerbEEnum = createEEnum(HTTP_VERB);
+		statusCodeEEnum = createEEnum(STATUS_CODE);
 	}
 
 	/**
@@ -435,7 +453,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		// Initialize classes, features, and operations; add parameters
 		initEClass(configEClass, Config.class, "Config", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getConfig_RequestURL(), ecorePackage.getEString(), "requestURL", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConfig_Verb(), this.getHTTPVerb(), "verb", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getConfig_Verb(), this.getHttpVerb(), "verb", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConfig_ContentType(), this.getContentType(), "contentType", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConfig_RequestBody(), ecorePackage.getEString(), "requestBody", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getConfig_Response(), this.getResponse(), null, "response", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -445,14 +463,14 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEReference(getScenario_ConfigResultPairs(), this.getConfigResultPair(), null, "configResultPairs", null, 0, -1, Scenario.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(responseEClass, Response.class, "Response", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getResponse_ResponseCode(), ecorePackage.getEString(), "responseCode", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getResponse_ResponseContentType(), ecorePackage.getEString(), "responseContentType", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getResponse_ResponseCode(), this.getStatusCode(), "responseCode", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getResponse_ResponseContentType(), this.getContentType(), "responseContentType", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getResponse_ResponseTime(), ecorePackage.getEString(), "responseTime", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getResponse_ResponseBody(), ecorePackage.getEString(), "responseBody", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(expectedResultEClass, ExpectedResult.class, "ExpectedResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getExpectedResult_ResponseCode(), ecorePackage.getEString(), "responseCode", null, 0, 1, ExpectedResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getExpectedResult_ResponseContentType(), ecorePackage.getEString(), "responseContentType", null, 0, 1, ExpectedResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getExpectedResult_ResponseCode(), this.getStatusCode(), "responseCode", null, 0, 1, ExpectedResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getExpectedResult_ResponseContentType(), this.getContentType(), "responseContentType", null, 0, 1, ExpectedResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getExpectedResult_ResponseBody(), ecorePackage.getEString(), "responseBody", null, 0, 1, ExpectedResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(configResultPairEClass, ConfigResultPair.class, "ConfigResultPair", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -469,11 +487,61 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEEnumLiteral(contentTypeEEnum, ContentType.XML_APPLICATION);
 		addEEnumLiteral(contentTypeEEnum, ContentType.HTML);
 
-		initEEnum(httpVerbEEnum, HTTPVerb.class, "HTTPVerb");
-		addEEnumLiteral(httpVerbEEnum, HTTPVerb.GET);
-		addEEnumLiteral(httpVerbEEnum, HTTPVerb.POST);
-		addEEnumLiteral(httpVerbEEnum, HTTPVerb.PUT);
-		addEEnumLiteral(httpVerbEEnum, HTTPVerb.DELETE);
+		initEEnum(httpVerbEEnum, HttpVerb.class, "HttpVerb");
+		addEEnumLiteral(httpVerbEEnum, HttpVerb.GET);
+		addEEnumLiteral(httpVerbEEnum, HttpVerb.POST);
+		addEEnumLiteral(httpVerbEEnum, HttpVerb.PUT);
+		addEEnumLiteral(httpVerbEEnum, HttpVerb.DELETE);
+
+		initEEnum(statusCodeEEnum, StatusCode.class, "StatusCode");
+		addEEnumLiteral(statusCodeEEnum, StatusCode.CONTINUE);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.SWITCHING_PROTOCOLS);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.PROCESSING);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.OK);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.CREATED);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.ACCEPTED);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.NON_AUTHORITATIVE_INFORMATION);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.NO_CONTENT);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.RESET_CONTENT);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.PARTIAL_CONTENT);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.MULTI_STATUS);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.MULTIPLE_CHOICES);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.MOVED_PERMANENTLY);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.MOVED_TEMPORARILY);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.SEE_OTHER);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.NOT_MODIFIED);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.USE_PROXY);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.TEMPORARY_REDIRECT);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.BAD_REQUEST);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.UNAUTHORIZED);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.PAYMENT_REQUIRED);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.FORBIDDEN);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.NOT_FOUND);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.METHOD_NOT_ALLOWED);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.NOT_ACCEPTABLE);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.PROXY_AUTHENTICATION_REQUIRED);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.REQUEST_TIMEOUT);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.CONFLICT);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.GONE);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.LENGTH_REQUIRED);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.PRECONDITION_FAILED);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.REQUEST_TOO_LONG);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.REQUEST_URI_TOO_LONG);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.UNSUPPORTED_MEDIA_TYPE);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.REQUESTED_RANGE_NOT_SATISFIABLE);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.EXPECTATION_FAILED);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.INSUFFICIENT_SPACE_ON_RESOURCE);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.METHOD_FAILURE);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.UNPROCESSABLE_ENTITY);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.LOCKED);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.FAILED_DEPENDENCY);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.INTERNAL_SERVER_ERROR);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.NOT_IMPLEMENTED);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.BAD_GATEWAY);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.SERVICE_UNAVAILABLE);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.GATEWAY_TIMEOUT);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.HTTP_VERSION_NOT_SUPPORTED);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.INSUFFICIENT_STORAGE);
 
 		// Create resource
 		createResource(eNS_URI);

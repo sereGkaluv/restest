@@ -5,6 +5,7 @@ package at.fhv.ecss2016.restest.model.provider;
 
 import at.fhv.ecss2016.restest.model.ExpectedResult;
 import at.fhv.ecss2016.restest.model.ModelPackage;
+import at.fhv.ecss2016.restest.model.StatusCode;
 
 import java.util.Collection;
 import java.util.List;
@@ -152,7 +153,8 @@ public class ExpectedResultItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((ExpectedResult)object).getResponseCode();
+		StatusCode labelValue = ((ExpectedResult)object).getResponseCode();
+		String label = labelValue == null ? null : labelValue.toString();
 		return label == null || label.length() == 0 ?
 			getString("_UI_ExpectedResult_type") :
 			getString("_UI_ExpectedResult_type") + " " + label;

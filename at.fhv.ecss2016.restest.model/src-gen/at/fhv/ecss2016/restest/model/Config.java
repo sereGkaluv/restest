@@ -53,7 +53,7 @@ public interface Config extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Verb</b></em>' attribute.
-	 * The literals are from the enumeration {@link at.fhv.ecss2016.restest.model.HTTPVerb}.
+	 * The literals are from the enumeration {@link at.fhv.ecss2016.restest.model.HttpVerb}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Verb</em>' attribute isn't clear,
@@ -61,24 +61,24 @@ public interface Config extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Verb</em>' attribute.
-	 * @see at.fhv.ecss2016.restest.model.HTTPVerb
-	 * @see #setVerb(HTTPVerb)
+	 * @see at.fhv.ecss2016.restest.model.HttpVerb
+	 * @see #setVerb(HttpVerb)
 	 * @see at.fhv.ecss2016.restest.model.ModelPackage#getConfig_Verb()
 	 * @model
 	 * @generated
 	 */
-	HTTPVerb getVerb();
+	HttpVerb getVerb();
 
 	/**
 	 * Sets the value of the '{@link at.fhv.ecss2016.restest.model.Config#getVerb <em>Verb</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Verb</em>' attribute.
-	 * @see at.fhv.ecss2016.restest.model.HTTPVerb
+	 * @see at.fhv.ecss2016.restest.model.HttpVerb
 	 * @see #getVerb()
 	 * @generated
 	 */
-	void setVerb(HTTPVerb value);
+	void setVerb(HttpVerb value);
 
 	/**
 	 * Returns the value of the '<em><b>Content Type</b></em>' attribute.
