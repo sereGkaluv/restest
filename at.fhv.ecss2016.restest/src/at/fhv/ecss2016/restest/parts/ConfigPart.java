@@ -49,7 +49,7 @@ public class ConfigPart {
 	private static final String RIGHT_PART_STACK_ID = "at.fhv.ecss2016.restest.config.partstack.right";
 	
 	private static final int ELEMENT_VERTICAL_SPACING = 5;
-	private static final int ELEMENT_HORISONTAL_SPACING = 15;
+	private static final int ELEMENT_HORIZONTAL_SPACING = 15;
 	
 	@Inject
 	public MDirtyable _dirty;
@@ -64,7 +64,7 @@ public class ConfigPart {
 		// Setting parent layout
 		GridLayout gridLayout = new GridLayout(2, false);
 		gridLayout.verticalSpacing = ELEMENT_VERTICAL_SPACING;
-		gridLayout.horizontalSpacing = ELEMENT_HORISONTAL_SPACING;
+		gridLayout.horizontalSpacing = ELEMENT_HORIZONTAL_SPACING;
 		
 		parent.setLayout(gridLayout);
 		
