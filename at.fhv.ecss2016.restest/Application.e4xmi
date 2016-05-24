@@ -44,7 +44,6 @@
   </rootContext>
   <descriptors xmi:id="_xriIwBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partdescriptor.response" label="RESPONSE" allowMultiple="true" closeable="true" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.ResponsePart"/>
   <descriptors xmi:id="_3vdTYCGAEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.part.newConfig" label="Add new config to scenario?" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.NewConfigPart"/>
-  <descriptors xmi:id="_rxXJ4CGlEeaRFb8j9NNpNA" elementId="at.fhv.ecss2016.restest.partdescriptor.fileSelectorPart" label="Select file" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.FileSelectorPart"/>
   <commands xmi:id="_1befwCGaEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.command.switchperspective" commandName="switch perspective">
     <parameters xmi:id="_9gffECGaEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.commandparameter.perspectivestack.id" name="prespective stack "/>
     <parameters xmi:id="_96nPQCGaEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.commandparameter.perspectivestack.perspective.id" name="Command Parameter 1"/>
