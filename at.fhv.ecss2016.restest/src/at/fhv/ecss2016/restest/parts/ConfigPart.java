@@ -63,6 +63,7 @@ public class ConfigPart {
 	private static final String CREATABLE_PART_ID = "at.fhv.ecss2016.restest.partdescriptor.response";
 	private static final String RIGHT_PART_STACK_ID = "at.fhv.ecss2016.restest.config.partstack.right";
 	
+	private static final String NAME_ATTRIBUTE = "NAME_ATTRIBUTE";
 	private static final String URL_ATTRIBUTE = "URL_ATTRIBUTE";
 	private static final String VERB_ATTRIBUTE = "VERB_ATTRIBUTE";
 	private static final String CONTENT_TYPE_ATTRIBUTE = "CONTENT_TYPE_ATTRIBUTE";
@@ -104,6 +105,17 @@ public class ConfigPart {
 		Font defaultFont = new Font(parent.getDisplay(), fontData);
 		
 		// Setting UI elements
+		Label nameLabel = new Label(parent, SWT.NONE);
+		nameLabel.setText("Name:");
+		nameLabel.setFont(defaultFont);
+		
+		Text nameText = new Text(parent, SWT.BORDER);
+		nameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		BIND_HELPER.bindWidget(NAME_ATTRIBUTE, nameText);
+		
+		Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
+		separator.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
+		
 		Label urlLabel = new Label(parent, SWT.NONE);
 		urlLabel.setText("URL:");
 		urlLabel.setFont(defaultFont);
@@ -148,8 +160,8 @@ public class ConfigPart {
 		contentTypeCombo.setSelection(new StructuredSelection(ContentType.TEXT));
 		BIND_HELPER.bindViewer(CONTENT_TYPE_ATTRIBUTE, contentTypeCombo);
 		
-		Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
-		separator.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
+		Label separator2 = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
+		separator2.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
 		
 		Label bodyLabel = new Label(parent, SWT.NONE);
 		bodyLabel.setText("Body:");
@@ -184,6 +196,17 @@ public class ConfigPart {
 		});
 		
 		// Defining config assemble listeners
+		WidgetProperties.text(SWT.Modify).observe(nameText).addValueChangeListener(new IValueChangeListener() {
+			@Override
+			public void handleValueChange(ValueChangeEvent event) {
+				Config config = getCurrentOrDefaultConfig();
+				config.setName(nameText.getText());
+				
+				_dirty.setDirty(true);
+			}
+		});
+		
+		
 		WidgetProperties.text(SWT.Modify).observe(urlText).addValueChangeListener(new IValueChangeListener() {
 			@Override
 			public void handleValueChange(ValueChangeEvent event) {
@@ -238,6 +261,7 @@ public class ConfigPart {
 			_currentConfig = config;
 			
 			// Set new values for the map entries from a model object
+			BIND_HELPER.updateAttributeValue(NAME_ATTRIBUTE, config.getName());
 			BIND_HELPER.updateAttributeValue(URL_ATTRIBUTE, config.getRequestURL());
 			BIND_HELPER.updateAttributeValue(VERB_ATTRIBUTE, config.getVerb());
 			BIND_HELPER.updateAttributeValue(CONTENT_TYPE_ATTRIBUTE, config.getContentType());

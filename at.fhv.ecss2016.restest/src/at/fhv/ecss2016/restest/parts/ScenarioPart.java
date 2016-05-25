@@ -1,8 +1,10 @@
 package at.fhv.ecss2016.restest.parts;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -130,14 +132,15 @@ public class ScenarioPart {
 		GridData buttonGridData = new GridData(SWT.RIGHT, SWT.CENTER, false, false);
 		buttonGridData.widthHint = SIZE_HINT;
 		buttonGridData.heightHint = SIZE_HINT;
-	    
-		Button scenarioDownButton = new Button(scenrioControlComposite, SWT.NONE);
-		scenarioDownButton.setLayoutData(buttonGridData);
-		scenarioDownButton.setText("⬇");
 		
 		Button scenarioUpButton = new Button(scenrioControlComposite, SWT.NONE);
 		scenarioUpButton.setLayoutData(buttonGridData);
 		scenarioUpButton.setText("⬆");
+		
+		Button scenarioDownButton = new Button(scenrioControlComposite, SWT.NONE);
+		scenarioDownButton.setLayoutData(buttonGridData);
+		scenarioDownButton.setText("⬇");
+		
 		
 		Label verticalSeparator = new Label(scenrioControlComposite, SWT.NONE);
 		verticalSeparator.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
@@ -215,12 +218,16 @@ public class ScenarioPart {
 				
 				int statusCode = newConfigDialog.open();
 				if (statusCode == Window.OK) {
-					new Thread(() -> addConfigToScenario(
-						newConfigDialog.getFilePath(),
-						newConfigDialog.getResultStatusCode(),
-						newConfigDialog.getResultContentType(),
-						newConfigDialog.getResultBodyText()
-					)).start();
+					new Thread(() -> {
+						addConfigToScenario(
+							newConfigDialog.getFilePath(),
+							newConfigDialog.getResultStatusCode(),
+							newConfigDialog.getResultContentType(),
+							newConfigDialog.getResultBodyText()
+						);
+						
+						display.asyncExec(() -> tableViewer.refresh());
+					}).start();
 				}
 			}
 		});
@@ -241,12 +248,13 @@ public class ScenarioPart {
 		successfulTestsLabel.setFont(defaultFont);
 		
 		Label successfulTestsValueLabel = new Label(parent, SWT.NONE);
+		successfulTestsValueLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		successfulTestsValueLabel.setText("-");
 		successfulTestsValueLabel.setFont(defaultFont);
 		
 		Button startButton = new Button(parent, SWT.BOLD);
 		
-		GridData startButtonGridData = new GridData(SWT.RIGHT, SWT.CENTER, true, false);
+		GridData startButtonGridData = new GridData(SWT.RIGHT, SWT.CENTER, false, false);
 		startButtonGridData.widthHint = SIZE_HINT * 3;
 		startButtonGridData.heightHint = SIZE_HINT;
 		
@@ -256,38 +264,46 @@ public class ScenarioPart {
 			@Override
 			public void handleEvent(Event event) {
 				
+				// Fetching data
 				TableItem[] tableItems = tableViewer.getTable().getItems();
+				
+				Map<TableItem, ConfigResultPair> tableMap = new HashMap<>();
+				for (TableItem tableItem : tableItems) {
+					Object dataObject = tableItem.getData();
+					if (dataObject instanceof ConfigResultPair) {
+						tableMap.put(tableItem, (ConfigResultPair) dataObject);
+					}
+				}
+				
+				// Starting new thread for sending requests
 				new Thread(() ->  {
 					
 					int successfulTests = 0;
 					
-					for (TableItem tableItem : tableItems) {
+					for (TableItem tableItem : tableMap.keySet()) {
 						try {
-							Object dataObject = tableItem.getData();
-							if (dataObject instanceof ConfigResultPair) {
+					
+							// At this point we have a reference to ConfigResultPair instance
+							// which is also stored in CONFIG_RESULT_PAIR_LIST
+							ConfigResultPair pair = tableMap.get(tableItem);
 							
-								// At this point we have a reference to ConfigResultPair instance
-								// which is also stored in CONFIG_RESULT_PAIR_LIST
-								ConfigResultPair pair = (ConfigResultPair) dataObject;
-								
-								// Doing HTTP request
-								Config config = pair.getConfig();
-								Response response = new RemoteConnection().sendNewRequest(config);
-								
-								// Updating response (will also affect entry in CONFIG_RESULT_PAIR_LIST,
-								// because we referencing exactly THAT object stored in list.
-								pair.setResponse(response);
-								
-								ExpectedResult expectedResult = config.getExpectedResult();
+							// Doing HTTP request
+							Config config = pair.getConfig();
+							Response response = new RemoteConnection().sendNewRequest(config);
 							
-								if (isExpectationMatch(expectedResult, response)) {
-									
-									display.asyncExec(() -> tableItem.setForeground(display.getSystemColor(SWT.COLOR_DARK_GREEN)));
-									++successfulTests;
+							// Updating response (will also affect entry in CONFIG_RESULT_PAIR_LIST,
+							// because we referencing exactly THAT object stored in list.
+							pair.setResponse(response);
+							
+							ExpectedResult expectedResult = config.getExpectedResult();
+						
+							if (isExpectationMatch(expectedResult, response)) {
+								
+								display.asyncExec(() -> tableItem.setForeground(display.getSystemColor(SWT.COLOR_DARK_GREEN)));
+								++successfulTests;
 
-								} else {
-									display.asyncExec(() -> tableItem.setForeground(display.getSystemColor(SWT.COLOR_DARK_YELLOW)));
-								}
+							} else {
+								display.asyncExec(() -> tableItem.setForeground(display.getSystemColor(SWT.COLOR_DARK_YELLOW)));
 							}
 						} catch (IllegalArgumentException | IOException e) { 
 							display.asyncExec(() -> tableItem.setForeground(display.getSystemColor(SWT.COLOR_DARK_RED)));
@@ -340,9 +356,18 @@ public class ScenarioPart {
 		
 		if (expectedResult == null || response == null) return false;
 		
-		boolean isStatusCodeMatch = expectedResult.getResponseCode().equals(response.getResponseCode());
-		boolean isContentTypeMatch = expectedResult.getResponseContentType().equals(response.getResponseContentType());
-		boolean isBodyMatch = expectedResult.getResponseBody().equals(response.getResponseBody());
+		boolean isStatusCodeMatch = false;
+		boolean isContentTypeMatch = false;
+		boolean isBodyMatch = false;
+		
+		if (expectedResult.getResponseCode() == null && response.getResponseCode() == null) isStatusCodeMatch = true;
+		else if (expectedResult.getResponseCode() != null && expectedResult.getResponseCode().equals(response.getResponseCode())) isStatusCodeMatch = true;
+		
+		if (expectedResult.getResponseContentType() == null && response.getResponseContentType() == null) isContentTypeMatch = true;
+		else if (expectedResult.getResponseContentType() != null && expectedResult.getResponseContentType().equals(response.getResponseContentType())) isContentTypeMatch = true;
+		
+		if (expectedResult.getResponseBody() == null && response.getResponseBody() == null) isBodyMatch = true;
+		else if (expectedResult.getResponseBody() != null && expectedResult.getResponseBody().equals(response.getResponseBody())) isBodyMatch = true;
 		
 		return isStatusCodeMatch && isContentTypeMatch && isBodyMatch;
 	}
