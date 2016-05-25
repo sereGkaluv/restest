@@ -5,7 +5,7 @@
       <children xsi:type="advanced:Perspective" xmi:id="_jNiOIBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.perspective.config">
         <children xsi:type="basic:PartSashContainer" xmi:id="_l6QTEBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partsashcontainer.0" horizontal="true">
           <children xsi:type="basic:PartStack" xmi:id="_q5VcMBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.config.partstack.left">
-            <children xsi:type="basic:Part" xmi:id="_s_iTsBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.part.configpart" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.ConfigPart" label="CONFIG" closeable="true">
+            <children xsi:type="basic:Part" xmi:id="_s_iTsBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.part.configpart" contributionURI="bundleclass://at.fhv.ecss2016.restest/at.fhv.ecss2016.restest.parts.ConfigPart" label="CONFIG">
               <toolbar xmi:id="_lY-YcB5YEeaOiJcIT1En8w" elementId="at.fhv.ecss2016.restest.toolbar.0">
                 <children xsi:type="menu:HandledToolItem" xmi:id="_qlfgoB5YEeaOiJcIT1En8w" elementId="at.fhv.ecss2016.restest.handledmenuitem.config.save" label="Save" command="_6uj5QCG2Eea-JavvrGpDJg"/>
                 <children xsi:type="menu:HandledToolItem" xmi:id="_DUohwCG4Eea-JavvrGpDJg" elementId="at.fhv.ecss2016.restest.handledmenuitem.config.load" label="Load" command="_-jsXwCG2Eea-JavvrGpDJg"/>

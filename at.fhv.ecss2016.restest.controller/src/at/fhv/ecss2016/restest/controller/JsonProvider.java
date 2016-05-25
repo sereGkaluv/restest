@@ -6,7 +6,10 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.function.Function;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -15,12 +18,12 @@ public class JsonProvider {
 	public JsonProvider() {
 	}
 	
-	public void serialize(String filePath, Object object) {
-        try {
-			
-        	new ObjectMapper().writeValue(new File(filePath), object);
-			
-		} catch (IOException e) { e.printStackTrace(); }
+	public void serialize(String filePath, Object object)
+	throws JsonGenerationException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.setSerializationInclusion(Include.NON_NULL);
+		
+		mapper.writeValue(new File(filePath), object);
 	}
 	
 	public <TReturn, TMapper extends Function<JsonNode, TReturn>> TReturn deserialize(String filePath, TMapper objectMapper)

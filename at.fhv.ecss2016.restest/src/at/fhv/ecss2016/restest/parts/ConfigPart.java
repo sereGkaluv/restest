@@ -6,6 +6,8 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.eclipse.core.databinding.observable.value.IValueChangeListener;
+import org.eclipse.core.databinding.observable.value.ValueChangeEvent;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.model.application.ui.MDirtyable;
@@ -17,12 +19,14 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
+import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.jface.databinding.viewers.ViewerProperties;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.layout.GridData;
@@ -31,10 +35,14 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import at.fhv.ecss2016.restest.controller.JsonProvider;
 import at.fhv.ecss2016.restest.controller.RemoteConnection;
 import at.fhv.ecss2016.restest.model.Config;
 import at.fhv.ecss2016.restest.model.ContentType;
@@ -42,6 +50,7 @@ import at.fhv.ecss2016.restest.model.HttpVerb;
 import at.fhv.ecss2016.restest.model.ModelFactory;
 import at.fhv.ecss2016.restest.model.Response;
 import at.fhv.ecss2016.restest.util.BindHelper;
+import at.fhv.ecss2016.restest.util.FileDialogHelper;
 import at.fhv.ecss2016.restest.util.StringConstants;
 
 /**
@@ -59,12 +68,17 @@ public class ConfigPart {
 	private static final String CONTENT_TYPE_ATTRIBUTE = "CONTENT_TYPE_ATTRIBUTE";
 	private static final String CONTENT_BODY_ATTRIBUTE = "CONTENT_BODY_ATTRIBUTE";
 	
+	private static final String FILE_DIALOG_TITLE = "Save config?";
+	private static final String DEFAULT_ERROR_MESSAGE = "Error occurred while saving config file.";
+	
 	private static final int ELEMENT_VERTICAL_SPACING = 5;
 	private static final int ELEMENT_HORIZONTAL_SPACING = 15;
 	
+	private static final int SIZE_HINT = 35;
+	
 	private static final BindHelper BIND_HELPER = new BindHelper();
 	
-	private Response _response;
+	private Config _currentConfig;
 	
 	@Inject
 	private MDirtyable _dirty;
@@ -113,6 +127,7 @@ public class ConfigPart {
 			}
 		});
 		verbCombo.setInput(HttpVerb.values());
+		verbCombo.setSelection(new StructuredSelection(HttpVerb.GET));
 		BIND_HELPER.bindViewer(VERB_ATTRIBUTE, verbCombo);
 		
 		Label contentTypeLabel = new Label(parent, SWT.NONE);
@@ -130,6 +145,7 @@ public class ConfigPart {
 			}
 		});
 		contentTypeCombo.setInput(ContentType.values());
+		contentTypeCombo.setSelection(new StructuredSelection(ContentType.TEXT));
 		BIND_HELPER.bindViewer(CONTENT_TYPE_ATTRIBUTE, contentTypeCombo);
 		
 		Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
@@ -139,46 +155,78 @@ public class ConfigPart {
 		bodyLabel.setText("Body:");
 		bodyLabel.setFont(defaultFont);
 		
-		StyledText contentBodyText = new StyledText(parent, SWT.BORDER);
+		Text contentBodyText = new Text(parent, SWT.BORDER);
 		contentBodyText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
 		BIND_HELPER.bindWidget(CONTENT_BODY_ATTRIBUTE, contentBodyText);
 		
-		Button sendButton = new Button(parent, SWT.NONE);
-		sendButton.setText("Send");
-		sendButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, true, false, 2, 1));
+		Button sendButton = new Button(parent, SWT.BOLD);
 		
+		GridData sendButtonGridData = new GridData(SWT.RIGHT, SWT.CENTER, true, false, 2, 1);
+		sendButtonGridData.widthHint = SIZE_HINT * 3;
+		sendButtonGridData.heightHint = SIZE_HINT;
+		
+		sendButton.setLayoutData(sendButtonGridData);
+		sendButton.setText("Send");
+
 		sendButton.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {				
-				
-				// Reading data from UI
-				String uri = urlText.getText();
-				
-				IStructuredSelection vSelection = (IStructuredSelection) verbCombo.getSelection();
-				HttpVerb httpVerb = (vSelection != null && !vSelection.isEmpty()) ? (HttpVerb) vSelection.getFirstElement() : null;
-
-				IStructuredSelection cSelection = (IStructuredSelection) contentTypeCombo.getSelection();
-				ContentType contentType = (cSelection != null && !cSelection.isEmpty()) ? (ContentType) cSelection.getFirstElement() : null;
-				
-				String body = contentBodyText.getText();
-				
-
-				
 				// Sending request
 				new Thread(() ->  {	
 					try {
-						// Assembling data to Config
-						Config config = ModelFactory.eINSTANCE.createConfig();
-						config.setRequestURL(uri);
-						config.setVerb(httpVerb);
-						config.setContentType(contentType);
-						config.setRequestBody(body);
-						
-						_response = new RemoteConnection().sendNewRequest(config);
-						openResponsePerspective(_response, perspective, partService, modelService, display);
+
+						Response response = new RemoteConnection().sendNewRequest(getCurrentOrDefaultConfig());
+						openResponsePerspective(response, perspective, partService, modelService, display);
 						
 					} catch (IllegalArgumentException | IOException e) { e.printStackTrace(); }
 				}).start();
+			}
+		});
+		
+		// Defining config assemble listeners
+		WidgetProperties.text(SWT.Modify).observe(urlText).addValueChangeListener(new IValueChangeListener() {
+			@Override
+			public void handleValueChange(ValueChangeEvent event) {
+				Config config = getCurrentOrDefaultConfig();
+				config.setRequestURL(urlText.getText());
+				
+				_dirty.setDirty(true);
+			}
+		});
+		
+		ViewerProperties.singleSelection().observe(verbCombo).addValueChangeListener(new IValueChangeListener() {
+			@Override
+			public void handleValueChange(ValueChangeEvent event) {
+				IStructuredSelection vSelection = (IStructuredSelection) verbCombo.getSelection();
+				HttpVerb httpVerb = (vSelection != null && !vSelection.isEmpty()) ? (HttpVerb) vSelection.getFirstElement() : null;
+				
+				Config config = getCurrentOrDefaultConfig();
+				config.setVerb(httpVerb);
+				
+				_dirty.setDirty(true);
+			}
+		});
+		
+		ViewerProperties.singleSelection().observe(contentTypeCombo).addValueChangeListener(new IValueChangeListener() {
+			@Override
+			public void handleValueChange(ValueChangeEvent event) {
+				IStructuredSelection cSelection = (IStructuredSelection) contentTypeCombo.getSelection();
+				ContentType contentType = (cSelection != null && !cSelection.isEmpty()) ? (ContentType) cSelection.getFirstElement() : null;
+				
+				Config config = getCurrentOrDefaultConfig();
+				config.setContentType(contentType);
+				
+				_dirty.setDirty(true);
+			}
+		});
+		
+		WidgetProperties.text(SWT.Modify).observe(contentBodyText).addValueChangeListener(new IValueChangeListener() {
+			@Override
+			public void handleValueChange(ValueChangeEvent event) {
+				Config config = getCurrentOrDefaultConfig();
+				config.setRequestBody(contentBodyText.getText());
+				
+				_dirty.setDirty(true);
 			}
 		});
 	}
@@ -186,7 +234,9 @@ public class ConfigPart {
 	@Inject
 	@Optional
 	private void setModel(@Named(IServiceConstants.ACTIVE_SELECTION) Config config) {
-		if (config != null) {			
+		if (config != null) {		
+			_currentConfig = config;
+			
 			// Set new values for the map entries from a model object
 			BIND_HELPER.updateAttributeValue(URL_ATTRIBUTE, config.getRequestURL());
 			BIND_HELPER.updateAttributeValue(VERB_ATTRIBUTE, config.getVerb());
@@ -201,15 +251,45 @@ public class ConfigPart {
 	}
 	
 	@Persist
-	private void save() {
-//	    try {
+	private void save(Shell parentShell) {
+	    try {
 	    	
-		    // Save the content
-//		    new JsonProvider().serialize(filePath, object);
-			_dirty.setDirty(false);
+			FileDialog fileDialog = FileDialogHelper.getFileDialog(
+				FILE_DIALOG_TITLE,
+				FileDialogHelper.FILTER_NAMES_CONFIG,
+				FileDialogHelper.FILTER_EXTS_CONFIG,
+				parentShell,
+				SWT.SAVE
+			);
+				
+			String filePath = fileDialog.open();
+			if (filePath != null && !filePath.isEmpty()) {
+			    // Save the content
+			    new JsonProvider().serialize(filePath, getCurrentOrDefaultConfig());
+				_dirty.setDirty(false);
+			}
 
-//	    } catch (IOException e) { e.printStackTrace(); }
+	    } catch (IOException e) { 
+			MessageBox messageBox = new MessageBox(parentShell, SWT.ICON_ERROR);
+			messageBox.setMessage(DEFAULT_ERROR_MESSAGE);
+			messageBox.open();
+			
+			e.printStackTrace();
+	    }
     }
+	
+	/**
+	 * Virtual getter for current config.
+	 * 
+	 * @return current instance or default (empty) instance.
+	 */
+	private Config getCurrentOrDefaultConfig() {
+		if (_currentConfig == null) {
+			_currentConfig = ModelFactory.eINSTANCE.createConfig();
+		}
+		
+		return _currentConfig;
+	}
 	
 	/**
 	 * Helper method that opens response perspective.

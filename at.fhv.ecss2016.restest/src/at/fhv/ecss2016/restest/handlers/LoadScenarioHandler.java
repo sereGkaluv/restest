@@ -22,6 +22,8 @@ public class LoadScenarioHandler {
 	
 	private static final String FILE_DIALOG_TITLE = "Load scenario?";
 	private static final String DEFAULT_LOAD_MESSAGE = "Scenario was loaded.";
+	private static final String DEFAULT_ERROR_MESSAGE = "Not supported scenario file.";
+
 
 	@Inject
 	private ESelectionService _selectionService;
@@ -40,11 +42,18 @@ public class LoadScenarioHandler {
 		String filePath = fileDialog.open();
 		if (filePath != null && !filePath.isEmpty()) {
 			Scenario scenario = new JsonProvider().deserialize(filePath, new ScenarioMapper());
-			_selectionService.setSelection(scenario);
-			
-			MessageBox messageBox = new MessageBox(parentShell);
-			messageBox.setMessage(DEFAULT_LOAD_MESSAGE);
-			messageBox.open();
+
+			if (scenario != null) {
+				_selectionService.setSelection(scenario);
+				
+				MessageBox messageBox = new MessageBox(parentShell, SWT.ICON_INFORMATION);
+				messageBox.setMessage(DEFAULT_LOAD_MESSAGE);
+				messageBox.open();
+			} else {
+				MessageBox messageBox = new MessageBox(parentShell, SWT.ICON_ERROR);
+				messageBox.setMessage(DEFAULT_ERROR_MESSAGE);
+				messageBox.open();
+			}
 		}
 	}
 }

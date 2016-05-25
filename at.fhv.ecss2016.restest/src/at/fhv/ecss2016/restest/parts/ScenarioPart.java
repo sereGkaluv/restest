@@ -71,6 +71,8 @@ public class ScenarioPart {
 	private static final int ELEMENT_VERTICAL_SPACING = 5;
 	private static final int ELEMENT_HORISONTAL_SPACING = 15;
 	
+	private static final int SIZE_HINT = 35;
+	
 	private static final int FILE_DIALOG_WIDTH = 500;
 	private static final int FILE_DIALOG_HEIGHT = 300;
 	
@@ -89,7 +91,7 @@ public class ScenarioPart {
 	private void postConstruct(Display display, Shell shell, Composite parent, EMenuService menuService, EPartService partService, EModelService modelService, MPerspective perspective) {
 		
 		// Setting parent layout
-		GridLayout gridLayout = new GridLayout(7, false);
+		GridLayout gridLayout = new GridLayout(3, false);
 		gridLayout.verticalSpacing = ELEMENT_VERTICAL_SPACING;
 		gridLayout.horizontalSpacing = ELEMENT_HORISONTAL_SPACING;
 		
@@ -107,42 +109,50 @@ public class ScenarioPart {
 		scenariosFileLabel.setFont(defaultFont);
 		
 		Text filePathText = new Text(parent, SWT.BORDER | SWT.READ_ONLY);
-		filePathText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 6, 1));
+		filePathText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
 		BIND_HELPER.bindWidget(SCENARIO_FILE_ATTRIBUTE, filePathText);
 		
 		Label horizontalSeparator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
-		horizontalSeparator.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 7, 1));
+		horizontalSeparator.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 3, 1));
 		
 		Label scenariosListLabel = new Label(parent, SWT.NONE);
 		scenariosListLabel.setText("Scenarios:");
 		scenariosListLabel.setFont(defaultFont);
 		
 		// Flexible placeholder
-		Label placeholderLabel = new Label(parent, SWT.FILL);
-		placeholderLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		Label placeholderLabel = new Label(parent, SWT.NONE);
+		placeholderLabel.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
 		
-		Button scenarioDownButton = new Button(parent, SWT.NONE);
+	    Composite scenrioControlComposite = new Composite(parent, SWT.BORDER);
+	    scenrioControlComposite.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
+	    scenrioControlComposite.setLayout(new GridLayout(5, false));
+		
+		GridData buttonGridData = new GridData(SWT.RIGHT, SWT.CENTER, false, false);
+		buttonGridData.widthHint = SIZE_HINT;
+		buttonGridData.heightHint = SIZE_HINT;
+	    
+		Button scenarioDownButton = new Button(scenrioControlComposite, SWT.NONE);
+		scenarioDownButton.setLayoutData(buttonGridData);
 		scenarioDownButton.setText("⬇");
-		scenarioDownButton.setLayoutData(new GridData(SWT.CENTER));
 		
-		Button scenarioUpButton = new Button(parent, SWT.NONE);
+		Button scenarioUpButton = new Button(scenrioControlComposite, SWT.NONE);
+		scenarioUpButton.setLayoutData(buttonGridData);
 		scenarioUpButton.setText("⬆");
-		scenarioUpButton.setLayoutData(new GridData(SWT.CENTER));
 		
-		Label verticalSeparator = new Label(parent, SWT.NONE);
+		Label verticalSeparator = new Label(scenrioControlComposite, SWT.NONE);
+		verticalSeparator.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
 		verticalSeparator.setText("|");
-		verticalSeparator.setLayoutData(new GridData(SWT.CENTER));
 		
-		Button addScenarioButton = new Button(parent, SWT.NONE);
+		Button addScenarioButton = new Button(scenrioControlComposite, SWT.NONE);
+		addScenarioButton.setLayoutData(buttonGridData);
 		addScenarioButton.setText("+");
-		addScenarioButton.setLayoutData(new GridData(SWT.CENTER));
 
-		Button removeScenarioButton = new Button(parent, SWT.NONE);
+		Button removeScenarioButton = new Button(scenrioControlComposite, SWT.NONE);
+		removeScenarioButton.setLayoutData(buttonGridData);
 		removeScenarioButton.setText("-");
-		removeScenarioButton.setLayoutData(new GridData(SWT.CENTER));
 		
 		TableViewer tableViewer = new TableViewer(parent, SWT.BORDER);
-		tableViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 7, 1));
+		tableViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
 		tableViewer.setContentProvider(new ArrayContentProvider());
 		tableViewer.setLabelProvider(new LabelProvider() {
 			@Override
@@ -226,15 +236,31 @@ public class ScenarioPart {
 			}
 		});
 		
-		Button startButton = new Button(parent, SWT.NONE);
+		Label successfulTestsLabel = new Label(parent, SWT.NONE);
+		successfulTestsLabel.setText("Successful tests:");
+		successfulTestsLabel.setFont(defaultFont);
+		
+		Label successfulTestsValueLabel = new Label(parent, SWT.NONE);
+		successfulTestsValueLabel.setText("-");
+		successfulTestsValueLabel.setFont(defaultFont);
+		
+		Button startButton = new Button(parent, SWT.BOLD);
+		
+		GridData startButtonGridData = new GridData(SWT.RIGHT, SWT.CENTER, true, false);
+		startButtonGridData.widthHint = SIZE_HINT * 3;
+		startButtonGridData.heightHint = SIZE_HINT;
+		
+		startButton.setLayoutData(startButtonGridData);
 		startButton.setText("Start");
-		startButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, true, false, 7, 1));
 		startButton.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
 				
 				TableItem[] tableItems = tableViewer.getTable().getItems();
 				new Thread(() ->  {
+					
+					int successfulTests = 0;
+					
 					for (TableItem tableItem : tableItems) {
 						try {
 							Object dataObject = tableItem.getData();
@@ -255,13 +281,23 @@ public class ScenarioPart {
 								ExpectedResult expectedResult = config.getExpectedResult();
 							
 								if (isExpectationMatch(expectedResult, response)) {
+									
 									display.asyncExec(() -> tableItem.setForeground(display.getSystemColor(SWT.COLOR_DARK_GREEN)));
+									++successfulTests;
+
 								} else {
-									display.asyncExec(() -> tableItem.setForeground(display.getSystemColor(SWT.COLOR_DARK_RED)));
+									display.asyncExec(() -> tableItem.setForeground(display.getSystemColor(SWT.COLOR_DARK_YELLOW)));
 								}
 							}
-						} catch (IllegalArgumentException | IOException e) { e.printStackTrace(); }
+						} catch (IllegalArgumentException | IOException e) { 
+							display.asyncExec(() -> tableItem.setForeground(display.getSystemColor(SWT.COLOR_DARK_RED)));
+							e.printStackTrace();
+						}
 					}
+					
+					int successfulTestsHolder = successfulTests;
+					display.asyncExec(() -> successfulTestsValueLabel.setText(successfulTestsHolder + " / " + tableItems.length));
+					
 				}).start();
 			}
 		});
@@ -285,17 +321,12 @@ public class ScenarioPart {
 	@Persist
 	private void save() {
 //	    try {
-//	    	
-//	    	Resource resource = new ResourceSetImpl().createResource(URI.createURI("todoList/myList"));
-//		    resource.getContents().addAll(_uiEntries);
-//	
-//		    // Save the content
-//		    resource.save(Collections.EMPTY_MAP);
-//			_dirty.setDirty(false);
-//
-//	    } catch (IOException e) {
-//	    	e.printStackTrace();
-//	    }
+    	
+		    // Save the content
+//		    new JsonProvider().serialize(filePath, object);
+			_dirty.setDirty(false);
+
+//	    } catch (IOException e) { e.printStackTrace(); }
     }
 	
 	/**

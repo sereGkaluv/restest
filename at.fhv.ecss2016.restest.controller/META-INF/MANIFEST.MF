@@ -10,6 +10,7 @@ Require-Bundle: com.fasterxml.jackson.core.jackson-core,
  com.fasterxml.jackson.core.jackson-databind,
  org.apache.httpcomponents.httpclient,
  org.apache.httpcomponents.httpcore,
- at.fhv.ecss2016.restest.model
+ at.fhv.ecss2016.restest.model,
+ com.fasterxml.jackson.core.jackson-annotations
 Export-Package: at.fhv.ecss2016.restest.controller,
  at.fhv.ecss2016.restest.controller.util
