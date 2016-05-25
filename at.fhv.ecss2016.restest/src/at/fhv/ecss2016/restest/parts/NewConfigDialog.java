@@ -19,7 +19,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
@@ -29,29 +28,30 @@ import org.eclipse.swt.widgets.Text;
 
 import at.fhv.ecss2016.restest.model.ContentType;
 import at.fhv.ecss2016.restest.model.StatusCode;
+import at.fhv.ecss2016.restest.util.FileDialogHelper;
 
 public class NewConfigDialog extends Dialog {
 
+	private static final String DIALOG_TITLE = "Add a new config to scenario?";
+	private static final String FILE_DIALOG_TITLE = "Load config?";
 	private static final String FILE_SELECTOR_TEXT = "Please select a file...";
-	
+			
 	private static final int ELEMENT_VERTICAL_SPACING = 5;
 	private static final int ELEMENT_HORIZONTAL_SPACING = 5;
 	
 	private final int _width;
 	private final int _height;
-	private final String _dialogTitle;
 
 	private String _filePath;
 	private StatusCode _resultStatusCode;
 	private ContentType _resultContentType;
 	private String _resultBodyText;
 	
-	public NewConfigDialog(int width, int height, String dialogTitle, Shell shell) {
+	public NewConfigDialog(int width, int height, Shell shell) {
 		super(shell);
 		
 		_width = width;
 		_height = height;
-		_dialogTitle = dialogTitle;
 	}
 
 	
@@ -75,7 +75,7 @@ public class NewConfigDialog extends Dialog {
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
 		
-		newShell.setText(_dialogTitle);
+		newShell.setText(DIALOG_TITLE);
 		newShell.setSize(_width, _height);
 	}
 
@@ -118,10 +118,15 @@ public class NewConfigDialog extends Dialog {
 			@Override
 			public void handleEvent(Event event) {
 				// open file dialog when button is clicked
-				FileDialog fileDialog = new FileDialog(Display.getCurrent().getActiveShell());
-				fileDialog.setText(FILE_SELECTOR_TEXT);
-				String responseValue = fileDialog.open();
+				FileDialog fileDialog = FileDialogHelper.getFileDialog(
+					FILE_DIALOG_TITLE,
+					FileDialogHelper.FILTER_NAMES_CONFIG,
+					FileDialogHelper.FILTER_EXTS_CONFIG,
+					getShell(),
+					SWT.OPEN
+				);
 				
+				String responseValue = fileDialog.open();
 				if(responseValue != null) txtFilePath.setText(responseValue);
 			}
 		});
@@ -162,7 +167,7 @@ public class NewConfigDialog extends Dialog {
 		resultContentTypeCombo.setLabelProvider(new LabelProvider() {
 			@Override
 			public String getText(Object element) {
-				if (element instanceof ContentType) return ((ContentType) element).getName();
+				if (element instanceof ContentType) return ((ContentType) element).getLiteral();
 				else return super.getText(element);
 			}
 		});
@@ -179,12 +184,12 @@ public class NewConfigDialog extends Dialog {
 		separator2.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 3, 1));
 		
 		Label lblResBody = new Label(container, SWT.NONE);
-		lblResBody.setLayoutData(new GridData(SWT.DEFAULT, SWT.TOP, false, true));
+		lblResBody.setLayoutData(new GridData(SWT.DEFAULT, SWT.DEFAULT, false, false, 3, 1));
 		lblResBody.setFont(defaultFont);
 		lblResBody.setText("Result body:");
 		
 		StyledText styledBodyText = new StyledText(container, SWT.BORDER);
-		styledBodyText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
+		styledBodyText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
 		styledBodyText.addModifyListener(new ModifyListener(){
 			@Override
 			public void modifyText(ModifyEvent e) {

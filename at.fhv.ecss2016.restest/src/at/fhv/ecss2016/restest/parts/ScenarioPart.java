@@ -23,8 +23,8 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
 import at.fhv.ecss2016.restest.controller.JsonProvider;
@@ -72,7 +73,6 @@ public class ScenarioPart {
 	
 	private static final int FILE_DIALOG_WIDTH = 500;
 	private static final int FILE_DIALOG_HEIGHT = 300;
-	private static final String FILE_DIALOG_TITLE = "Add new config to scenario?";
 	
 	private static final BindHelper BIND_HELPER = new BindHelper();
 	
@@ -106,7 +106,7 @@ public class ScenarioPart {
 		scenariosFileLabel.setText("Scenarios file:");
 		scenariosFileLabel.setFont(defaultFont);
 		
-		Text filePathText = new Text(parent, SWT.BORDER);
+		Text filePathText = new Text(parent, SWT.BORDER | SWT.READ_ONLY);
 		filePathText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 6, 1));
 		BIND_HELPER.bindWidget(SCENARIO_FILE_ATTRIBUTE, filePathText);
 		
@@ -141,24 +141,24 @@ public class ScenarioPart {
 		removeScenarioButton.setText("-");
 		removeScenarioButton.setLayoutData(new GridData(SWT.CENTER));
 		
-		ListViewer listViewer = new ListViewer(parent, SWT.BORDER);
-		listViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 7, 1));
-		listViewer.setContentProvider(new ArrayContentProvider());
-		listViewer.setLabelProvider(new LabelProvider() {
+		TableViewer tableViewer = new TableViewer(parent, SWT.BORDER);
+		tableViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 7, 1));
+		tableViewer.setContentProvider(new ArrayContentProvider());
+		tableViewer.setLabelProvider(new LabelProvider() {
 			@Override
 			public String getText(Object element) {
 				if (element instanceof ConfigResultPair) return ((ConfigResultPair) element).getConfig().getName();
 				else return super.getText(element);
 			}
-		});
-		listViewer.setInput(CONFIG_RESULT_PAIR_LIST);
-		BIND_HELPER.bindViewer(CONFIG_RESULT_PAIRS_ATTRIBUTE, listViewer);
+		});		
+		tableViewer.setInput(CONFIG_RESULT_PAIR_LIST);
+		BIND_HELPER.bindViewer(CONFIG_RESULT_PAIRS_ATTRIBUTE, tableViewer);
 		
 		// Double-click list Listener -> opens Response perspective
-		listViewer.addDoubleClickListener(new IDoubleClickListener() {
+		tableViewer.addDoubleClickListener(new IDoubleClickListener() {
 			@Override
 			public void doubleClick(DoubleClickEvent event) {
-				StructuredSelection selection = (StructuredSelection) listViewer.getSelection();
+				StructuredSelection selection = (StructuredSelection) tableViewer.getSelection();
 				if (selection != null && !selection.isEmpty()) {
 					ConfigResultPair pair = (ConfigResultPair) selection.getFirstElement();
 					openResponsePerspective(pair.getResponse(), perspective, partService, modelService, display);
@@ -170,11 +170,11 @@ public class ScenarioPart {
 		scenarioUpButton.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				int selectionIndex = listViewer.getList().getSelectionIndex();
+				int selectionIndex = tableViewer.getTable().getSelectionIndex();
 				if (selectionIndex > 0 && selectionIndex < CONFIG_RESULT_PAIR_LIST.size()) {
 					ConfigResultPair selectedConfig = CONFIG_RESULT_PAIR_LIST.remove(selectionIndex);
 					CONFIG_RESULT_PAIR_LIST.add(selectionIndex -1, selectedConfig);
-					listViewer.refresh();
+					tableViewer.refresh();
 				}
 			}
 		});
@@ -183,11 +183,11 @@ public class ScenarioPart {
 		scenarioDownButton.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				int selectionIndex = listViewer.getList().getSelectionIndex();
+				int selectionIndex = tableViewer.getTable().getSelectionIndex();
 				if (selectionIndex >= 0 && selectionIndex < CONFIG_RESULT_PAIR_LIST.size() - 1) {
 					ConfigResultPair selectedConfig = CONFIG_RESULT_PAIR_LIST.remove(selectionIndex);
 					CONFIG_RESULT_PAIR_LIST.add(selectionIndex +1, selectedConfig);
-					listViewer.refresh();
+					tableViewer.refresh();
 				}
 			}
 		});
@@ -200,7 +200,6 @@ public class ScenarioPart {
 				NewConfigDialog newConfigDialog = new NewConfigDialog(
 					FILE_DIALOG_WIDTH,
 					FILE_DIALOG_HEIGHT,
-					FILE_DIALOG_TITLE,
 					shell
 				);
 				
@@ -220,10 +219,10 @@ public class ScenarioPart {
 		removeScenarioButton.addListener(SWT.MouseDown, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				int selectionIndex = listViewer.getList().getSelectionIndex();
+				int selectionIndex = tableViewer.getTable().getSelectionIndex();
 				CONFIG_RESULT_PAIR_LIST.remove(selectionIndex);
 				
-				listViewer.refresh();
+				tableViewer.refresh();
 			}
 		});
 		
@@ -233,15 +232,34 @@ public class ScenarioPart {
 		startButton.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
+				
+				TableItem[] tableItems = tableViewer.getTable().getItems();
 				new Thread(() ->  {
-					for (ConfigResultPair pair : CONFIG_RESULT_PAIR_LIST) {
+					for (TableItem tableItem : tableItems) {
 						try {
+							Object dataObject = tableItem.getData();
+							if (dataObject instanceof ConfigResultPair) {
 							
-							Config config = pair.getConfig();
-							Response response = new RemoteConnection().sendNewRequest(config);
+								// At this point we have a reference to ConfigResultPair instance
+								// which is also stored in CONFIG_RESULT_PAIR_LIST
+								ConfigResultPair pair = (ConfigResultPair) dataObject;
+								
+								// Doing HTTP request
+								Config config = pair.getConfig();
+								Response response = new RemoteConnection().sendNewRequest(config);
+								
+								// Updating response (will also affect entry in CONFIG_RESULT_PAIR_LIST,
+								// because we referencing exactly THAT object stored in list.
+								pair.setResponse(response);
+								
+								ExpectedResult expectedResult = config.getExpectedResult();
 							
-							pair.setResponse(response);
-							
+								if (isExpectationMatch(expectedResult, response)) {
+									display.asyncExec(() -> tableItem.setForeground(display.getSystemColor(SWT.COLOR_DARK_GREEN)));
+								} else {
+									display.asyncExec(() -> tableItem.setForeground(display.getSystemColor(SWT.COLOR_DARK_RED)));
+								}
+							}
 						} catch (IllegalArgumentException | IOException e) { e.printStackTrace(); }
 					}
 				}).start();
@@ -280,6 +298,32 @@ public class ScenarioPart {
 //	    }
     }
 	
+	/**
+	 * Helper method that checks if expectations meet response or not.
+	 * 
+	 * @param expectedResult result to be expected.
+	 * @param response real result.
+	 * @return true if was expected otherwise false.
+	 */
+	private boolean isExpectationMatch(ExpectedResult expectedResult, Response response) {
+		
+		if (expectedResult == null || response == null) return false;
+		
+		boolean isStatusCodeMatch = expectedResult.getResponseCode().equals(response.getResponseCode());
+		boolean isContentTypeMatch = expectedResult.getResponseContentType().equals(response.getResponseContentType());
+		boolean isBodyMatch = expectedResult.getResponseBody().equals(response.getResponseBody());
+		
+		return isStatusCodeMatch && isContentTypeMatch && isBodyMatch;
+	}
+	
+	/**
+	 * Helper method that adds a config entry to the list view.
+	 * 
+	 * @param filePath path to the config file.
+	 * @param resultStatusCode expected result status code value for the config file.
+	 * @param resultContentType expected result content type value for the config file.
+	 * @param resultBody expected result body value for the config file.
+	 */
 	private void addConfigToScenario(String filePath, StatusCode resultStatusCode, ContentType resultContentType, String resultBody) {
 		try {
 			
