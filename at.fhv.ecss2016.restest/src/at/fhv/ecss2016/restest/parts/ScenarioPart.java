@@ -37,8 +37,10 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
@@ -55,6 +57,7 @@ import at.fhv.ecss2016.restest.model.Response;
 import at.fhv.ecss2016.restest.model.Scenario;
 import at.fhv.ecss2016.restest.model.StatusCode;
 import at.fhv.ecss2016.restest.util.BindHelper;
+import at.fhv.ecss2016.restest.util.FileDialogHelper;
 import at.fhv.ecss2016.restest.util.StringConstants;
 
 /**
@@ -70,6 +73,9 @@ public class ScenarioPart {
 	private static final String SCENARIO_FILE_ATTRIBUTE = "SCENARIO_FILE_ATTRIBUTE";
 	private static final String CONFIG_RESULT_PAIRS_ATTRIBUTE = "CONFIG_RESULT_PAIRS_ATTRIBUTE";
 	
+	private static final String FILE_DIALOG_TITLE = "Save scenario?";
+	private static final String DEFAULT_ERROR_MESSAGE = "Error occurred while saving scenario file.";
+	
 	private static final int ELEMENT_VERTICAL_SPACING = 5;
 	private static final int ELEMENT_HORISONTAL_SPACING = 15;
 	
@@ -82,6 +88,8 @@ public class ScenarioPart {
 	
 	private static final List<ConfigResultPair> CONFIG_RESULT_PAIR_LIST = new LinkedList<>();
 
+	private Scenario _currentScenario;
+	
 	@Inject
 	private MDirtyable _dirty;
 	
@@ -317,12 +325,25 @@ public class ScenarioPart {
 				}).start();
 			}
 		});
+		
+//TODO add listener to collection
+//		text(SWT.Modify).observe(tableViewer).addValueChangeListener(new IValueChangeListener() {
+//			@Override
+//			public void handleValueChange(ValueChangeEvent event) {
+//				Config config = getCurrentOrDefaultConfig();
+//				config.setName(nameText.getText());
+//				
+//				_dirty.setDirty(true);
+//			}
+//		});
 	}
 	
 	@Inject
 	@Optional
 	private void setModel(@Named(IServiceConstants.ACTIVE_SELECTION) Scenario scenario) {
-		if (scenario != null) {			
+		if (scenario != null) {
+			_currentScenario = scenario;
+			
 			// Set new values for the map entries from a model object
 			BIND_HELPER.updateAttributeValue(SCENARIO_FILE_ATTRIBUTE, scenario.getScenariosFile());
 			BIND_HELPER.updateAttributeValue(CONFIG_RESULT_PAIRS_ATTRIBUTE, scenario.getConfigResultPairs());
@@ -335,15 +356,45 @@ public class ScenarioPart {
 	}
 	
 	@Persist
-	private void save() {
-//	    try {
-    	
-		    // Save the content
-//		    new JsonProvider().serialize(filePath, object);
-			_dirty.setDirty(false);
+	private void save(Shell parentShell) {
+	    try {
+	    	
+			FileDialog fileDialog = FileDialogHelper.getFileDialog(
+				FILE_DIALOG_TITLE,
+				FileDialogHelper.FILTER_NAMES_SCENARIO,
+				FileDialogHelper.FILTER_EXTS_SCENARIO,
+				parentShell,
+				SWT.SAVE
+			);
+				
+			String filePath = fileDialog.open();
+			if (filePath != null && !filePath.isEmpty()) {
+			    // Save the content
+			    new JsonProvider().serialize(filePath, getCurrentOrDefaultScenario());
+				_dirty.setDirty(false);
+			}
 
-//	    } catch (IOException e) { e.printStackTrace(); }
+	    } catch (IOException e) { 
+			MessageBox messageBox = new MessageBox(parentShell, SWT.ICON_ERROR);
+			messageBox.setMessage(DEFAULT_ERROR_MESSAGE);
+			messageBox.open();
+			
+			e.printStackTrace();
+	    }
     }
+	
+	/**
+	 * Virtual getter for current scenario.
+	 * 
+	 * @return current instance or default (empty) instance.
+	 */
+	private Scenario getCurrentOrDefaultScenario() {
+		if (_currentScenario == null) {
+			_currentScenario = ModelFactory.eINSTANCE.createScenario();
+		}
+		
+		return _currentScenario;
+	}
 	
 	/**
 	 * Helper method that checks if expectations meet response or not.
