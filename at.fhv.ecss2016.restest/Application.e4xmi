@@ -60,7 +60,7 @@
     <parameters xmi:id="_96nPQCGaEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.commandparameter.perspectivestack.perspective.id" name="perspective id"/>
   </commands>
   <commands xmi:id="_6uj5QCG2Eea-JavvrGpDJg" elementId="at.fhv.ecss2016.restest.command.save" commandName="Save"/>
-  <commands xmi:id="_-jsXwCG2Eea-JavvrGpDJg" elementId="at.fhv.ecss2016.restest.command..config.load" commandName="Load config"/>
+  <commands xmi:id="_-jsXwCG2Eea-JavvrGpDJg" elementId="at.fhv.ecss2016.restest.command.config.load" commandName="Load config"/>
   <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>

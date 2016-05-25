@@ -13,13 +13,13 @@ import org.eclipse.swt.widgets.Shell;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import at.fhv.ecss2016.restest.controller.JsonProvider;
-import at.fhv.ecss2016.restest.controller.util.ConfigMapper;
-import at.fhv.ecss2016.restest.model.Config;
+import at.fhv.ecss2016.restest.controller.util.ScenarioMapper;
+import at.fhv.ecss2016.restest.model.Scenario;
 
-public class LoadConfigHandler {
+public class LoadScenarioHandler {
 	
-	private static final String FILE_DIALOG_TITLE = "Load config";
-	private static final String DEFAULT_LOAD_MESSAGE = "Config was loaded.";
+	private static final String FILE_DIALOG_TITLE = "Load scenario";
+	private static final String DEFAULT_LOAD_MESSAGE = "Scenario was loaded.";
 
 	@Inject
 	private ESelectionService _selectionService;
@@ -32,12 +32,13 @@ public class LoadConfigHandler {
 		
 		String filePath = fileDialog.open();
 		if (filePath != null && !filePath.isEmpty()) {
-			Config config = new JsonProvider().deserialize(filePath, new ConfigMapper());
-			_selectionService.setSelection(config);
+			Scenario scenario = new JsonProvider().deserialize(filePath, new ScenarioMapper());
+			_selectionService.setSelection(scenario);
 			
 			MessageBox messageBox = new MessageBox(parentshell);
 			messageBox.setMessage(DEFAULT_LOAD_MESSAGE);
 			messageBox.open();
 		}
-	}	
+	}
 }
+

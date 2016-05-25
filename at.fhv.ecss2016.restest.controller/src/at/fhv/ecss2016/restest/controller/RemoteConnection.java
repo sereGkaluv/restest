@@ -15,6 +15,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+import at.fhv.ecss2016.restest.model.Config;
 import at.fhv.ecss2016.restest.model.ModelFactory;
 import at.fhv.ecss2016.restest.model.Response;
 import at.fhv.ecss2016.restest.model.StatusCode;
@@ -33,15 +34,64 @@ public class RemoteConnection {
 	}
 	
 	/**
+	 * Sends HTTP request using given config.
+	 * 
+	 * @param config config that defines the HTTP request parameters.
+	 * @return instance of {@code Response}, containing response information for produced request.
+	 * @throws IllegalArgumentException
+	 * @throws IOException
+	 */
+	public Response sendNewRequest(Config config)
+	throws IllegalArgumentException, IOException {
+		
+		if (config != null && config.getVerb() != null) {
+			switch (config.getVerb()) {
+				case GET: {
+					return sendGetRequest(
+						config.getRequestURL(),
+						config.getContentType()
+					);
+				}
+				
+				case POST: {
+					return sendPostRequest(
+						config.getRequestURL(),
+						config.getContentType(),
+						config.getRequestBody()
+					);
+				}
+				
+				case PUT: {
+					return sendPutRequest(
+						config.getRequestURL(),
+						config.getContentType(),
+						config.getRequestBody()
+					);
+				}
+				
+				case DELETE: {
+					return sendDeleteRequest(
+						config.getRequestURL(),
+						config.getContentType()
+					);
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
 	 * Sends HTTP GET request using given parameters.
 	 * 
 	 * @param uri where request will be send.
 	 * @param contentType type of the content if available
 	 * @return instance of {@code Response}, containing response information for produced request.
+	 * @throws IllegalArgumentException
 	 * @throws IOException
 	 */
 	public Response sendGetRequest(String uri, at.fhv.ecss2016.restest.model.ContentType contentType)
-	throws IOException {
+	throws IllegalArgumentException, IOException {
 		
 		// Assembling request
 		HttpGet requestBase = new HttpGet(uri);
@@ -54,12 +104,13 @@ public class RemoteConnection {
 	 * 
 	 * @param uri where request will be send.
 	 * @param contentType type of the content if available.
-	 * @body body (content) of the request.
+	 * @param body (content) of the request.
 	 * @return instance of {@code Response}, containing response information for produced request.
+	 * @throws IllegalArgumentException
 	 * @throws IOException
 	 */
 	public Response sendPostRequest(String uri, at.fhv.ecss2016.restest.model.ContentType contentType, String body)
-	throws IOException {
+	throws IllegalArgumentException, IOException  {
 		
 		// Assembling request
 		HttpPost requestBase = new HttpPost(uri);
@@ -75,12 +126,13 @@ public class RemoteConnection {
 	 * 
 	 * @param uri where request will be send.
 	 * @param contentType type of the content if available.
-	 * @body body (content) of the request.
+	 * @param body (content) of the request.
 	 * @return instance of {@code Response}, containing response information for produced request.
+	 * @throws IllegalArgumentException
 	 * @throws IOException
 	 */
 	public Response sendPutRequest(String uri, at.fhv.ecss2016.restest.model.ContentType contentType, String body)
-	throws IOException {
+	throws IllegalArgumentException, IOException {
 		
 		// Assembling request
 		HttpPut requestBase = new HttpPut(uri);
@@ -97,10 +149,11 @@ public class RemoteConnection {
 	 * @param uri where request will be send.
 	 * @param contentType type of the content if available.
 	 * @return instance of {@code Response}, containing response information for produced request.
+	 * @throws IllegalArgumentException
 	 * @throws IOException
 	 */
 	public Response sendDeleteRequest(String uri, at.fhv.ecss2016.restest.model.ContentType contentType)
-	throws IOException {
+	throws IllegalArgumentException, IOException {
 		
 		// Assembling request
 		HttpDelete requestBase = new HttpDelete(uri);

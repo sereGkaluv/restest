@@ -6,21 +6,26 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import at.fhv.ecss2016.restest.model.Config;
 import at.fhv.ecss2016.restest.model.ContentType;
+import at.fhv.ecss2016.restest.model.ExpectedResult;
 import at.fhv.ecss2016.restest.model.HttpVerb;
 import at.fhv.ecss2016.restest.model.ModelFactory;
-import at.fhv.ecss2016.restest.model.Response;
 
 public class ConfigMapper implements Function<JsonNode, Config> {
 	
+	private static final String NAME = "name";
 	private static final String REQUEST_URL = "requestURL";
 	private static final String VERB = "verb";
 	private static final String CONTENT_TYPE = "contentType";
 	private static final String REQUEST_BODY = "requestBody";
-	private static final String RESPONSE = "response";
+	private static final String EXPECTED_RESULT= "expectedResult";
 	
 	@Override
 	public Config apply(JsonNode jsonNode) {
+		
 		Config config = ModelFactory.eINSTANCE.createConfig();
+		
+		JsonNode name = jsonNode.get(NAME);
+		if (isNonNullValueNode(name)) config.setName(name.asText());
 		
 		JsonNode requestURL = jsonNode.get(REQUEST_URL);
 		if (isNonNullValueNode(requestURL)) config.setRequestURL(requestURL.asText());
@@ -34,13 +39,12 @@ public class ConfigMapper implements Function<JsonNode, Config> {
 		JsonNode requestBody = jsonNode.get(REQUEST_BODY);
 		if (isNonNullValueNode(requestBody)) config.setRequestBody(requestBody.asText());
 		
-		JsonNode responseNode = jsonNode.get(RESPONSE);
-		if (isNonNullContainerNode(responseNode)) {
-			if (responseNode.isArray()) {
-					Response response = new ResponseMapper().apply(responseNode);
-					config.setResponse(response);
-			}
+		JsonNode expectedResultNode = jsonNode.get(EXPECTED_RESULT);
+		if (isNonNullContainerNode(expectedResultNode) && expectedResultNode.isArray()) {
+			ExpectedResult expectedResult = new ExpectedResultMapper().apply(expectedResultNode);
+			config.setExpectedResult(expectedResult);
 		}
+		
 		return config;
 	}
 	

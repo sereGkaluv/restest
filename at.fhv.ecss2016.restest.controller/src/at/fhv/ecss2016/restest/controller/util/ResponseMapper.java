@@ -18,6 +18,7 @@ public class ResponseMapper implements Function<JsonNode, Response> {
 	
 	@Override
 	public Response apply(JsonNode jsonNode) {
+		
 		Response response = ModelFactoryImpl.eINSTANCE.createResponse();
 		
 		JsonNode responseCode = jsonNode.get(RESPONSE_CODE);
@@ -38,5 +39,4 @@ public class ResponseMapper implements Function<JsonNode, Response> {
 	private boolean isNonNullValueNode(JsonNode jsonNode) {
 		return jsonNode != null && jsonNode.isValueNode();
 	}
-	
 }

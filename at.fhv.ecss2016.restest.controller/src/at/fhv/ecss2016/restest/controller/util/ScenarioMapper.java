@@ -16,6 +16,7 @@ public class ScenarioMapper implements Function<JsonNode, Scenario>{
 	
 	@Override
 	public Scenario apply(JsonNode jsonNode) {
+		
 		Scenario scenario = ModelFactory.eINSTANCE.createScenario();
 		
 		JsonNode scenariosFile = jsonNode.get(SCENARIOS_FILE);
@@ -23,12 +24,10 @@ public class ScenarioMapper implements Function<JsonNode, Scenario>{
 		
 		JsonNode configResultPairs = jsonNode.get(CONFIG_RESULT_PAIRS);
 		List<ConfigResultPair> configResultPairsList = scenario.getConfigResultPairs();
-		if (isNonNullContainerNode(configResultPairs)) {
-			if (configResultPairs.isArray()) {
-				for (JsonNode pairNode : configResultPairs) {
-					ConfigResultPair configResultPair = new ConfigResultPairMapper().apply(pairNode);
-					configResultPairsList.add(configResultPair);
-				}
+		if (isNonNullContainerNode(configResultPairs) && configResultPairs.isArray()) {
+			for (JsonNode pairNode : configResultPairs) {
+				ConfigResultPair configResultPair = new ConfigResultPairMapper().apply(pairNode);
+				configResultPairsList.add(configResultPair);
 			}
 		}
 		

@@ -60,53 +60,48 @@ public class ResponsePart {
 		
 		// If we received a response
 		if (response != null) {
-			
-			// Starting async task so GUI will not freeze //TODO update ui
-			display.syncExec(() -> {
+			if (CONTENT_TYPE_JSON.equals(response.getResponseContentType().getLiteral())) {
 				
-				if (CONTENT_TYPE_JSON.equals(response.getResponseContentType())) {
-					
-					// Displaying JSON response
-					Tree tree = new Tree(parent, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
-					tree.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
-		
-					TreeItem treeRoot = new TreeItem(tree, SWT.NONE);
-					treeRoot.setText(ROOT_ELEMENT + KEY_VALUE_DELIMITER + ARRAY_PLACEHOLDER);
+				// Displaying JSON response
+				Tree tree = new Tree(parent, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+				tree.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
+	
+				TreeItem treeRoot = new TreeItem(tree, SWT.NONE);
+				treeRoot.setText(ROOT_ELEMENT + KEY_VALUE_DELIMITER + ARRAY_PLACEHOLDER);
 
-					try {
-						
-						// Getting iterator for the JSON tree
-						Iterator<Entry<String, JsonNode>> jsonTreeIterator = JSON_PROVIDER.readJSON(response.getResponseBody());
-						
-						// Displaying JSON tree as a root of {@code treeRoot}
-						displayJsonTree(treeRoot, jsonTreeIterator);
-						
-					} catch (Exception e) { e.printStackTrace(); }
-				
-				} else {
+				try {
 					
-					// Displaying not a JSON response
-					StyledText styledText = new StyledText(parent, SWT.BORDER | SWT.V_SCROLL | SWT.WRAP);
-					styledText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
-					styledText.setText(response.getResponseBody());
-				}
+					// Getting iterator for the JSON tree
+					Iterator<Entry<String, JsonNode>> jsonTreeIterator = JSON_PROVIDER.readUnknownJSON(response.getResponseBody());
+					
+					// Displaying JSON tree as a root of {@code treeRoot}
+					displayJsonTree(treeRoot, jsonTreeIterator);
+					
+				} catch (Exception e) { e.printStackTrace(); }
+			
+			} else {
 				
-				// Showing additional information
-				Label contentTypeLabel = new Label(parent, SWT.NONE);
-				contentTypeLabel.setText("Content-Type:");
-				contentTypeLabel.setFont(defaultFont);
-				
-				Label contentTypeValueLabel = new Label(parent, SWT.NONE);
-				contentTypeValueLabel.setText(response.getResponseContentType().getLiteral());
-				
-				Label responseCodeLabel = new Label(parent, SWT.NONE);
-				responseCodeLabel.setText("Response code:");
-				responseCodeLabel.setFont(defaultFont);
-				
-				Label responseCodeValueLabel = new Label(parent, SWT.NONE);
-				int responseCode = response.getResponseCode().getValue();
-				responseCodeValueLabel.setText(String.valueOf(responseCode));
-			});
+				// Displaying not a JSON response
+				StyledText styledText = new StyledText(parent, SWT.BORDER | SWT.V_SCROLL | SWT.WRAP);
+				styledText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
+				styledText.setText(response.getResponseBody());
+			}
+			
+			// Showing additional information
+			Label contentTypeLabel = new Label(parent, SWT.NONE);
+			contentTypeLabel.setText("Content-Type:");
+			contentTypeLabel.setFont(defaultFont);
+			
+			Label contentTypeValueLabel = new Label(parent, SWT.NONE);
+			contentTypeValueLabel.setText(response.getResponseContentType().getLiteral());
+			
+			Label responseCodeLabel = new Label(parent, SWT.NONE);
+			responseCodeLabel.setText("Response code:");
+			responseCodeLabel.setFont(defaultFont);
+			
+			Label responseCodeValueLabel = new Label(parent, SWT.NONE);
+			int responseCode = response.getResponseCode().getValue();
+			responseCodeValueLabel.setText(String.valueOf(responseCode));
 		}
 	}
 	

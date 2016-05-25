@@ -159,7 +159,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConfig_RequestURL() {
+	public EAttribute getConfig_Name() {
 		return (EAttribute)configEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -168,7 +168,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConfig_Verb() {
+	public EAttribute getConfig_RequestURL() {
 		return (EAttribute)configEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -177,7 +177,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConfig_ContentType() {
+	public EAttribute getConfig_Verb() {
 		return (EAttribute)configEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -186,7 +186,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConfig_RequestBody() {
+	public EAttribute getConfig_ContentType() {
 		return (EAttribute)configEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -195,8 +195,17 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConfig_Response() {
-		return (EReference)configEClass.getEStructuralFeatures().get(4);
+	public EAttribute getConfig_RequestBody() {
+		return (EAttribute)configEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConfig_ExpectedResult() {
+		return (EReference)configEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -390,11 +399,12 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		// Create classes and their features
 		configEClass = createEClass(CONFIG);
+		createEAttribute(configEClass, CONFIG__NAME);
 		createEAttribute(configEClass, CONFIG__REQUEST_URL);
 		createEAttribute(configEClass, CONFIG__VERB);
 		createEAttribute(configEClass, CONFIG__CONTENT_TYPE);
 		createEAttribute(configEClass, CONFIG__REQUEST_BODY);
-		createEReference(configEClass, CONFIG__RESPONSE);
+		createEReference(configEClass, CONFIG__EXPECTED_RESULT);
 
 		scenarioEClass = createEClass(SCENARIO);
 		createEAttribute(scenarioEClass, SCENARIO__SCENARIOS_FILE);
@@ -452,11 +462,12 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(configEClass, Config.class, "Config", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getConfig_Name(), ecorePackage.getEString(), "name", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConfig_RequestURL(), ecorePackage.getEString(), "requestURL", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConfig_Verb(), this.getHttpVerb(), "verb", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConfig_ContentType(), this.getContentType(), "contentType", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConfig_RequestBody(), ecorePackage.getEString(), "requestBody", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getConfig_Response(), this.getResponse(), null, "response", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConfig_ExpectedResult(), this.getExpectedResult(), null, "expectedResult", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(scenarioEClass, Scenario.class, "Scenario", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getScenario_ScenariosFile(), ecorePackage.getEString(), "scenariosFile", null, 0, 1, Scenario.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

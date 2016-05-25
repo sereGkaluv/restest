@@ -20,7 +20,10 @@ Require-Bundle: javax.inject;bundle-version="0.0.0",
  org.eclipse.emf.edit,
  at.fhv.ecss2016.restest.controller;bundle-version="1.0.0",
  at.fhv.ecss2016.restest.model,
- org.eclipse.emf.edit.ui;bundle-version="2.11.1"
+ org.eclipse.emf.edit.ui;bundle-version="2.11.1",
+ org.eclipse.core.databinding;bundle-version="1.5.0",
+ org.eclipse.core.databinding.property;bundle-version="1.5.0",
+ org.eclipse.jface.databinding;bundle-version="1.7.0"
 Import-Package: javax.annotation;version="1.0.0";resolution:=optional,
  javax.inject;version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

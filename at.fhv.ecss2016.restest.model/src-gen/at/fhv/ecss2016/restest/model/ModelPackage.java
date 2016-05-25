@@ -68,13 +68,22 @@ public interface ModelPackage extends EPackage {
 	int CONFIG = 0;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONFIG__NAME = 0;
+
+	/**
 	 * The feature id for the '<em><b>Request URL</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONFIG__REQUEST_URL = 0;
+	int CONFIG__REQUEST_URL = 1;
 
 	/**
 	 * The feature id for the '<em><b>Verb</b></em>' attribute.
@@ -83,7 +92,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONFIG__VERB = 1;
+	int CONFIG__VERB = 2;
 
 	/**
 	 * The feature id for the '<em><b>Content Type</b></em>' attribute.
@@ -92,7 +101,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONFIG__CONTENT_TYPE = 2;
+	int CONFIG__CONTENT_TYPE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Request Body</b></em>' attribute.
@@ -101,16 +110,16 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONFIG__REQUEST_BODY = 3;
+	int CONFIG__REQUEST_BODY = 4;
 
 	/**
-	 * The feature id for the '<em><b>Response</b></em>' reference.
+	 * The feature id for the '<em><b>Expected Result</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONFIG__RESPONSE = 4;
+	int CONFIG__EXPECTED_RESULT = 5;
 
 	/**
 	 * The number of structural features of the '<em>Config</em>' class.
@@ -119,7 +128,7 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONFIG_FEATURE_COUNT = 5;
+	int CONFIG_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Config</em>' class.
@@ -383,6 +392,17 @@ public interface ModelPackage extends EPackage {
 	EClass getConfig();
 
 	/**
+	 * Returns the meta object for the attribute '{@link at.fhv.ecss2016.restest.model.Config#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see at.fhv.ecss2016.restest.model.Config#getName()
+	 * @see #getConfig()
+	 * @generated
+	 */
+	EAttribute getConfig_Name();
+
+	/**
 	 * Returns the meta object for the attribute '{@link at.fhv.ecss2016.restest.model.Config#getRequestURL <em>Request URL</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -427,15 +447,15 @@ public interface ModelPackage extends EPackage {
 	EAttribute getConfig_RequestBody();
 
 	/**
-	 * Returns the meta object for the reference '{@link at.fhv.ecss2016.restest.model.Config#getResponse <em>Response</em>}'.
+	 * Returns the meta object for the reference '{@link at.fhv.ecss2016.restest.model.Config#getExpectedResult <em>Expected Result</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Response</em>'.
-	 * @see at.fhv.ecss2016.restest.model.Config#getResponse()
+	 * @return the meta object for the reference '<em>Expected Result</em>'.
+	 * @see at.fhv.ecss2016.restest.model.Config#getExpectedResult()
 	 * @see #getConfig()
 	 * @generated
 	 */
-	EReference getConfig_Response();
+	EReference getConfig_ExpectedResult();
 
 	/**
 	 * Returns the meta object for class '{@link at.fhv.ecss2016.restest.model.Scenario <em>Scenario</em>}'.
@@ -662,6 +682,14 @@ public interface ModelPackage extends EPackage {
 		EClass CONFIG = eINSTANCE.getConfig();
 
 		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONFIG__NAME = eINSTANCE.getConfig_Name();
+
+		/**
 		 * The meta object literal for the '<em><b>Request URL</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -694,12 +722,12 @@ public interface ModelPackage extends EPackage {
 		EAttribute CONFIG__REQUEST_BODY = eINSTANCE.getConfig_RequestBody();
 
 		/**
-		 * The meta object literal for the '<em><b>Response</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Expected Result</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONFIG__RESPONSE = eINSTANCE.getConfig_Response();
+		EReference CONFIG__EXPECTED_RESULT = eINSTANCE.getConfig_ExpectedResult();
 
 		/**
 		 * The meta object literal for the '{@link at.fhv.ecss2016.restest.model.impl.ScenarioImpl <em>Scenario</em>}' class.

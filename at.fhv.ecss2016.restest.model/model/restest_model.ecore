@@ -2,11 +2,12 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="model" nsURI="http://at.fhv.ecss2016.restest/model" nsPrefix="restestModel">
   <eClassifiers xsi:type="ecore:EClass" name="Config">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="requestURL" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="verb" eType="#//HttpVerb"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="contentType" eType="#//ContentType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="requestBody" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="response" eType="#//Response"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expectedResult" eType="#//ExpectedResult"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Scenario">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="scenariosFile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

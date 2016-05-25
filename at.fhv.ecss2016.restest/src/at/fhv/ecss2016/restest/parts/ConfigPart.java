@@ -39,6 +39,7 @@ import at.fhv.ecss2016.restest.controller.RemoteConnection;
 import at.fhv.ecss2016.restest.model.Config;
 import at.fhv.ecss2016.restest.model.ContentType;
 import at.fhv.ecss2016.restest.model.HttpVerb;
+import at.fhv.ecss2016.restest.model.ModelFactory;
 import at.fhv.ecss2016.restest.model.Response;
 import at.fhv.ecss2016.restest.util.BindHelper;
 import at.fhv.ecss2016.restest.util.StringConstants;
@@ -63,15 +64,17 @@ public class ConfigPart {
 	
 	private static final BindHelper BIND_HELPER = new BindHelper();
 	
+	private Response _response;
+	
 	@Inject
-	public MDirtyable _dirty;
+	private MDirtyable _dirty;
 	
 	@Inject
 	public ConfigPart() {
 	}
 	
 	@PostConstruct
-	public void postConstruct(Display display, Composite parent, EMenuService menuService, EPartService partService, EModelService modelService, MPerspective perspective) {
+	private void postConstruct(Display display, Composite parent, EMenuService menuService, EPartService partService, EModelService modelService, MPerspective perspective) {
 		
 		// Setting parent layout
 		GridLayout gridLayout = new GridLayout(2, false);
@@ -147,26 +150,35 @@ public class ConfigPart {
 		sendButton.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {				
-				display.asyncExec(() ->  {
-					// Reading data from UI
-					String uri = urlText.getText();
-					
-					IStructuredSelection vSelection = (IStructuredSelection) verbCombo.getSelection();
-					HttpVerb httpVerb = (vSelection != null && !vSelection.isEmpty()) ? (HttpVerb) vSelection.getFirstElement() : null;
-	
-					IStructuredSelection cSelection = (IStructuredSelection) contentTypeCombo.getSelection();
-					ContentType contentType = (cSelection != null && !cSelection.isEmpty()) ? (ContentType) cSelection.getFirstElement() : null;
-					
-					String body = contentBodyText.getText();
-					
+				
+				// Reading data from UI
+				String uri = urlText.getText();
+				
+				IStructuredSelection vSelection = (IStructuredSelection) verbCombo.getSelection();
+				HttpVerb httpVerb = (vSelection != null && !vSelection.isEmpty()) ? (HttpVerb) vSelection.getFirstElement() : null;
+
+				IStructuredSelection cSelection = (IStructuredSelection) contentTypeCombo.getSelection();
+				ContentType contentType = (cSelection != null && !cSelection.isEmpty()) ? (ContentType) cSelection.getFirstElement() : null;
+				
+				String body = contentBodyText.getText();
+				
+
+				
+				// Sending request
+				new Thread(() ->  {	
 					try {
+						// Assembling data to Config
+						Config config = ModelFactory.eINSTANCE.createConfig();
+						config.setRequestURL(uri);
+						config.setVerb(httpVerb);
+						config.setContentType(contentType);
+						config.setRequestBody(body);
 						
-						// Sending request
-						Response response = sendNewRequest(uri, httpVerb, contentType, body);
-						openResponsePerspective(response, perspective, partService, modelService);
+						_response = new RemoteConnection().sendNewRequest(config);
+						openResponsePerspective(_response, perspective, partService, modelService, display);
 						
 					} catch (IllegalArgumentException | IOException e) { e.printStackTrace(); }
-				});
+				}).start();
 			}
 		});
 	}
@@ -191,45 +203,13 @@ public class ConfigPart {
 	@Persist
 	private void save() {
 //	    try {
-//	    	
-//	    	Resource resource = new ResourceSetImpl().createResource(URI.createURI("todoList/myList"));
-//		    resource.getContents().addAll(_uiEntries);
-//	
-//		    // Save the content
-//		    resource.save(Collections.EMPTY_MAP);
-//			_dirty.setDirty(false);
-//
-//	    } catch (IOException e) {
-//	    	e.printStackTrace();
-//	    }
+	    	
+		    // Save the content
+//		    new JsonProvider().serialize(filePath, object);
+			_dirty.setDirty(false);
+
+//	    } catch (IOException e) { e.printStackTrace(); }
     }
-	
-	/**
-	 * Helper method that sends HTTP request.
-	 * 
-	 * @param uri where request will be send.
-	 * @param httpVerb request method.
-	 * @param contentType type of the content if available
-	 * @param body (content) of the request.
-	 * @return instance of {@code Response}, containing response information for produced request.
-	 * @throws IllegalArgumentException
-	 * @throws IOException
-	 */
-	private Response sendNewRequest(String url, HttpVerb httpVerb, ContentType contentType, String body)
-	throws IllegalArgumentException, IOException {
-		RemoteConnection remoteConnection = new RemoteConnection();
-		
-		if (httpVerb != null) {
-			switch (httpVerb) {
-				case GET: return remoteConnection.sendGetRequest(url, contentType);
-				case POST: return remoteConnection.sendPostRequest(url, contentType, body);
-				case PUT: return remoteConnection.sendPutRequest(url, contentType, body);
-				case DELETE: return remoteConnection.sendDeleteRequest(url, contentType);
-			}
-		}
-		
-		return null;
-	}
 	
 	/**
 	 * Helper method that opens response perspective.
@@ -238,8 +218,9 @@ public class ConfigPart {
 	 * @param perspective current perspective.
 	 * @param partService service for part management.
 	 * @param modelService service for fetching elements by id.
+	 * @param display current display.
 	 */
-	private void openResponsePerspective(Response response, MPerspective perspective, EPartService partService, EModelService modelService) {
+	private void openResponsePerspective(Response response, MPerspective perspective, EPartService partService, EModelService modelService, Display display) {
 		
 		// Forwarding response to the response part
 		perspective.getContext().set(
@@ -248,11 +229,13 @@ public class ConfigPart {
 		);
 		
 		// Opening response part
-		MPart editPart = partService.createPart(CREATABLE_PART_ID);
-		
-		MPartStack partStack = (MPartStack) modelService.find(RIGHT_PART_STACK_ID, perspective);
-		partStack.getChildren().add(editPart);
-		
-		partService.showPart(editPart, PartState.ACTIVATE);
+		display.asyncExec(() -> {
+			MPart editPart = partService.createPart(CREATABLE_PART_ID);
+			
+			MPartStack partStack = (MPartStack) modelService.find(RIGHT_PART_STACK_ID, perspective);
+			partStack.getChildren().add(editPart);
+			
+			partService.showPart(editPart, PartState.ACTIVATE);
+		});
 	}
 }

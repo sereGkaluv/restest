@@ -60,13 +60,36 @@ public class ConfigItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addNamePropertyDescriptor(object);
 			addRequestURLPropertyDescriptor(object);
 			addVerbPropertyDescriptor(object);
 			addContentTypePropertyDescriptor(object);
 			addRequestBodyPropertyDescriptor(object);
-			addResponsePropertyDescriptor(object);
+			addExpectedResultPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Config_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Config_name_feature", "_UI_Config_type"),
+				 ModelPackage.Literals.CONFIG__NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -158,19 +181,19 @@ public class ConfigItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Response feature.
+	 * This adds a property descriptor for the Expected Result feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addResponsePropertyDescriptor(Object object) {
+	protected void addExpectedResultPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Config_response_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Config_response_feature", "_UI_Config_type"),
-				 ModelPackage.Literals.CONFIG__RESPONSE,
+				 getString("_UI_Config_expectedResult_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Config_expectedResult_feature", "_UI_Config_type"),
+				 ModelPackage.Literals.CONFIG__EXPECTED_RESULT,
 				 true,
 				 false,
 				 true,
@@ -198,7 +221,7 @@ public class ConfigItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Config)object).getRequestURL();
+		String label = ((Config)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_Config_type") :
 			getString("_UI_Config_type") + " " + label;
@@ -217,6 +240,7 @@ public class ConfigItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Config.class)) {
+			case ModelPackage.CONFIG__NAME:
 			case ModelPackage.CONFIG__REQUEST_URL:
 			case ModelPackage.CONFIG__VERB:
 			case ModelPackage.CONFIG__CONTENT_TYPE:

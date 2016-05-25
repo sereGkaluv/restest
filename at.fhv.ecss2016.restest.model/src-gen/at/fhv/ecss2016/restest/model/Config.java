@@ -13,11 +13,12 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link at.fhv.ecss2016.restest.model.Config#getName <em>Name</em>}</li>
  *   <li>{@link at.fhv.ecss2016.restest.model.Config#getRequestURL <em>Request URL</em>}</li>
  *   <li>{@link at.fhv.ecss2016.restest.model.Config#getVerb <em>Verb</em>}</li>
  *   <li>{@link at.fhv.ecss2016.restest.model.Config#getContentType <em>Content Type</em>}</li>
  *   <li>{@link at.fhv.ecss2016.restest.model.Config#getRequestBody <em>Request Body</em>}</li>
- *   <li>{@link at.fhv.ecss2016.restest.model.Config#getResponse <em>Response</em>}</li>
+ *   <li>{@link at.fhv.ecss2016.restest.model.Config#getExpectedResult <em>Expected Result</em>}</li>
  * </ul>
  *
  * @see at.fhv.ecss2016.restest.model.ModelPackage#getConfig()
@@ -25,6 +26,32 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface Config extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see at.fhv.ecss2016.restest.model.ModelPackage#getConfig_Name()
+	 * @model
+	 * @generated
+	 */
+	String getName();
+
+	/**
+	 * Sets the value of the '{@link at.fhv.ecss2016.restest.model.Config#getName <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * @see #getName()
+	 * @generated
+	 */
+	void setName(String value);
+
 	/**
 	 * Returns the value of the '<em><b>Request URL</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -136,29 +163,29 @@ public interface Config extends EObject {
 	void setRequestBody(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Response</b></em>' reference.
+	 * Returns the value of the '<em><b>Expected Result</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Response</em>' reference isn't clear,
+	 * If the meaning of the '<em>Expected Result</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Response</em>' reference.
-	 * @see #setResponse(Response)
-	 * @see at.fhv.ecss2016.restest.model.ModelPackage#getConfig_Response()
+	 * @return the value of the '<em>Expected Result</em>' reference.
+	 * @see #setExpectedResult(ExpectedResult)
+	 * @see at.fhv.ecss2016.restest.model.ModelPackage#getConfig_ExpectedResult()
 	 * @model
 	 * @generated
 	 */
-	Response getResponse();
+	ExpectedResult getExpectedResult();
 
 	/**
-	 * Sets the value of the '{@link at.fhv.ecss2016.restest.model.Config#getResponse <em>Response</em>}' reference.
+	 * Sets the value of the '{@link at.fhv.ecss2016.restest.model.Config#getExpectedResult <em>Expected Result</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Response</em>' reference.
-	 * @see #getResponse()
+	 * @param value the new value of the '<em>Expected Result</em>' reference.
+	 * @see #getExpectedResult()
 	 * @generated
 	 */
-	void setResponse(Response value);
+	void setExpectedResult(ExpectedResult value);
 
 } // Config

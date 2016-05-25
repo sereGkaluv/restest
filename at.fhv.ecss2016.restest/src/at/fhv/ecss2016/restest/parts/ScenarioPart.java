@@ -1,19 +1,26 @@
 package at.fhv.ecss2016.restest.parts;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.inject.Named;
 
+import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.model.application.ui.MDirtyable;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.services.EMenuService;
+import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
+import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.layout.GridData;
@@ -27,7 +34,18 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import at.fhv.ecss2016.restest.controller.JsonProvider;
+import at.fhv.ecss2016.restest.controller.RemoteConnection;
+import at.fhv.ecss2016.restest.controller.util.ConfigMapper;
+import at.fhv.ecss2016.restest.model.Config;
+import at.fhv.ecss2016.restest.model.ConfigResultPair;
+import at.fhv.ecss2016.restest.model.ContentType;
+import at.fhv.ecss2016.restest.model.ExpectedResult;
+import at.fhv.ecss2016.restest.model.ModelFactory;
+import at.fhv.ecss2016.restest.model.Response;
+import at.fhv.ecss2016.restest.model.Scenario;
+import at.fhv.ecss2016.restest.model.StatusCode;
+import at.fhv.ecss2016.restest.util.BindHelper;
 
 /**
  * ConfigPart UI and logic definition.
@@ -39,22 +57,29 @@ public class ScenarioPart {
 	private static final String CREATABLE_PART_ID = "at.fhv.ecss2016.restest.partdescriptor.response";
 	private static final String RIGHT_PART_STACK_ID = "at.fhv.ecss2016.restest.scenario.partstack.right";
 	
+	private static final String SCENARIO_FILE_ATTRIBUTE = "SCENARIO_FILE_ATTRIBUTE";
+	private static final String CONFIG_RESULT_PAIRS_ATTRIBUTE = "CONFIG_RESULT_PAIRS_ATTRIBUTE";
+	
 	private static final int ELEMENT_VERTICAL_SPACING = 5;
 	private static final int ELEMENT_HORISONTAL_SPACING = 15;
 	
-	private final int _width = 500;
-	private final int _height = 300;
-	private final String _dialogTitle = "Test dialog";
+	private static final int FILE_DIALOG_WIDTH = 500;
+	private static final int FILE_DIALOG_HEIGHT = 300;
+	private static final String FILE_DIALOG_TITLE = "Add new config to scenario?";
 	
+	private static final BindHelper BIND_HELPER = new BindHelper();
+	
+	private static final List<ConfigResultPair> CONFIG_RESULT_PAIR_LIST = new LinkedList<>();
+
 	@Inject
-	public MDirtyable _dirty;
+	private MDirtyable _dirty;
 	
 	@Inject
 	public ScenarioPart() {
 	}
 	
 	@PostConstruct
-	public void postConstruct(Display display, Shell shell, Composite parent, EMenuService menuService, EPartService partService, EModelService modelService, MPerspective perspective) {
+	private void postConstruct(Display display, Shell shell, Composite parent, EMenuService menuService, EPartService partService, EModelService modelService, MPerspective perspective) {
 		
 		// Setting parent layout
 		GridLayout gridLayout = new GridLayout(7, false);
@@ -74,8 +99,9 @@ public class ScenarioPart {
 		scenariosFileLabel.setText("Scenarios file:");
 		scenariosFileLabel.setFont(defaultFont);
 		
-		Text filePath = new Text(parent, SWT.BORDER);
-		filePath.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 6, 1));
+		Text filePathText = new Text(parent, SWT.BORDER);
+		filePathText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 6, 1));
+		BIND_HELPER.bindWidget(SCENARIO_FILE_ATTRIBUTE, filePathText);
 		
 		Label horizontalSeparator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
 		horizontalSeparator.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 7, 1));
@@ -103,55 +129,124 @@ public class ScenarioPart {
 		Button addScenarioButton = new Button(parent, SWT.NONE);
 		addScenarioButton.setText("+");
 		addScenarioButton.setLayoutData(new GridData(SWT.CENTER));
-		addScenarioButton.addListener(SWT.Selection, new Listener(){
-			@Override
-			public void handleEvent(Event event) {
-				
-//				try {
-					// opens new config dialog
-					NewConfigDialog newConfigDialog = new NewConfigDialog(
-						_width,
-						_height,
-						_dialogTitle,
-						shell
-					);
-					
-					int statusCode = newConfigDialog.open();
-					
-					if (statusCode == Window.OK) {
-						newConfigDialog.getConfigName();
-					}
-					
-//				} catch (JsonProcessingException | IOException e) {
-//					e.printStackTrace();
-//				}
-			}
-		});
-		
+
 		Button removeScenarioButton = new Button(parent, SWT.NONE);
 		removeScenarioButton.setText("-");
 		removeScenarioButton.setLayoutData(new GridData(SWT.CENTER));
 		
-		StyledText styledText = new StyledText(parent, SWT.BORDER);
-		styledText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 7, 1));
+		ListViewer listViewer = new ListViewer(parent, SWT.BORDER);
+		listViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 7, 1));
+		listViewer.setContentProvider(new ArrayContentProvider());
+		listViewer.setLabelProvider(new LabelProvider() {
+			@Override
+			public String getText(Object element) {
+				if (element instanceof ConfigResultPair) return ((ConfigResultPair) element).getConfig().getName();
+				else return super.getText(element);
+			}
+		});
+		listViewer.setInput(CONFIG_RESULT_PAIR_LIST);
+		BIND_HELPER.bindViewer(CONFIG_RESULT_PAIRS_ATTRIBUTE, listViewer);
+		
+		// Shift list elements up
+		scenarioUpButton.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				int selectionIndex = listViewer.getList().getSelectionIndex();
+				if (selectionIndex > 0 && selectionIndex < CONFIG_RESULT_PAIR_LIST.size()) {
+					ConfigResultPair selectedConfig = CONFIG_RESULT_PAIR_LIST.remove(selectionIndex);
+					CONFIG_RESULT_PAIR_LIST.add(selectionIndex -1, selectedConfig);
+					listViewer.refresh();
+				}
+			}
+		});
+				
+		// Shift list elements down
+		scenarioDownButton.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				int selectionIndex = listViewer.getList().getSelectionIndex();
+				if (selectionIndex >= 0 && selectionIndex < CONFIG_RESULT_PAIR_LIST.size() - 1) {
+					ConfigResultPair selectedConfig = CONFIG_RESULT_PAIR_LIST.remove(selectionIndex);
+					CONFIG_RESULT_PAIR_LIST.add(selectionIndex +1, selectedConfig);
+					listViewer.refresh();
+				}
+			}
+		});
+		
+		// Add config
+		addScenarioButton.addListener(SWT.Selection, new Listener(){
+			@Override
+			public void handleEvent(Event event) {
+				// opens new config dialog
+				NewConfigDialog newConfigDialog = new NewConfigDialog(
+					FILE_DIALOG_WIDTH,
+					FILE_DIALOG_HEIGHT,
+					FILE_DIALOG_TITLE,
+					shell
+				);
+				
+				int statusCode = newConfigDialog.open();
+				if (statusCode == Window.OK) {
+					new Thread(() -> addConfigToScenario(
+						newConfigDialog.getFilePath(),
+						newConfigDialog.getResultStatusCode(),
+						newConfigDialog.getResultContentType(),
+						newConfigDialog.getResultBodyText()
+					)).start();
+				}
+			}
+		});
+		
+		// Remove config
+		removeScenarioButton.addListener(SWT.MouseDown, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				int selectionIndex = listViewer.getList().getSelectionIndex();
+				CONFIG_RESULT_PAIR_LIST.remove(selectionIndex);
+				
+				listViewer.refresh();
+			}
+		});
 		
 		Button startButton = new Button(parent, SWT.NONE);
 		startButton.setText("Start");
 		startButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, true, false, 7, 1));
-		
 		startButton.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
-				
-				display.asyncExec(() ->  {
-					
-				});
+				new Thread(() ->  {
+					for (ConfigResultPair pair : CONFIG_RESULT_PAIR_LIST) {
+						try {
+							
+							Config config = pair.getConfig();
+							Response response = new RemoteConnection().sendNewRequest(config);
+							
+							pair.setResponse(response);
+							
+						} catch (IllegalArgumentException | IOException e) { e.printStackTrace(); }
+					}
+				}).start();
 			}
 		});
 	}
 	
+	@Inject
+	@Optional
+	private void setModel(@Named(IServiceConstants.ACTIVE_SELECTION) Scenario scenario) {
+		if (scenario != null) {			
+			// Set new values for the map entries from a model object
+			BIND_HELPER.updateAttributeValue(SCENARIO_FILE_ATTRIBUTE, scenario.getScenariosFile());
+			BIND_HELPER.updateAttributeValue(CONFIG_RESULT_PAIRS_ATTRIBUTE, scenario.getConfigResultPairs());
+	    }
+	}
+	
+	@Inject
+	private void setSelection(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) Scenario scenario) {
+		if (scenario != null) setModel(scenario);
+	}
+	
 	@Persist
-	public void save() {
+	private void save() {
 //	    try {
 //	    	
 //	    	Resource resource = new ResourceSetImpl().createResource(URI.createURI("todoList/myList"));
@@ -165,4 +260,23 @@ public class ScenarioPart {
 //	    	e.printStackTrace();
 //	    }
     }
+	
+	private void addConfigToScenario(String filePath, StatusCode resultStatusCode, ContentType resultContentType, String resultBody) {
+		try {
+			
+			ExpectedResult expectedResult = ModelFactory.eINSTANCE.createExpectedResult();
+			expectedResult.setResponseCode(resultStatusCode);
+			expectedResult.setResponseContentType(resultContentType);
+			expectedResult.setResponseBody(resultBody);
+			
+			Config config = new JsonProvider().deserialize(filePath, new ConfigMapper());
+			config.setExpectedResult(expectedResult);
+			
+			ConfigResultPair configResultPair = ModelFactory.eINSTANCE.createConfigResultPair();
+			configResultPair.setConfig(config);
+			
+			CONFIG_RESULT_PAIR_LIST.add(configResultPair);
+			
+		} catch (IOException e) { e.printStackTrace(); }
+	}
 }

@@ -73,11 +73,12 @@
       <genEnumLiterals ecoreEnumLiteral="restest_model.ecore#//StatusCode/INSUFFICIENT_STORAGE"/>
     </genEnums>
     <genClasses ecoreClass="restest_model.ecore#//Config">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Config/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Config/requestURL"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Config/verb"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Config/contentType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Config/requestBody"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference restest_model.ecore#//Config/response"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference restest_model.ecore#//Config/expectedResult"/>
     </genClasses>
     <genClasses ecoreClass="restest_model.ecore#//Scenario">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Scenario/scenariosFile"/>
