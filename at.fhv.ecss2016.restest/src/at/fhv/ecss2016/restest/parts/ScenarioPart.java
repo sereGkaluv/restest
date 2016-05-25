@@ -12,13 +12,19 @@ import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.model.application.ui.MDirtyable;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.services.EMenuService;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
+import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.ListViewer;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
@@ -46,6 +52,7 @@ import at.fhv.ecss2016.restest.model.Response;
 import at.fhv.ecss2016.restest.model.Scenario;
 import at.fhv.ecss2016.restest.model.StatusCode;
 import at.fhv.ecss2016.restest.util.BindHelper;
+import at.fhv.ecss2016.restest.util.StringConstants;
 
 /**
  * ConfigPart UI and logic definition.
@@ -146,6 +153,18 @@ public class ScenarioPart {
 		});
 		listViewer.setInput(CONFIG_RESULT_PAIR_LIST);
 		BIND_HELPER.bindViewer(CONFIG_RESULT_PAIRS_ATTRIBUTE, listViewer);
+		
+		// Double-click list Listener -> opens Response perspective
+		listViewer.addDoubleClickListener(new IDoubleClickListener() {
+			@Override
+			public void doubleClick(DoubleClickEvent event) {
+				StructuredSelection selection = (StructuredSelection) listViewer.getSelection();
+				if (selection != null && !selection.isEmpty()) {
+					ConfigResultPair pair = (ConfigResultPair) selection.getFirstElement();
+					openResponsePerspective(pair.getResponse(), perspective, partService, modelService, display);
+				}
+			}
+		});
 		
 		// Shift list elements up
 		scenarioUpButton.addListener(SWT.Selection, new Listener() {
@@ -278,5 +297,33 @@ public class ScenarioPart {
 			CONFIG_RESULT_PAIR_LIST.add(configResultPair);
 			
 		} catch (IOException e) { e.printStackTrace(); }
+	}
+	
+	/**
+	 * Helper method that opens response perspective.
+	 * 
+	 * @param response response to be displayed in new part.
+	 * @param perspective current perspective.
+	 * @param partService service for part management.
+	 * @param modelService service for fetching elements by id.
+	 * @param display current display.
+	 */
+	private void openResponsePerspective(Response response, MPerspective perspective, EPartService partService, EModelService modelService, Display display) {
+		
+		// Forwarding response to the response part
+		perspective.getContext().set(
+			StringConstants.CONFIG_RESPONSE.getConstant(),
+			response
+		);
+		
+		// Opening response part
+		display.asyncExec(() -> {
+			MPart editPart = partService.createPart(CREATABLE_PART_ID);
+			
+			MPartStack partStack = (MPartStack) modelService.find(RIGHT_PART_STACK_ID, perspective);
+			partStack.getChildren().add(editPart);
+			
+			partService.showPart(editPart, PartState.ACTIVATE);
+		});
 	}
 }
