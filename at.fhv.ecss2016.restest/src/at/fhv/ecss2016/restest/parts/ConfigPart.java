@@ -167,7 +167,7 @@ public class ConfigPart {
 		bodyLabel.setText("Body:");
 		bodyLabel.setFont(defaultFont);
 		
-		Text contentBodyText = new Text(parent, SWT.BORDER);
+		Text contentBodyText = new Text(parent, SWT.BORDER | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		contentBodyText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
 		BIND_HELPER.bindWidget(CONTENT_BODY_ATTRIBUTE, contentBodyText);
 		
@@ -271,7 +271,10 @@ public class ConfigPart {
 	
 	@Inject
 	private void setSelection(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) Config config) {
-		if (config != null) setModel(config);
+		if (config != null) {
+			setModel(config);
+			_dirty.setDirty(false); //Fix for dirty state right after load.
+		}
 	}
 	
 	@Persist

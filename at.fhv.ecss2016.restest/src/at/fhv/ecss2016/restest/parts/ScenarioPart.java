@@ -82,7 +82,7 @@ public class ScenarioPart {
 	private static final int SIZE_HINT = 35;
 	
 	private static final int FILE_DIALOG_WIDTH = 500;
-	private static final int FILE_DIALOG_HEIGHT = 300;
+	private static final int FILE_DIALOG_HEIGHT = 400;
 	
 	private static final BindHelper BIND_HELPER = new BindHelper();
 	
@@ -162,7 +162,7 @@ public class ScenarioPart {
 		removeScenarioButton.setLayoutData(buttonGridData);
 		removeScenarioButton.setText("-");
 		
-		TableViewer tableViewer = new TableViewer(parent, SWT.BORDER);
+		TableViewer tableViewer = new TableViewer(parent, SWT.BORDER | SWT.V_SCROLL);
 		tableViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
 		tableViewer.setContentProvider(new ArrayContentProvider());
 		tableViewer.setLabelProvider(new LabelProvider() {
@@ -352,7 +352,10 @@ public class ScenarioPart {
 	
 	@Inject
 	private void setSelection(@Optional @Named(IServiceConstants.ACTIVE_SELECTION) Scenario scenario) {
-		if (scenario != null) setModel(scenario);
+		if (scenario != null) {
+			setModel(scenario);
+			_dirty.setDirty(false); //Fix for dirty state right after load.
+		}
 	}
 	
 	@Persist

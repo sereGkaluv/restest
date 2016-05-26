@@ -9,7 +9,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.graphics.Font;
@@ -37,7 +36,7 @@ public class NewConfigDialog extends Dialog {
 	private static final String FILE_SELECTOR_TEXT = "Please select a file...";
 			
 	private static final int ELEMENT_VERTICAL_SPACING = 5;
-	private static final int ELEMENT_HORIZONTAL_SPACING = 5;
+	private static final int ELEMENT_HORIZONTAL_SPACING = 15;
 	
 	private static final int SIZE_HINT = 35;
 	
@@ -202,12 +201,12 @@ public class NewConfigDialog extends Dialog {
 		lblResBody.setFont(defaultFont);
 		lblResBody.setText("Result body:");
 		
-		StyledText styledBodyText = new StyledText(container, SWT.BORDER);
-		styledBodyText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
-		styledBodyText.addModifyListener(new ModifyListener(){
+		Text bodyText = new Text(container, SWT.BORDER | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
+		bodyText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
+		bodyText.addModifyListener(new ModifyListener(){
 			@Override
 			public void modifyText(ModifyEvent e) {
-				_resultBodyText = styledBodyText.getText().trim();
+				_resultBodyText = bodyText.getText().trim();
 			}
 		});
 		
