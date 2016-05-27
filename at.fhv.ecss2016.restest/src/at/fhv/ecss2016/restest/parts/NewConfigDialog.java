@@ -159,7 +159,10 @@ public class NewConfigDialog extends Dialog {
 		resultStatusCodeCombo.setLabelProvider(new LabelProvider() {
 			@Override
 			public String getText(Object element) {
-				if (element instanceof StatusCode) return String.valueOf(((StatusCode) element).getValue());
+				if (element instanceof StatusCode) {
+					StatusCode statusCode = (StatusCode) element;
+					return String.valueOf(statusCode.getValue()) + " - " + statusCode.getLiteral();
+				}
 				else return super.getText(element);
 			}
 		});

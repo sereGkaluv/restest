@@ -86,13 +86,13 @@ public interface ModelPackage extends EPackage {
 	int CONFIG__REQUEST_URL = 1;
 
 	/**
-	 * The feature id for the '<em><b>Verb</b></em>' attribute.
+	 * The feature id for the '<em><b>Http Verb</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONFIG__VERB = 2;
+	int CONFIG__HTTP_VERB = 2;
 
 	/**
 	 * The feature id for the '<em><b>Content Type</b></em>' attribute.
@@ -113,13 +113,13 @@ public interface ModelPackage extends EPackage {
 	int CONFIG__REQUEST_BODY = 4;
 
 	/**
-	 * The feature id for the '<em><b>Expected Result</b></em>' reference.
+	 * The feature id for the '<em><b>Response</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONFIG__EXPECTED_RESULT = 5;
+	int CONFIG__RESPONSE = 5;
 
 	/**
 	 * The number of structural features of the '<em>Config</em>' class.
@@ -150,22 +150,22 @@ public interface ModelPackage extends EPackage {
 	int SCENARIO = 1;
 
 	/**
-	 * The feature id for the '<em><b>Scenarios File</b></em>' attribute.
+	 * The feature id for the '<em><b>Scenario File Path</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SCENARIO__SCENARIOS_FILE = 0;
+	int SCENARIO__SCENARIO_FILE_PATH = 0;
 
 	/**
-	 * The feature id for the '<em><b>Config Result Pairs</b></em>' reference list.
+	 * The feature id for the '<em><b>Config Expected Result Pair List</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SCENARIO__CONFIG_RESULT_PAIRS = 1;
+	int SCENARIO__CONFIG_EXPECTED_RESULT_PAIR_LIST = 1;
 
 	/**
 	 * The number of structural features of the '<em>Scenario</em>' class.
@@ -196,22 +196,22 @@ public interface ModelPackage extends EPackage {
 	int RESPONSE = 2;
 
 	/**
-	 * The feature id for the '<em><b>Response Code</b></em>' attribute.
+	 * The feature id for the '<em><b>Status Code</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RESPONSE__RESPONSE_CODE = 0;
+	int RESPONSE__STATUS_CODE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Response Content Type</b></em>' attribute.
+	 * The feature id for the '<em><b>Content Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RESPONSE__RESPONSE_CONTENT_TYPE = 1;
+	int RESPONSE__CONTENT_TYPE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Response Time</b></em>' attribute.
@@ -260,22 +260,22 @@ public interface ModelPackage extends EPackage {
 	int EXPECTED_RESULT = 3;
 
 	/**
-	 * The feature id for the '<em><b>Response Code</b></em>' attribute.
+	 * The feature id for the '<em><b>Status Code</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXPECTED_RESULT__RESPONSE_CODE = 0;
+	int EXPECTED_RESULT__STATUS_CODE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Response Content Type</b></em>' attribute.
+	 * The feature id for the '<em><b>Content Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXPECTED_RESULT__RESPONSE_CONTENT_TYPE = 1;
+	int EXPECTED_RESULT__CONTENT_TYPE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Response Body</b></em>' attribute.
@@ -305,14 +305,14 @@ public interface ModelPackage extends EPackage {
 	int EXPECTED_RESULT_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link at.fhv.ecss2016.restest.model.impl.ConfigResultPairImpl <em>Config Result Pair</em>}' class.
+	 * The meta object id for the '{@link at.fhv.ecss2016.restest.model.impl.ConfigExpectedResultPairImpl <em>Config Expected Result Pair</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see at.fhv.ecss2016.restest.model.impl.ConfigResultPairImpl
-	 * @see at.fhv.ecss2016.restest.model.impl.ModelPackageImpl#getConfigResultPair()
+	 * @see at.fhv.ecss2016.restest.model.impl.ConfigExpectedResultPairImpl
+	 * @see at.fhv.ecss2016.restest.model.impl.ModelPackageImpl#getConfigExpectedResultPair()
 	 * @generated
 	 */
-	int CONFIG_RESULT_PAIR = 4;
+	int CONFIG_EXPECTED_RESULT_PAIR = 4;
 
 	/**
 	 * The feature id for the '<em><b>Config</b></em>' reference.
@@ -321,34 +321,34 @@ public interface ModelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONFIG_RESULT_PAIR__CONFIG = 0;
+	int CONFIG_EXPECTED_RESULT_PAIR__CONFIG = 0;
 
 	/**
-	 * The feature id for the '<em><b>Response</b></em>' reference.
+	 * The feature id for the '<em><b>Expected Result</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONFIG_RESULT_PAIR__RESPONSE = 1;
+	int CONFIG_EXPECTED_RESULT_PAIR__EXPECTED_RESULT = 1;
 
 	/**
-	 * The number of structural features of the '<em>Config Result Pair</em>' class.
+	 * The number of structural features of the '<em>Config Expected Result Pair</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONFIG_RESULT_PAIR_FEATURE_COUNT = 2;
+	int CONFIG_EXPECTED_RESULT_PAIR_FEATURE_COUNT = 2;
 
 	/**
-	 * The number of operations of the '<em>Config Result Pair</em>' class.
+	 * The number of operations of the '<em>Config Expected Result Pair</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONFIG_RESULT_PAIR_OPERATION_COUNT = 0;
+	int CONFIG_EXPECTED_RESULT_PAIR_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link at.fhv.ecss2016.restest.model.ContentType <em>Content Type</em>}' enum.
@@ -414,15 +414,15 @@ public interface ModelPackage extends EPackage {
 	EAttribute getConfig_RequestURL();
 
 	/**
-	 * Returns the meta object for the attribute '{@link at.fhv.ecss2016.restest.model.Config#getVerb <em>Verb</em>}'.
+	 * Returns the meta object for the attribute '{@link at.fhv.ecss2016.restest.model.Config#getHttpVerb <em>Http Verb</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Verb</em>'.
-	 * @see at.fhv.ecss2016.restest.model.Config#getVerb()
+	 * @return the meta object for the attribute '<em>Http Verb</em>'.
+	 * @see at.fhv.ecss2016.restest.model.Config#getHttpVerb()
 	 * @see #getConfig()
 	 * @generated
 	 */
-	EAttribute getConfig_Verb();
+	EAttribute getConfig_HttpVerb();
 
 	/**
 	 * Returns the meta object for the attribute '{@link at.fhv.ecss2016.restest.model.Config#getContentType <em>Content Type</em>}'.
@@ -447,15 +447,15 @@ public interface ModelPackage extends EPackage {
 	EAttribute getConfig_RequestBody();
 
 	/**
-	 * Returns the meta object for the reference '{@link at.fhv.ecss2016.restest.model.Config#getExpectedResult <em>Expected Result</em>}'.
+	 * Returns the meta object for the reference '{@link at.fhv.ecss2016.restest.model.Config#getResponse <em>Response</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Expected Result</em>'.
-	 * @see at.fhv.ecss2016.restest.model.Config#getExpectedResult()
+	 * @return the meta object for the reference '<em>Response</em>'.
+	 * @see at.fhv.ecss2016.restest.model.Config#getResponse()
 	 * @see #getConfig()
 	 * @generated
 	 */
-	EReference getConfig_ExpectedResult();
+	EReference getConfig_Response();
 
 	/**
 	 * Returns the meta object for class '{@link at.fhv.ecss2016.restest.model.Scenario <em>Scenario</em>}'.
@@ -468,26 +468,26 @@ public interface ModelPackage extends EPackage {
 	EClass getScenario();
 
 	/**
-	 * Returns the meta object for the attribute '{@link at.fhv.ecss2016.restest.model.Scenario#getScenariosFile <em>Scenarios File</em>}'.
+	 * Returns the meta object for the attribute '{@link at.fhv.ecss2016.restest.model.Scenario#getScenarioFilePath <em>Scenario File Path</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Scenarios File</em>'.
-	 * @see at.fhv.ecss2016.restest.model.Scenario#getScenariosFile()
+	 * @return the meta object for the attribute '<em>Scenario File Path</em>'.
+	 * @see at.fhv.ecss2016.restest.model.Scenario#getScenarioFilePath()
 	 * @see #getScenario()
 	 * @generated
 	 */
-	EAttribute getScenario_ScenariosFile();
+	EAttribute getScenario_ScenarioFilePath();
 
 	/**
-	 * Returns the meta object for the reference list '{@link at.fhv.ecss2016.restest.model.Scenario#getConfigResultPairs <em>Config Result Pairs</em>}'.
+	 * Returns the meta object for the reference list '{@link at.fhv.ecss2016.restest.model.Scenario#getConfigExpectedResultPairList <em>Config Expected Result Pair List</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Config Result Pairs</em>'.
-	 * @see at.fhv.ecss2016.restest.model.Scenario#getConfigResultPairs()
+	 * @return the meta object for the reference list '<em>Config Expected Result Pair List</em>'.
+	 * @see at.fhv.ecss2016.restest.model.Scenario#getConfigExpectedResultPairList()
 	 * @see #getScenario()
 	 * @generated
 	 */
-	EReference getScenario_ConfigResultPairs();
+	EReference getScenario_ConfigExpectedResultPairList();
 
 	/**
 	 * Returns the meta object for class '{@link at.fhv.ecss2016.restest.model.Response <em>Response</em>}'.
@@ -500,26 +500,26 @@ public interface ModelPackage extends EPackage {
 	EClass getResponse();
 
 	/**
-	 * Returns the meta object for the attribute '{@link at.fhv.ecss2016.restest.model.Response#getResponseCode <em>Response Code</em>}'.
+	 * Returns the meta object for the attribute '{@link at.fhv.ecss2016.restest.model.Response#getStatusCode <em>Status Code</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Response Code</em>'.
-	 * @see at.fhv.ecss2016.restest.model.Response#getResponseCode()
+	 * @return the meta object for the attribute '<em>Status Code</em>'.
+	 * @see at.fhv.ecss2016.restest.model.Response#getStatusCode()
 	 * @see #getResponse()
 	 * @generated
 	 */
-	EAttribute getResponse_ResponseCode();
+	EAttribute getResponse_StatusCode();
 
 	/**
-	 * Returns the meta object for the attribute '{@link at.fhv.ecss2016.restest.model.Response#getResponseContentType <em>Response Content Type</em>}'.
+	 * Returns the meta object for the attribute '{@link at.fhv.ecss2016.restest.model.Response#getContentType <em>Content Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Response Content Type</em>'.
-	 * @see at.fhv.ecss2016.restest.model.Response#getResponseContentType()
+	 * @return the meta object for the attribute '<em>Content Type</em>'.
+	 * @see at.fhv.ecss2016.restest.model.Response#getContentType()
 	 * @see #getResponse()
 	 * @generated
 	 */
-	EAttribute getResponse_ResponseContentType();
+	EAttribute getResponse_ContentType();
 
 	/**
 	 * Returns the meta object for the attribute '{@link at.fhv.ecss2016.restest.model.Response#getResponseTime <em>Response Time</em>}'.
@@ -554,26 +554,26 @@ public interface ModelPackage extends EPackage {
 	EClass getExpectedResult();
 
 	/**
-	 * Returns the meta object for the attribute '{@link at.fhv.ecss2016.restest.model.ExpectedResult#getResponseCode <em>Response Code</em>}'.
+	 * Returns the meta object for the attribute '{@link at.fhv.ecss2016.restest.model.ExpectedResult#getStatusCode <em>Status Code</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Response Code</em>'.
-	 * @see at.fhv.ecss2016.restest.model.ExpectedResult#getResponseCode()
+	 * @return the meta object for the attribute '<em>Status Code</em>'.
+	 * @see at.fhv.ecss2016.restest.model.ExpectedResult#getStatusCode()
 	 * @see #getExpectedResult()
 	 * @generated
 	 */
-	EAttribute getExpectedResult_ResponseCode();
+	EAttribute getExpectedResult_StatusCode();
 
 	/**
-	 * Returns the meta object for the attribute '{@link at.fhv.ecss2016.restest.model.ExpectedResult#getResponseContentType <em>Response Content Type</em>}'.
+	 * Returns the meta object for the attribute '{@link at.fhv.ecss2016.restest.model.ExpectedResult#getContentType <em>Content Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Response Content Type</em>'.
-	 * @see at.fhv.ecss2016.restest.model.ExpectedResult#getResponseContentType()
+	 * @return the meta object for the attribute '<em>Content Type</em>'.
+	 * @see at.fhv.ecss2016.restest.model.ExpectedResult#getContentType()
 	 * @see #getExpectedResult()
 	 * @generated
 	 */
-	EAttribute getExpectedResult_ResponseContentType();
+	EAttribute getExpectedResult_ContentType();
 
 	/**
 	 * Returns the meta object for the attribute '{@link at.fhv.ecss2016.restest.model.ExpectedResult#getResponseBody <em>Response Body</em>}'.
@@ -587,36 +587,36 @@ public interface ModelPackage extends EPackage {
 	EAttribute getExpectedResult_ResponseBody();
 
 	/**
-	 * Returns the meta object for class '{@link at.fhv.ecss2016.restest.model.ConfigResultPair <em>Config Result Pair</em>}'.
+	 * Returns the meta object for class '{@link at.fhv.ecss2016.restest.model.ConfigExpectedResultPair <em>Config Expected Result Pair</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Config Result Pair</em>'.
-	 * @see at.fhv.ecss2016.restest.model.ConfigResultPair
+	 * @return the meta object for class '<em>Config Expected Result Pair</em>'.
+	 * @see at.fhv.ecss2016.restest.model.ConfigExpectedResultPair
 	 * @generated
 	 */
-	EClass getConfigResultPair();
+	EClass getConfigExpectedResultPair();
 
 	/**
-	 * Returns the meta object for the reference '{@link at.fhv.ecss2016.restest.model.ConfigResultPair#getConfig <em>Config</em>}'.
+	 * Returns the meta object for the reference '{@link at.fhv.ecss2016.restest.model.ConfigExpectedResultPair#getConfig <em>Config</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Config</em>'.
-	 * @see at.fhv.ecss2016.restest.model.ConfigResultPair#getConfig()
-	 * @see #getConfigResultPair()
+	 * @see at.fhv.ecss2016.restest.model.ConfigExpectedResultPair#getConfig()
+	 * @see #getConfigExpectedResultPair()
 	 * @generated
 	 */
-	EReference getConfigResultPair_Config();
+	EReference getConfigExpectedResultPair_Config();
 
 	/**
-	 * Returns the meta object for the reference '{@link at.fhv.ecss2016.restest.model.ConfigResultPair#getResponse <em>Response</em>}'.
+	 * Returns the meta object for the reference '{@link at.fhv.ecss2016.restest.model.ConfigExpectedResultPair#getExpectedResult <em>Expected Result</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Response</em>'.
-	 * @see at.fhv.ecss2016.restest.model.ConfigResultPair#getResponse()
-	 * @see #getConfigResultPair()
+	 * @return the meta object for the reference '<em>Expected Result</em>'.
+	 * @see at.fhv.ecss2016.restest.model.ConfigExpectedResultPair#getExpectedResult()
+	 * @see #getConfigExpectedResultPair()
 	 * @generated
 	 */
-	EReference getConfigResultPair_Response();
+	EReference getConfigExpectedResultPair_ExpectedResult();
 
 	/**
 	 * Returns the meta object for enum '{@link at.fhv.ecss2016.restest.model.ContentType <em>Content Type</em>}'.
@@ -698,12 +698,12 @@ public interface ModelPackage extends EPackage {
 		EAttribute CONFIG__REQUEST_URL = eINSTANCE.getConfig_RequestURL();
 
 		/**
-		 * The meta object literal for the '<em><b>Verb</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Http Verb</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CONFIG__VERB = eINSTANCE.getConfig_Verb();
+		EAttribute CONFIG__HTTP_VERB = eINSTANCE.getConfig_HttpVerb();
 
 		/**
 		 * The meta object literal for the '<em><b>Content Type</b></em>' attribute feature.
@@ -722,12 +722,12 @@ public interface ModelPackage extends EPackage {
 		EAttribute CONFIG__REQUEST_BODY = eINSTANCE.getConfig_RequestBody();
 
 		/**
-		 * The meta object literal for the '<em><b>Expected Result</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Response</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONFIG__EXPECTED_RESULT = eINSTANCE.getConfig_ExpectedResult();
+		EReference CONFIG__RESPONSE = eINSTANCE.getConfig_Response();
 
 		/**
 		 * The meta object literal for the '{@link at.fhv.ecss2016.restest.model.impl.ScenarioImpl <em>Scenario</em>}' class.
@@ -740,20 +740,20 @@ public interface ModelPackage extends EPackage {
 		EClass SCENARIO = eINSTANCE.getScenario();
 
 		/**
-		 * The meta object literal for the '<em><b>Scenarios File</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Scenario File Path</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute SCENARIO__SCENARIOS_FILE = eINSTANCE.getScenario_ScenariosFile();
+		EAttribute SCENARIO__SCENARIO_FILE_PATH = eINSTANCE.getScenario_ScenarioFilePath();
 
 		/**
-		 * The meta object literal for the '<em><b>Config Result Pairs</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Config Expected Result Pair List</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SCENARIO__CONFIG_RESULT_PAIRS = eINSTANCE.getScenario_ConfigResultPairs();
+		EReference SCENARIO__CONFIG_EXPECTED_RESULT_PAIR_LIST = eINSTANCE.getScenario_ConfigExpectedResultPairList();
 
 		/**
 		 * The meta object literal for the '{@link at.fhv.ecss2016.restest.model.impl.ResponseImpl <em>Response</em>}' class.
@@ -766,20 +766,20 @@ public interface ModelPackage extends EPackage {
 		EClass RESPONSE = eINSTANCE.getResponse();
 
 		/**
-		 * The meta object literal for the '<em><b>Response Code</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Status Code</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute RESPONSE__RESPONSE_CODE = eINSTANCE.getResponse_ResponseCode();
+		EAttribute RESPONSE__STATUS_CODE = eINSTANCE.getResponse_StatusCode();
 
 		/**
-		 * The meta object literal for the '<em><b>Response Content Type</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Content Type</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute RESPONSE__RESPONSE_CONTENT_TYPE = eINSTANCE.getResponse_ResponseContentType();
+		EAttribute RESPONSE__CONTENT_TYPE = eINSTANCE.getResponse_ContentType();
 
 		/**
 		 * The meta object literal for the '<em><b>Response Time</b></em>' attribute feature.
@@ -808,20 +808,20 @@ public interface ModelPackage extends EPackage {
 		EClass EXPECTED_RESULT = eINSTANCE.getExpectedResult();
 
 		/**
-		 * The meta object literal for the '<em><b>Response Code</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Status Code</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute EXPECTED_RESULT__RESPONSE_CODE = eINSTANCE.getExpectedResult_ResponseCode();
+		EAttribute EXPECTED_RESULT__STATUS_CODE = eINSTANCE.getExpectedResult_StatusCode();
 
 		/**
-		 * The meta object literal for the '<em><b>Response Content Type</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Content Type</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute EXPECTED_RESULT__RESPONSE_CONTENT_TYPE = eINSTANCE.getExpectedResult_ResponseContentType();
+		EAttribute EXPECTED_RESULT__CONTENT_TYPE = eINSTANCE.getExpectedResult_ContentType();
 
 		/**
 		 * The meta object literal for the '<em><b>Response Body</b></em>' attribute feature.
@@ -832,14 +832,14 @@ public interface ModelPackage extends EPackage {
 		EAttribute EXPECTED_RESULT__RESPONSE_BODY = eINSTANCE.getExpectedResult_ResponseBody();
 
 		/**
-		 * The meta object literal for the '{@link at.fhv.ecss2016.restest.model.impl.ConfigResultPairImpl <em>Config Result Pair</em>}' class.
+		 * The meta object literal for the '{@link at.fhv.ecss2016.restest.model.impl.ConfigExpectedResultPairImpl <em>Config Expected Result Pair</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see at.fhv.ecss2016.restest.model.impl.ConfigResultPairImpl
-		 * @see at.fhv.ecss2016.restest.model.impl.ModelPackageImpl#getConfigResultPair()
+		 * @see at.fhv.ecss2016.restest.model.impl.ConfigExpectedResultPairImpl
+		 * @see at.fhv.ecss2016.restest.model.impl.ModelPackageImpl#getConfigExpectedResultPair()
 		 * @generated
 		 */
-		EClass CONFIG_RESULT_PAIR = eINSTANCE.getConfigResultPair();
+		EClass CONFIG_EXPECTED_RESULT_PAIR = eINSTANCE.getConfigExpectedResultPair();
 
 		/**
 		 * The meta object literal for the '<em><b>Config</b></em>' reference feature.
@@ -847,15 +847,15 @@ public interface ModelPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONFIG_RESULT_PAIR__CONFIG = eINSTANCE.getConfigResultPair_Config();
+		EReference CONFIG_EXPECTED_RESULT_PAIR__CONFIG = eINSTANCE.getConfigExpectedResultPair_Config();
 
 		/**
-		 * The meta object literal for the '<em><b>Response</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Expected Result</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONFIG_RESULT_PAIR__RESPONSE = eINSTANCE.getConfigResultPair_Response();
+		EReference CONFIG_EXPECTED_RESULT_PAIR__EXPECTED_RESULT = eINSTANCE.getConfigExpectedResultPair_ExpectedResult();
 
 		/**
 		 * The meta object literal for the '{@link at.fhv.ecss2016.restest.model.ContentType <em>Content Type</em>}' enum.

@@ -61,7 +61,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.SCENARIO: return createScenario();
 			case ModelPackage.RESPONSE: return createResponse();
 			case ModelPackage.EXPECTED_RESULT: return createExpectedResult();
-			case ModelPackage.CONFIG_RESULT_PAIR: return createConfigResultPair();
+			case ModelPackage.CONFIG_EXPECTED_RESULT_PAIR: return createConfigExpectedResultPair();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -150,9 +150,9 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ConfigResultPair createConfigResultPair() {
-		ConfigResultPairImpl configResultPair = new ConfigResultPairImpl();
-		return configResultPair;
+	public ConfigExpectedResultPair createConfigExpectedResultPair() {
+		ConfigExpectedResultPairImpl configExpectedResultPair = new ConfigExpectedResultPairImpl();
+		return configExpectedResultPair;
 	}
 
 	/**

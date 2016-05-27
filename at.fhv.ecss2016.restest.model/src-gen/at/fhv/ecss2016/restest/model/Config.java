@@ -15,10 +15,10 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link at.fhv.ecss2016.restest.model.Config#getName <em>Name</em>}</li>
  *   <li>{@link at.fhv.ecss2016.restest.model.Config#getRequestURL <em>Request URL</em>}</li>
- *   <li>{@link at.fhv.ecss2016.restest.model.Config#getVerb <em>Verb</em>}</li>
+ *   <li>{@link at.fhv.ecss2016.restest.model.Config#getHttpVerb <em>Http Verb</em>}</li>
  *   <li>{@link at.fhv.ecss2016.restest.model.Config#getContentType <em>Content Type</em>}</li>
  *   <li>{@link at.fhv.ecss2016.restest.model.Config#getRequestBody <em>Request Body</em>}</li>
- *   <li>{@link at.fhv.ecss2016.restest.model.Config#getExpectedResult <em>Expected Result</em>}</li>
+ *   <li>{@link at.fhv.ecss2016.restest.model.Config#getResponse <em>Response</em>}</li>
  * </ul>
  *
  * @see at.fhv.ecss2016.restest.model.ModelPackage#getConfig()
@@ -79,33 +79,33 @@ public interface Config extends EObject {
 	void setRequestURL(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Verb</b></em>' attribute.
+	 * Returns the value of the '<em><b>Http Verb</b></em>' attribute.
 	 * The literals are from the enumeration {@link at.fhv.ecss2016.restest.model.HttpVerb}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Verb</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Http Verb</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Verb</em>' attribute.
+	 * @return the value of the '<em>Http Verb</em>' attribute.
 	 * @see at.fhv.ecss2016.restest.model.HttpVerb
-	 * @see #setVerb(HttpVerb)
-	 * @see at.fhv.ecss2016.restest.model.ModelPackage#getConfig_Verb()
+	 * @see #setHttpVerb(HttpVerb)
+	 * @see at.fhv.ecss2016.restest.model.ModelPackage#getConfig_HttpVerb()
 	 * @model
 	 * @generated
 	 */
-	HttpVerb getVerb();
+	HttpVerb getHttpVerb();
 
 	/**
-	 * Sets the value of the '{@link at.fhv.ecss2016.restest.model.Config#getVerb <em>Verb</em>}' attribute.
+	 * Sets the value of the '{@link at.fhv.ecss2016.restest.model.Config#getHttpVerb <em>Http Verb</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Verb</em>' attribute.
+	 * @param value the new value of the '<em>Http Verb</em>' attribute.
 	 * @see at.fhv.ecss2016.restest.model.HttpVerb
-	 * @see #getVerb()
+	 * @see #getHttpVerb()
 	 * @generated
 	 */
-	void setVerb(HttpVerb value);
+	void setHttpVerb(HttpVerb value);
 
 	/**
 	 * Returns the value of the '<em><b>Content Type</b></em>' attribute.
@@ -163,29 +163,29 @@ public interface Config extends EObject {
 	void setRequestBody(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Expected Result</b></em>' reference.
+	 * Returns the value of the '<em><b>Response</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Expected Result</em>' reference isn't clear,
+	 * If the meaning of the '<em>Response</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Expected Result</em>' reference.
-	 * @see #setExpectedResult(ExpectedResult)
-	 * @see at.fhv.ecss2016.restest.model.ModelPackage#getConfig_ExpectedResult()
+	 * @return the value of the '<em>Response</em>' reference.
+	 * @see #setResponse(Response)
+	 * @see at.fhv.ecss2016.restest.model.ModelPackage#getConfig_Response()
 	 * @model
 	 * @generated
 	 */
-	ExpectedResult getExpectedResult();
+	Response getResponse();
 
 	/**
-	 * Sets the value of the '{@link at.fhv.ecss2016.restest.model.Config#getExpectedResult <em>Expected Result</em>}' reference.
+	 * Sets the value of the '{@link at.fhv.ecss2016.restest.model.Config#getResponse <em>Response</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Expected Result</em>' reference.
-	 * @see #getExpectedResult()
+	 * @param value the new value of the '<em>Response</em>' reference.
+	 * @see #getResponse()
 	 * @generated
 	 */
-	void setExpectedResult(ExpectedResult value);
+	void setResponse(Response value);
 
 } // Config

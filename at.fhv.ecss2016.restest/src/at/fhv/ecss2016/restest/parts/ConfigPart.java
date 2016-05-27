@@ -70,10 +70,10 @@ public class ConfigPart {
 	private static final String ICON_CONTROL_SEND = "icons/control/send.png";
 	
 	private static final String NAME_ATTRIBUTE = "NAME_ATTRIBUTE";
-	private static final String URL_ATTRIBUTE = "URL_ATTRIBUTE";
-	private static final String VERB_ATTRIBUTE = "VERB_ATTRIBUTE";
+	private static final String REQUEST_URL_ATTRIBUTE = "REQUEST_URL_ATTRIBUTE";
+	private static final String HTTP_VERB_ATTRIBUTE = "HTTP_VERB_ATTRIBUTE";
 	private static final String CONTENT_TYPE_ATTRIBUTE = "CONTENT_TYPE_ATTRIBUTE";
-	private static final String CONTENT_BODY_ATTRIBUTE = "CONTENT_BODY_ATTRIBUTE";
+	private static final String REQUEST_BODY_ATTRIBUTE = "REQUEST_BODY_ATTRIBUTE";
 	
 	private static final String FILE_DIALOG_TITLE = "Save config?";
 	private static final String DEFAULT_SAVE_ERROR_MESSAGE = "Error occurred while saving config file.";
@@ -137,7 +137,7 @@ public class ConfigPart {
 		
 		Text urlText = new Text(parent, SWT.BORDER);
 		urlText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		BIND_HELPER.bindWidgetText(URL_ATTRIBUTE, urlText);
+		BIND_HELPER.bindWidgetText(REQUEST_URL_ATTRIBUTE, urlText);
 		
 		Label verbLabel = new Label(parent, SWT.NONE);
 		verbLabel.setText("Verb:");
@@ -155,7 +155,7 @@ public class ConfigPart {
 		});
 		verbCombo.setInput(HttpVerb.values());
 		verbCombo.setSelection(new StructuredSelection(HttpVerb.GET));
-		BIND_HELPER.bindViewerSelection(VERB_ATTRIBUTE, verbCombo);
+		BIND_HELPER.bindViewerSelection(HTTP_VERB_ATTRIBUTE, verbCombo);
 		
 		Label contentTypeLabel = new Label(parent, SWT.NONE);
 		contentTypeLabel.setText("Content-Type:");
@@ -191,7 +191,7 @@ public class ConfigPart {
 		    }
 		});
 		contentBodyText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
-		BIND_HELPER.bindWidgetText(CONTENT_BODY_ATTRIBUTE, contentBodyText);
+		BIND_HELPER.bindWidgetText(REQUEST_BODY_ATTRIBUTE, contentBodyText);
 		
 		Button startButton = new Button(parent, SWT.BOLD);
 		startButton.setFont(defaultFont);
@@ -254,7 +254,7 @@ public class ConfigPart {
 				HttpVerb httpVerb = (vSelection != null && !vSelection.isEmpty()) ? (HttpVerb) vSelection.getFirstElement() : null;
 				
 				Config config = getCurrentOrDefaultConfig();
-				config.setVerb(httpVerb);
+				config.setHttpVerb(httpVerb);
 				
 				_dirty.setDirty(true);
 			}
@@ -292,10 +292,10 @@ public class ConfigPart {
 			
 			// Set new values for the map entries from a model object
 			BIND_HELPER.updateAttributeValue(NAME_ATTRIBUTE, config.getName());
-			BIND_HELPER.updateAttributeValue(URL_ATTRIBUTE, config.getRequestURL());
-			BIND_HELPER.updateAttributeValue(VERB_ATTRIBUTE, config.getVerb());
+			BIND_HELPER.updateAttributeValue(REQUEST_URL_ATTRIBUTE, config.getRequestURL());
+			BIND_HELPER.updateAttributeValue(HTTP_VERB_ATTRIBUTE, config.getHttpVerb());
 			BIND_HELPER.updateAttributeValue(CONTENT_TYPE_ATTRIBUTE, config.getContentType());
-			BIND_HELPER.updateAttributeValue(CONTENT_BODY_ATTRIBUTE, config.getRequestBody());
+			BIND_HELPER.updateAttributeValue(REQUEST_BODY_ATTRIBUTE, config.getRequestBody());
 	    }
 	}
 	

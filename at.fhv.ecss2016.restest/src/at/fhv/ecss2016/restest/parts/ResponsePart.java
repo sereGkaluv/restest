@@ -130,7 +130,7 @@ public class ResponsePart {
 			TabFolder tabFolder = new TabFolder(parent, SWT.NONE);
 			tabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
 			
-			if (CONTENT_TYPE_JSON.equals(response.getResponseContentType().getLiteral())) {
+			if (CONTENT_TYPE_JSON.equals(response.getContentType().getLiteral())) {
 				
 				// First display possibility 
 				TabItem jsonTreeTab = new TabItem(tabFolder, SWT.NULL);
@@ -200,15 +200,16 @@ public class ResponsePart {
 			contentTypeLabel.setFont(defaultFont);
 			
 			Label contentTypeValueLabel = new Label(parent, SWT.NONE);
-			contentTypeValueLabel.setText(response.getResponseContentType().getLiteral());
+			contentTypeValueLabel.setText(response.getContentType().getLiteral());
 			
 			Label responseCodeLabel = new Label(parent, SWT.NONE);
 			responseCodeLabel.setText("Response code:");
 			responseCodeLabel.setFont(defaultFont);
 			
 			Label responseCodeValueLabel = new Label(parent, SWT.NONE);
-			int responseCode = response.getResponseCode().getValue();
-			responseCodeValueLabel.setText(String.valueOf(responseCode));
+			responseCodeValueLabel.setText(
+				String.valueOf(response.getStatusCode().getValue()) + " - " + response.getStatusCode().getLiteral()
+			);
 		}
 	}
 	

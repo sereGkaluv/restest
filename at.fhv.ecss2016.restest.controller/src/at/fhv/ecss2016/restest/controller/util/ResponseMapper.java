@@ -11,8 +11,8 @@ import at.fhv.ecss2016.restest.model.impl.ModelFactoryImpl;
 
 public class ResponseMapper implements Function<JsonNode, Response> {
 	
-	private final static String RESPONSE_CODE = "responseCode";
-	private final static String RESPONSE_CONTENT_TYPE = "responseContentType";
+	private final static String STATUS_CODE = "statusCode";
+	private final static String CONTENT_TYPE = "contentType";
 	private final static String RESPONSE_TIME = "responseTime";
 	private final static String RESPONSE_BODY = "responseBody";
 	
@@ -21,17 +21,17 @@ public class ResponseMapper implements Function<JsonNode, Response> {
 		
 		Response response = ModelFactoryImpl.eINSTANCE.createResponse();
 		
-		JsonNode responseCode = jsonNode.get(RESPONSE_CODE);
-		if (isNonNullValueNode(responseCode)) response.setResponseCode(StatusCode.get(responseCode.asInt()));
+		JsonNode statusCodeNode = jsonNode.get(STATUS_CODE);
+		if (isNonNullValueNode(statusCodeNode)) response.setStatusCode(StatusCode.getByName(statusCodeNode.asText()));
 		
-		JsonNode responseContentType = jsonNode.get(RESPONSE_CONTENT_TYPE);
-		if (isNonNullValueNode(responseContentType)) response.setResponseContentType(ContentType.get(responseContentType.asText()));
+		JsonNode contentTypeNode = jsonNode.get(CONTENT_TYPE);
+		if (isNonNullValueNode(contentTypeNode)) response.setContentType(ContentType.getByName(contentTypeNode.asText()));
 		
-		JsonNode responseTime = jsonNode.get(RESPONSE_TIME);
-		if (isNonNullValueNode(responseTime)) response.setResponseTime(responseTime.asText());
+		JsonNode responseTimeNode = jsonNode.get(RESPONSE_TIME);
+		if (isNonNullValueNode(responseTimeNode)) response.setResponseTime(responseTimeNode.asText());
 		
-		JsonNode responseBody = jsonNode.get(RESPONSE_BODY);
-		if (isNonNullValueNode(responseBody)) response.setResponseBody(responseBody.asText());
+		JsonNode responseBodyNode = jsonNode.get(RESPONSE_BODY);
+		if (isNonNullValueNode(responseBodyNode)) response.setResponseBody(responseBodyNode.asText());
 
 		return response;
 	}

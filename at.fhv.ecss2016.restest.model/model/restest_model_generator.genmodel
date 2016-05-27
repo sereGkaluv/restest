@@ -75,29 +75,29 @@
     <genClasses ecoreClass="restest_model.ecore#//Config">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Config/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Config/requestURL"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Config/verb"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Config/httpVerb"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Config/contentType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Config/requestBody"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference restest_model.ecore#//Config/expectedResult"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference restest_model.ecore#//Config/response"/>
     </genClasses>
     <genClasses ecoreClass="restest_model.ecore#//Scenario">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Scenario/scenariosFile"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference restest_model.ecore#//Scenario/configResultPairs"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Scenario/scenarioFilePath"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference restest_model.ecore#//Scenario/configExpectedResultPairList"/>
     </genClasses>
     <genClasses ecoreClass="restest_model.ecore#//Response">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Response/responseCode"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Response/responseContentType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Response/statusCode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Response/contentType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Response/responseTime"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Response/responseBody"/>
     </genClasses>
     <genClasses ecoreClass="restest_model.ecore#//ExpectedResult">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//ExpectedResult/responseCode"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//ExpectedResult/responseContentType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//ExpectedResult/statusCode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//ExpectedResult/contentType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//ExpectedResult/responseBody"/>
     </genClasses>
-    <genClasses ecoreClass="restest_model.ecore#//ConfigResultPair">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference restest_model.ecore#//ConfigResultPair/config"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference restest_model.ecore#//ConfigResultPair/response"/>
+    <genClasses ecoreClass="restest_model.ecore#//ConfigExpectedResultPair">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference restest_model.ecore#//ConfigExpectedResultPair/config"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference restest_model.ecore#//ConfigExpectedResultPair/expectedResult"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -58,13 +58,13 @@ public interface ModelFactory extends EFactory {
 	ExpectedResult createExpectedResult();
 
 	/**
-	 * Returns a new object of class '<em>Config Result Pair</em>'.
+	 * Returns a new object of class '<em>Config Expected Result Pair</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Config Result Pair</em>'.
+	 * @return a new object of class '<em>Config Expected Result Pair</em>'.
 	 * @generated
 	 */
-	ConfigResultPair createConfigResultPair();
+	ConfigExpectedResultPair createConfigExpectedResultPair();
 
 	/**
 	 * Returns the package supported by this factory.

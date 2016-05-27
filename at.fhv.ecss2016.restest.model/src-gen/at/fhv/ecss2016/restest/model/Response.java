@@ -13,8 +13,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link at.fhv.ecss2016.restest.model.Response#getResponseCode <em>Response Code</em>}</li>
- *   <li>{@link at.fhv.ecss2016.restest.model.Response#getResponseContentType <em>Response Content Type</em>}</li>
+ *   <li>{@link at.fhv.ecss2016.restest.model.Response#getStatusCode <em>Status Code</em>}</li>
+ *   <li>{@link at.fhv.ecss2016.restest.model.Response#getContentType <em>Content Type</em>}</li>
  *   <li>{@link at.fhv.ecss2016.restest.model.Response#getResponseTime <em>Response Time</em>}</li>
  *   <li>{@link at.fhv.ecss2016.restest.model.Response#getResponseBody <em>Response Body</em>}</li>
  * </ul>
@@ -25,62 +25,62 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Response extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Response Code</b></em>' attribute.
+	 * Returns the value of the '<em><b>Status Code</b></em>' attribute.
 	 * The literals are from the enumeration {@link at.fhv.ecss2016.restest.model.StatusCode}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Response Code</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Status Code</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Response Code</em>' attribute.
+	 * @return the value of the '<em>Status Code</em>' attribute.
 	 * @see at.fhv.ecss2016.restest.model.StatusCode
-	 * @see #setResponseCode(StatusCode)
-	 * @see at.fhv.ecss2016.restest.model.ModelPackage#getResponse_ResponseCode()
+	 * @see #setStatusCode(StatusCode)
+	 * @see at.fhv.ecss2016.restest.model.ModelPackage#getResponse_StatusCode()
 	 * @model
 	 * @generated
 	 */
-	StatusCode getResponseCode();
+	StatusCode getStatusCode();
 
 	/**
-	 * Sets the value of the '{@link at.fhv.ecss2016.restest.model.Response#getResponseCode <em>Response Code</em>}' attribute.
+	 * Sets the value of the '{@link at.fhv.ecss2016.restest.model.Response#getStatusCode <em>Status Code</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Response Code</em>' attribute.
+	 * @param value the new value of the '<em>Status Code</em>' attribute.
 	 * @see at.fhv.ecss2016.restest.model.StatusCode
-	 * @see #getResponseCode()
+	 * @see #getStatusCode()
 	 * @generated
 	 */
-	void setResponseCode(StatusCode value);
+	void setStatusCode(StatusCode value);
 
 	/**
-	 * Returns the value of the '<em><b>Response Content Type</b></em>' attribute.
+	 * Returns the value of the '<em><b>Content Type</b></em>' attribute.
 	 * The literals are from the enumeration {@link at.fhv.ecss2016.restest.model.ContentType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Response Content Type</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Content Type</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Response Content Type</em>' attribute.
+	 * @return the value of the '<em>Content Type</em>' attribute.
 	 * @see at.fhv.ecss2016.restest.model.ContentType
-	 * @see #setResponseContentType(ContentType)
-	 * @see at.fhv.ecss2016.restest.model.ModelPackage#getResponse_ResponseContentType()
+	 * @see #setContentType(ContentType)
+	 * @see at.fhv.ecss2016.restest.model.ModelPackage#getResponse_ContentType()
 	 * @model
 	 * @generated
 	 */
-	ContentType getResponseContentType();
+	ContentType getContentType();
 
 	/**
-	 * Sets the value of the '{@link at.fhv.ecss2016.restest.model.Response#getResponseContentType <em>Response Content Type</em>}' attribute.
+	 * Sets the value of the '{@link at.fhv.ecss2016.restest.model.Response#getContentType <em>Content Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Response Content Type</em>' attribute.
+	 * @param value the new value of the '<em>Content Type</em>' attribute.
 	 * @see at.fhv.ecss2016.restest.model.ContentType
-	 * @see #getResponseContentType()
+	 * @see #getContentType()
 	 * @generated
 	 */
-	void setResponseContentType(ContentType value);
+	void setContentType(ContentType value);
 
 	/**
 	 * Returns the value of the '<em><b>Response Time</b></em>' attribute.

@@ -164,26 +164,26 @@ public class ModelItemProviderAdapterFactory extends ModelAdapterFactory impleme
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link at.fhv.ecss2016.restest.model.ConfigResultPair} instances.
+	 * This keeps track of the one adapter used for all {@link at.fhv.ecss2016.restest.model.ConfigExpectedResultPair} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ConfigResultPairItemProvider configResultPairItemProvider;
+	protected ConfigExpectedResultPairItemProvider configExpectedResultPairItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link at.fhv.ecss2016.restest.model.ConfigResultPair}.
+	 * This creates an adapter for a {@link at.fhv.ecss2016.restest.model.ConfigExpectedResultPair}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createConfigResultPairAdapter() {
-		if (configResultPairItemProvider == null) {
-			configResultPairItemProvider = new ConfigResultPairItemProvider(this);
+	public Adapter createConfigExpectedResultPairAdapter() {
+		if (configExpectedResultPairItemProvider == null) {
+			configExpectedResultPairItemProvider = new ConfigExpectedResultPairItemProvider(this);
 		}
 
-		return configResultPairItemProvider;
+		return configExpectedResultPairItemProvider;
 	}
 
 	/**
@@ -289,7 +289,7 @@ public class ModelItemProviderAdapterFactory extends ModelAdapterFactory impleme
 		if (scenarioItemProvider != null) scenarioItemProvider.dispose();
 		if (responseItemProvider != null) responseItemProvider.dispose();
 		if (expectedResultItemProvider != null) expectedResultItemProvider.dispose();
-		if (configResultPairItemProvider != null) configResultPairItemProvider.dispose();
+		if (configExpectedResultPairItemProvider != null) configExpectedResultPairItemProvider.dispose();
 	}
 
 }

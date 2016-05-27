@@ -36,7 +36,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SWITCHING_PROTOCOLS(101, "SWITCHING_PROTOCOLS", "SWITCHING_PROTOCOLS"),
+	SWITCHING_PROTOCOLS(101, "SWITCHING_PROTOCOLS", "SWITCHING PROTOCOLS"),
 
 	/**
 	 * The '<em><b>PROCESSING</b></em>' literal object.
@@ -86,7 +86,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NON_AUTHORITATIVE_INFORMATION(203, "NON_AUTHORITATIVE_INFORMATION", "NON_AUTHORITATIVE_INFORMATION"),
+	NON_AUTHORITATIVE_INFORMATION(203, "NON_AUTHORITATIVE_INFORMATION", "NON AUTHORITATIVE INFORMATION"),
 
 	/**
 	 * The '<em><b>NO CONTENT</b></em>' literal object.
@@ -96,7 +96,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NO_CONTENT(204, "NO_CONTENT", "NO_CONTENT"),
+	NO_CONTENT(204, "NO_CONTENT", "NO CONTENT"),
 
 	/**
 	 * The '<em><b>RESET CONTENT</b></em>' literal object.
@@ -106,7 +106,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	RESET_CONTENT(205, "RESET_CONTENT", "RESET_CONTENT"),
+	RESET_CONTENT(205, "RESET_CONTENT", "RESET CONTENT"),
 
 	/**
 	 * The '<em><b>PARTIAL CONTENT</b></em>' literal object.
@@ -116,7 +116,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PARTIAL_CONTENT(206, "PARTIAL_CONTENT", "PARTIAL_CONTENT"),
+	PARTIAL_CONTENT(206, "PARTIAL_CONTENT", "PARTIAL CONTENT"),
 
 	/**
 	 * The '<em><b>MULTI STATUS</b></em>' literal object.
@@ -126,7 +126,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	MULTI_STATUS(207, "MULTI_STATUS", "MULTI_STATUS"),
+	MULTI_STATUS(207, "MULTI_STATUS", "MULTI STATUS"),
 
 	/**
 	 * The '<em><b>MULTIPLE CHOICES</b></em>' literal object.
@@ -136,7 +136,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	MULTIPLE_CHOICES(300, "MULTIPLE_CHOICES", "MULTIPLE_CHOICES"),
+	MULTIPLE_CHOICES(300, "MULTIPLE_CHOICES", "MULTIPLE CHOICES"),
 
 	/**
 	 * The '<em><b>MOVED PERMANENTLY</b></em>' literal object.
@@ -146,7 +146,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	MOVED_PERMANENTLY(301, "MOVED_PERMANENTLY", "MOVED_PERMANENTLY"),
+	MOVED_PERMANENTLY(301, "MOVED_PERMANENTLY", "MOVED PERMANENTLY"),
 
 	/**
 	 * The '<em><b>MOVED TEMPORARILY</b></em>' literal object.
@@ -156,7 +156,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	MOVED_TEMPORARILY(302, "MOVED_TEMPORARILY", "MOVED_TEMPORARILY"),
+	MOVED_TEMPORARILY(302, "MOVED_TEMPORARILY", "MOVED TEMPORARILY"),
 
 	/**
 	 * The '<em><b>SEE OTHER</b></em>' literal object.
@@ -166,7 +166,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SEE_OTHER(303, "SEE_OTHER", "SEE_OTHER"),
+	SEE_OTHER(303, "SEE_OTHER", "SEE OTHER"),
 
 	/**
 	 * The '<em><b>NOT MODIFIED</b></em>' literal object.
@@ -176,7 +176,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NOT_MODIFIED(304, "NOT_MODIFIED", "NOT_MODIFIED"),
+	NOT_MODIFIED(304, "NOT_MODIFIED", "NOT MODIFIED"),
 
 	/**
 	 * The '<em><b>USE PROXY</b></em>' literal object.
@@ -186,7 +186,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	USE_PROXY(305, "USE_PROXY", "USE_PROXY"),
+	USE_PROXY(305, "USE_PROXY", "USE PROXY"),
 
 	/**
 	 * The '<em><b>TEMPORARY REDIRECT</b></em>' literal object.
@@ -196,7 +196,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	TEMPORARY_REDIRECT(307, "TEMPORARY_REDIRECT", "TEMPORARY_REDIRECT"),
+	TEMPORARY_REDIRECT(307, "TEMPORARY_REDIRECT", "TEMPORARY REDIRECT"),
 
 	/**
 	 * The '<em><b>BAD REQUEST</b></em>' literal object.
@@ -206,7 +206,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	BAD_REQUEST(400, "BAD_REQUEST", "BAD_REQUEST"),
+	BAD_REQUEST(400, "BAD_REQUEST", "BAD REQUEST"),
 
 	/**
 	 * The '<em><b>UNAUTHORIZED</b></em>' literal object.
@@ -226,7 +226,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PAYMENT_REQUIRED(402, "PAYMENT_REQUIRED", "PAYMENT_REQUIRED"),
+	PAYMENT_REQUIRED(402, "PAYMENT_REQUIRED", "PAYMENT REQUIRED"),
 
 	/**
 	 * The '<em><b>FORBIDDEN</b></em>' literal object.
@@ -246,7 +246,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NOT_FOUND(404, "NOT_FOUND", "NOT_FOUND"),
+	NOT_FOUND(404, "NOT_FOUND", "NOT FOUND"),
 
 	/**
 	 * The '<em><b>METHOD NOT ALLOWED</b></em>' literal object.
@@ -256,7 +256,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	METHOD_NOT_ALLOWED(405, "METHOD_NOT_ALLOWED", "METHOD_NOT_ALLOWED"),
+	METHOD_NOT_ALLOWED(405, "METHOD_NOT_ALLOWED", "METHOD NOT ALLOWED"),
 
 	/**
 	 * The '<em><b>NOT ACCEPTABLE</b></em>' literal object.
@@ -266,7 +266,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NOT_ACCEPTABLE(406, "NOT_ACCEPTABLE", "NOT_ACCEPTABLE"),
+	NOT_ACCEPTABLE(406, "NOT_ACCEPTABLE", "NOT ACCEPTABLE"),
 
 	/**
 	 * The '<em><b>PROXY AUTHENTICATION REQUIRED</b></em>' literal object.
@@ -276,7 +276,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PROXY_AUTHENTICATION_REQUIRED(407, "PROXY_AUTHENTICATION_REQUIRED", "PROXY_AUTHENTICATION_REQUIRED"),
+	PROXY_AUTHENTICATION_REQUIRED(407, "PROXY_AUTHENTICATION_REQUIRED", "PROXY AUTHENTICATION REQUIRED"),
 
 	/**
 	 * The '<em><b>REQUEST TIMEOUT</b></em>' literal object.
@@ -286,7 +286,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	REQUEST_TIMEOUT(408, "REQUEST_TIMEOUT", "REQUEST_TIMEOUT"),
+	REQUEST_TIMEOUT(408, "REQUEST_TIMEOUT", "REQUEST TIMEOUT"),
 
 	/**
 	 * The '<em><b>CONFLICT</b></em>' literal object.
@@ -316,7 +316,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	LENGTH_REQUIRED(411, "LENGTH_REQUIRED", "LENGTH_REQUIRED"),
+	LENGTH_REQUIRED(411, "LENGTH_REQUIRED", "LENGTH REQUIRED"),
 
 	/**
 	 * The '<em><b>PRECONDITION FAILED</b></em>' literal object.
@@ -326,7 +326,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PRECONDITION_FAILED(412, "PRECONDITION_FAILED", "PRECONDITION_FAILED"),
+	PRECONDITION_FAILED(412, "PRECONDITION_FAILED", "PRECONDITION FAILED"),
 
 	/**
 	 * The '<em><b>REQUEST TOO LONG</b></em>' literal object.
@@ -336,7 +336,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	REQUEST_TOO_LONG(413, "REQUEST_TOO_LONG", "REQUEST_TOO_LONG"),
+	REQUEST_TOO_LONG(413, "REQUEST_TOO_LONG", "REQUEST TOO LONG"),
 
 	/**
 	 * The '<em><b>REQUEST URI TOO LONG</b></em>' literal object.
@@ -346,7 +346,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	REQUEST_URI_TOO_LONG(414, "REQUEST_URI_TOO_LONG", "REQUEST_URI_TOO_LONG"),
+	REQUEST_URI_TOO_LONG(414, "REQUEST_URI_TOO_LONG", "REQUEST URI TOO LONG"),
 
 	/**
 	 * The '<em><b>UNSUPPORTED MEDIA TYPE</b></em>' literal object.
@@ -356,7 +356,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	UNSUPPORTED_MEDIA_TYPE(415, "UNSUPPORTED_MEDIA_TYPE", "UNSUPPORTED_MEDIA_TYPE"),
+	UNSUPPORTED_MEDIA_TYPE(415, "UNSUPPORTED_MEDIA_TYPE", "UNSUPPORTED MEDIA TYPE"),
 
 	/**
 	 * The '<em><b>REQUESTED RANGE NOT SATISFIABLE</b></em>' literal object.
@@ -366,7 +366,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	REQUESTED_RANGE_NOT_SATISFIABLE(416, "REQUESTED_RANGE_NOT_SATISFIABLE", "REQUESTED_RANGE_NOT_SATISFIABLE"),
+	REQUESTED_RANGE_NOT_SATISFIABLE(416, "REQUESTED_RANGE_NOT_SATISFIABLE", "REQUESTED RANGE NOT SATISFIABLE"),
 
 	/**
 	 * The '<em><b>EXPECTATION FAILED</b></em>' literal object.
@@ -376,7 +376,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	EXPECTATION_FAILED(417, "EXPECTATION_FAILED", "EXPECTATION_FAILED"),
+	EXPECTATION_FAILED(417, "EXPECTATION_FAILED", "EXPECTATION FAILED"),
 
 	/**
 	 * The '<em><b>INSUFFICIENT SPACE ON RESOURCE</b></em>' literal object.
@@ -386,7 +386,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	INSUFFICIENT_SPACE_ON_RESOURCE(419, "INSUFFICIENT_SPACE_ON_RESOURCE", "INSUFFICIENT_SPACE_ON_RESOURCE"),
+	INSUFFICIENT_SPACE_ON_RESOURCE(419, "INSUFFICIENT_SPACE_ON_RESOURCE", "INSUFFICIENT SPACE ON RESOURCE"),
 
 	/**
 	 * The '<em><b>METHOD FAILURE</b></em>' literal object.
@@ -396,7 +396,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	METHOD_FAILURE(420, "METHOD_FAILURE", "METHOD_FAILURE"),
+	METHOD_FAILURE(420, "METHOD_FAILURE", "METHOD FAILURE"),
 
 	/**
 	 * The '<em><b>UNPROCESSABLE ENTITY</b></em>' literal object.
@@ -406,7 +406,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	UNPROCESSABLE_ENTITY(422, "UNPROCESSABLE_ENTITY", "UNPROCESSABLE_ENTITY"),
+	UNPROCESSABLE_ENTITY(422, "UNPROCESSABLE_ENTITY", "UNPROCESSABLE ENTITY"),
 
 	/**
 	 * The '<em><b>LOCKED</b></em>' literal object.
@@ -426,7 +426,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	FAILED_DEPENDENCY(424, "FAILED_DEPENDENCY", "FAILED_DEPENDENCY"),
+	FAILED_DEPENDENCY(424, "FAILED_DEPENDENCY", "FAILED DEPENDENCY"),
 
 	/**
 	 * The '<em><b>INTERNAL SERVER ERROR</b></em>' literal object.
@@ -436,7 +436,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	INTERNAL_SERVER_ERROR(500, "INTERNAL_SERVER_ERROR", "INTERNAL_SERVER_ERROR"),
+	INTERNAL_SERVER_ERROR(500, "INTERNAL_SERVER_ERROR", "INTERNAL SERVER ERROR"),
 
 	/**
 	 * The '<em><b>NOT IMPLEMENTED</b></em>' literal object.
@@ -446,7 +446,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	NOT_IMPLEMENTED(501, "NOT_IMPLEMENTED", "NOT_IMPLEMENTED"),
+	NOT_IMPLEMENTED(501, "NOT_IMPLEMENTED", "NOT IMPLEMENTED"),
 
 	/**
 	 * The '<em><b>BAD GATEWAY</b></em>' literal object.
@@ -456,7 +456,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	BAD_GATEWAY(502, "BAD_GATEWAY", "BAD_GATEWAY"),
+	BAD_GATEWAY(502, "BAD_GATEWAY", "BAD GATEWAY"),
 
 	/**
 	 * The '<em><b>SERVICE UNAVAILABLE</b></em>' literal object.
@@ -466,7 +466,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SERVICE_UNAVAILABLE(503, "SERVICE_UNAVAILABLE", "SERVICE_UNAVAILABLE"),
+	SERVICE_UNAVAILABLE(503, "SERVICE_UNAVAILABLE", "SERVICE UNAVAILABLE"),
 
 	/**
 	 * The '<em><b>GATEWAY TIMEOUT</b></em>' literal object.
@@ -476,7 +476,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	GATEWAY_TIMEOUT(504, "GATEWAY_TIMEOUT", "GATEWAY_TIMEOUT"),
+	GATEWAY_TIMEOUT(504, "GATEWAY_TIMEOUT", "GATEWAY TIMEOUT"),
 
 	/**
 	 * The '<em><b>HTTP VERSION NOT SUPPORTED</b></em>' literal object.
@@ -486,7 +486,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	HTTP_VERSION_NOT_SUPPORTED(505, "HTTP_VERSION_NOT_SUPPORTED", "HTTP_VERSION_NOT_SUPPORTED"),
+	HTTP_VERSION_NOT_SUPPORTED(505, "HTTP_VERSION_NOT_SUPPORTED", "HTTP VERSION NOT SUPPORTED"),
 
 	/**
 	 * The '<em><b>INSUFFICIENT STORAGE</b></em>' literal object.
@@ -496,7 +496,7 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	INSUFFICIENT_STORAGE(507, "INSUFFICIENT_STORAGE", "INSUFFICIENT_STORAGE");
+	INSUFFICIENT_STORAGE(507, "INSUFFICIENT_STORAGE", "INSUFFICIENT STORAGE");
 
 	/**
 	 * The '<em><b>CONTINUE</b></em>' literal value.
@@ -522,7 +522,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #SWITCHING_PROTOCOLS
-	 * @model
+	 * @model literal="SWITCHING PROTOCOLS"
 	 * @generated
 	 * @ordered
 	 */
@@ -597,7 +597,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #NON_AUTHORITATIVE_INFORMATION
-	 * @model
+	 * @model literal="NON AUTHORITATIVE INFORMATION"
 	 * @generated
 	 * @ordered
 	 */
@@ -612,7 +612,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #NO_CONTENT
-	 * @model
+	 * @model literal="NO CONTENT"
 	 * @generated
 	 * @ordered
 	 */
@@ -627,7 +627,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #RESET_CONTENT
-	 * @model
+	 * @model literal="RESET CONTENT"
 	 * @generated
 	 * @ordered
 	 */
@@ -642,7 +642,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #PARTIAL_CONTENT
-	 * @model
+	 * @model literal="PARTIAL CONTENT"
 	 * @generated
 	 * @ordered
 	 */
@@ -657,7 +657,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #MULTI_STATUS
-	 * @model
+	 * @model literal="MULTI STATUS"
 	 * @generated
 	 * @ordered
 	 */
@@ -672,7 +672,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #MULTIPLE_CHOICES
-	 * @model
+	 * @model literal="MULTIPLE CHOICES"
 	 * @generated
 	 * @ordered
 	 */
@@ -687,7 +687,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #MOVED_PERMANENTLY
-	 * @model
+	 * @model literal="MOVED PERMANENTLY"
 	 * @generated
 	 * @ordered
 	 */
@@ -702,7 +702,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #MOVED_TEMPORARILY
-	 * @model
+	 * @model literal="MOVED TEMPORARILY"
 	 * @generated
 	 * @ordered
 	 */
@@ -717,7 +717,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #SEE_OTHER
-	 * @model
+	 * @model literal="SEE OTHER"
 	 * @generated
 	 * @ordered
 	 */
@@ -732,7 +732,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #NOT_MODIFIED
-	 * @model
+	 * @model literal="NOT MODIFIED"
 	 * @generated
 	 * @ordered
 	 */
@@ -747,7 +747,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #USE_PROXY
-	 * @model
+	 * @model literal="USE PROXY"
 	 * @generated
 	 * @ordered
 	 */
@@ -762,7 +762,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #TEMPORARY_REDIRECT
-	 * @model
+	 * @model literal="TEMPORARY REDIRECT"
 	 * @generated
 	 * @ordered
 	 */
@@ -777,7 +777,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #BAD_REQUEST
-	 * @model
+	 * @model literal="BAD REQUEST"
 	 * @generated
 	 * @ordered
 	 */
@@ -807,7 +807,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #PAYMENT_REQUIRED
-	 * @model
+	 * @model literal="PAYMENT REQUIRED"
 	 * @generated
 	 * @ordered
 	 */
@@ -837,7 +837,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #NOT_FOUND
-	 * @model
+	 * @model literal="NOT FOUND"
 	 * @generated
 	 * @ordered
 	 */
@@ -852,7 +852,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #METHOD_NOT_ALLOWED
-	 * @model
+	 * @model literal="METHOD NOT ALLOWED"
 	 * @generated
 	 * @ordered
 	 */
@@ -867,7 +867,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #NOT_ACCEPTABLE
-	 * @model
+	 * @model literal="NOT ACCEPTABLE"
 	 * @generated
 	 * @ordered
 	 */
@@ -882,7 +882,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #PROXY_AUTHENTICATION_REQUIRED
-	 * @model
+	 * @model literal="PROXY AUTHENTICATION REQUIRED"
 	 * @generated
 	 * @ordered
 	 */
@@ -897,7 +897,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #REQUEST_TIMEOUT
-	 * @model
+	 * @model literal="REQUEST TIMEOUT"
 	 * @generated
 	 * @ordered
 	 */
@@ -942,7 +942,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #LENGTH_REQUIRED
-	 * @model
+	 * @model literal="LENGTH REQUIRED"
 	 * @generated
 	 * @ordered
 	 */
@@ -957,7 +957,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #PRECONDITION_FAILED
-	 * @model
+	 * @model literal="PRECONDITION FAILED"
 	 * @generated
 	 * @ordered
 	 */
@@ -972,7 +972,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #REQUEST_TOO_LONG
-	 * @model
+	 * @model literal="REQUEST TOO LONG"
 	 * @generated
 	 * @ordered
 	 */
@@ -987,7 +987,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #REQUEST_URI_TOO_LONG
-	 * @model
+	 * @model literal="REQUEST URI TOO LONG"
 	 * @generated
 	 * @ordered
 	 */
@@ -1002,7 +1002,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #UNSUPPORTED_MEDIA_TYPE
-	 * @model
+	 * @model literal="UNSUPPORTED MEDIA TYPE"
 	 * @generated
 	 * @ordered
 	 */
@@ -1017,7 +1017,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #REQUESTED_RANGE_NOT_SATISFIABLE
-	 * @model
+	 * @model literal="REQUESTED RANGE NOT SATISFIABLE"
 	 * @generated
 	 * @ordered
 	 */
@@ -1032,7 +1032,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #EXPECTATION_FAILED
-	 * @model
+	 * @model literal="EXPECTATION FAILED"
 	 * @generated
 	 * @ordered
 	 */
@@ -1047,7 +1047,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #INSUFFICIENT_SPACE_ON_RESOURCE
-	 * @model
+	 * @model literal="INSUFFICIENT SPACE ON RESOURCE"
 	 * @generated
 	 * @ordered
 	 */
@@ -1062,7 +1062,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #METHOD_FAILURE
-	 * @model
+	 * @model literal="METHOD FAILURE"
 	 * @generated
 	 * @ordered
 	 */
@@ -1077,7 +1077,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #UNPROCESSABLE_ENTITY
-	 * @model
+	 * @model literal="UNPROCESSABLE ENTITY"
 	 * @generated
 	 * @ordered
 	 */
@@ -1107,7 +1107,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #FAILED_DEPENDENCY
-	 * @model
+	 * @model literal="FAILED DEPENDENCY"
 	 * @generated
 	 * @ordered
 	 */
@@ -1122,7 +1122,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #INTERNAL_SERVER_ERROR
-	 * @model
+	 * @model literal="INTERNAL SERVER ERROR"
 	 * @generated
 	 * @ordered
 	 */
@@ -1137,7 +1137,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #NOT_IMPLEMENTED
-	 * @model
+	 * @model literal="NOT IMPLEMENTED"
 	 * @generated
 	 * @ordered
 	 */
@@ -1152,7 +1152,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #BAD_GATEWAY
-	 * @model
+	 * @model literal="BAD GATEWAY"
 	 * @generated
 	 * @ordered
 	 */
@@ -1167,7 +1167,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #SERVICE_UNAVAILABLE
-	 * @model
+	 * @model literal="SERVICE UNAVAILABLE"
 	 * @generated
 	 * @ordered
 	 */
@@ -1182,7 +1182,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #GATEWAY_TIMEOUT
-	 * @model
+	 * @model literal="GATEWAY TIMEOUT"
 	 * @generated
 	 * @ordered
 	 */
@@ -1197,7 +1197,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #HTTP_VERSION_NOT_SUPPORTED
-	 * @model
+	 * @model literal="HTTP VERSION NOT SUPPORTED"
 	 * @generated
 	 * @ordered
 	 */
@@ -1212,7 +1212,7 @@ public enum StatusCode implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #INSUFFICIENT_STORAGE
-	 * @model
+	 * @model literal="INSUFFICIENT STORAGE"
 	 * @generated
 	 * @ordered
 	 */

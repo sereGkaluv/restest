@@ -84,8 +84,8 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createExpectedResultAdapter();
 			}
 			@Override
-			public Adapter caseConfigResultPair(ConfigResultPair object) {
-				return createConfigResultPairAdapter();
+			public Adapter caseConfigExpectedResultPair(ConfigExpectedResultPair object) {
+				return createConfigExpectedResultPairAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -164,16 +164,16 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link at.fhv.ecss2016.restest.model.ConfigResultPair <em>Config Result Pair</em>}'.
+	 * Creates a new adapter for an object of class '{@link at.fhv.ecss2016.restest.model.ConfigExpectedResultPair <em>Config Expected Result Pair</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see at.fhv.ecss2016.restest.model.ConfigResultPair
+	 * @see at.fhv.ecss2016.restest.model.ConfigExpectedResultPair
 	 * @generated
 	 */
-	public Adapter createConfigResultPairAdapter() {
+	public Adapter createConfigExpectedResultPairAdapter() {
 		return null;
 	}
 

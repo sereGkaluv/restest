@@ -4,9 +4,9 @@ package at.fhv.ecss2016.restest.model.impl;
 
 import at.fhv.ecss2016.restest.model.Config;
 import at.fhv.ecss2016.restest.model.ContentType;
-import at.fhv.ecss2016.restest.model.ExpectedResult;
 import at.fhv.ecss2016.restest.model.HttpVerb;
 import at.fhv.ecss2016.restest.model.ModelPackage;
+import at.fhv.ecss2016.restest.model.Response;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -26,10 +26,10 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link at.fhv.ecss2016.restest.model.impl.ConfigImpl#getName <em>Name</em>}</li>
  *   <li>{@link at.fhv.ecss2016.restest.model.impl.ConfigImpl#getRequestURL <em>Request URL</em>}</li>
- *   <li>{@link at.fhv.ecss2016.restest.model.impl.ConfigImpl#getVerb <em>Verb</em>}</li>
+ *   <li>{@link at.fhv.ecss2016.restest.model.impl.ConfigImpl#getHttpVerb <em>Http Verb</em>}</li>
  *   <li>{@link at.fhv.ecss2016.restest.model.impl.ConfigImpl#getContentType <em>Content Type</em>}</li>
  *   <li>{@link at.fhv.ecss2016.restest.model.impl.ConfigImpl#getRequestBody <em>Request Body</em>}</li>
- *   <li>{@link at.fhv.ecss2016.restest.model.impl.ConfigImpl#getExpectedResult <em>Expected Result</em>}</li>
+ *   <li>{@link at.fhv.ecss2016.restest.model.impl.ConfigImpl#getResponse <em>Response</em>}</li>
  * </ul>
  *
  * @generated
@@ -76,24 +76,24 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 	protected String requestURL = REQUEST_URL_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getVerb() <em>Verb</em>}' attribute.
+	 * The default value of the '{@link #getHttpVerb() <em>Http Verb</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getVerb()
+	 * @see #getHttpVerb()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final HttpVerb VERB_EDEFAULT = HttpVerb.GET;
+	protected static final HttpVerb HTTP_VERB_EDEFAULT = HttpVerb.GET;
 
 	/**
-	 * The cached value of the '{@link #getVerb() <em>Verb</em>}' attribute.
+	 * The cached value of the '{@link #getHttpVerb() <em>Http Verb</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getVerb()
+	 * @see #getHttpVerb()
 	 * @generated
 	 * @ordered
 	 */
-	protected HttpVerb verb = VERB_EDEFAULT;
+	protected HttpVerb httpVerb = HTTP_VERB_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getContentType() <em>Content Type</em>}' attribute.
@@ -136,14 +136,14 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 	protected String requestBody = REQUEST_BODY_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getExpectedResult() <em>Expected Result</em>}' reference.
+	 * The cached value of the '{@link #getResponse() <em>Response</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getExpectedResult()
+	 * @see #getResponse()
 	 * @generated
 	 * @ordered
 	 */
-	protected ExpectedResult expectedResult;
+	protected Response response;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -211,8 +211,8 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public HttpVerb getVerb() {
-		return verb;
+	public HttpVerb getHttpVerb() {
+		return httpVerb;
 	}
 
 	/**
@@ -220,11 +220,11 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setVerb(HttpVerb newVerb) {
-		HttpVerb oldVerb = verb;
-		verb = newVerb == null ? VERB_EDEFAULT : newVerb;
+	public void setHttpVerb(HttpVerb newHttpVerb) {
+		HttpVerb oldHttpVerb = httpVerb;
+		httpVerb = newHttpVerb == null ? HTTP_VERB_EDEFAULT : newHttpVerb;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.CONFIG__VERB, oldVerb, verb));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.CONFIG__HTTP_VERB, oldHttpVerb, httpVerb));
 	}
 
 	/**
@@ -274,16 +274,16 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ExpectedResult getExpectedResult() {
-		if (expectedResult != null && expectedResult.eIsProxy()) {
-			InternalEObject oldExpectedResult = (InternalEObject)expectedResult;
-			expectedResult = (ExpectedResult)eResolveProxy(oldExpectedResult);
-			if (expectedResult != oldExpectedResult) {
+	public Response getResponse() {
+		if (response != null && response.eIsProxy()) {
+			InternalEObject oldResponse = (InternalEObject)response;
+			response = (Response)eResolveProxy(oldResponse);
+			if (response != oldResponse) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.CONFIG__EXPECTED_RESULT, oldExpectedResult, expectedResult));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.CONFIG__RESPONSE, oldResponse, response));
 			}
 		}
-		return expectedResult;
+		return response;
 	}
 
 	/**
@@ -291,8 +291,8 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ExpectedResult basicGetExpectedResult() {
-		return expectedResult;
+	public Response basicGetResponse() {
+		return response;
 	}
 
 	/**
@@ -300,11 +300,11 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setExpectedResult(ExpectedResult newExpectedResult) {
-		ExpectedResult oldExpectedResult = expectedResult;
-		expectedResult = newExpectedResult;
+	public void setResponse(Response newResponse) {
+		Response oldResponse = response;
+		response = newResponse;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.CONFIG__EXPECTED_RESULT, oldExpectedResult, expectedResult));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.CONFIG__RESPONSE, oldResponse, response));
 	}
 
 	/**
@@ -319,15 +319,15 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 				return getName();
 			case ModelPackage.CONFIG__REQUEST_URL:
 				return getRequestURL();
-			case ModelPackage.CONFIG__VERB:
-				return getVerb();
+			case ModelPackage.CONFIG__HTTP_VERB:
+				return getHttpVerb();
 			case ModelPackage.CONFIG__CONTENT_TYPE:
 				return getContentType();
 			case ModelPackage.CONFIG__REQUEST_BODY:
 				return getRequestBody();
-			case ModelPackage.CONFIG__EXPECTED_RESULT:
-				if (resolve) return getExpectedResult();
-				return basicGetExpectedResult();
+			case ModelPackage.CONFIG__RESPONSE:
+				if (resolve) return getResponse();
+				return basicGetResponse();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -346,8 +346,8 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 			case ModelPackage.CONFIG__REQUEST_URL:
 				setRequestURL((String)newValue);
 				return;
-			case ModelPackage.CONFIG__VERB:
-				setVerb((HttpVerb)newValue);
+			case ModelPackage.CONFIG__HTTP_VERB:
+				setHttpVerb((HttpVerb)newValue);
 				return;
 			case ModelPackage.CONFIG__CONTENT_TYPE:
 				setContentType((ContentType)newValue);
@@ -355,8 +355,8 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 			case ModelPackage.CONFIG__REQUEST_BODY:
 				setRequestBody((String)newValue);
 				return;
-			case ModelPackage.CONFIG__EXPECTED_RESULT:
-				setExpectedResult((ExpectedResult)newValue);
+			case ModelPackage.CONFIG__RESPONSE:
+				setResponse((Response)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -376,8 +376,8 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 			case ModelPackage.CONFIG__REQUEST_URL:
 				setRequestURL(REQUEST_URL_EDEFAULT);
 				return;
-			case ModelPackage.CONFIG__VERB:
-				setVerb(VERB_EDEFAULT);
+			case ModelPackage.CONFIG__HTTP_VERB:
+				setHttpVerb(HTTP_VERB_EDEFAULT);
 				return;
 			case ModelPackage.CONFIG__CONTENT_TYPE:
 				setContentType(CONTENT_TYPE_EDEFAULT);
@@ -385,8 +385,8 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 			case ModelPackage.CONFIG__REQUEST_BODY:
 				setRequestBody(REQUEST_BODY_EDEFAULT);
 				return;
-			case ModelPackage.CONFIG__EXPECTED_RESULT:
-				setExpectedResult((ExpectedResult)null);
+			case ModelPackage.CONFIG__RESPONSE:
+				setResponse((Response)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -404,14 +404,14 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case ModelPackage.CONFIG__REQUEST_URL:
 				return REQUEST_URL_EDEFAULT == null ? requestURL != null : !REQUEST_URL_EDEFAULT.equals(requestURL);
-			case ModelPackage.CONFIG__VERB:
-				return verb != VERB_EDEFAULT;
+			case ModelPackage.CONFIG__HTTP_VERB:
+				return httpVerb != HTTP_VERB_EDEFAULT;
 			case ModelPackage.CONFIG__CONTENT_TYPE:
 				return contentType != CONTENT_TYPE_EDEFAULT;
 			case ModelPackage.CONFIG__REQUEST_BODY:
 				return REQUEST_BODY_EDEFAULT == null ? requestBody != null : !REQUEST_BODY_EDEFAULT.equals(requestBody);
-			case ModelPackage.CONFIG__EXPECTED_RESULT:
-				return expectedResult != null;
+			case ModelPackage.CONFIG__RESPONSE:
+				return response != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -430,8 +430,8 @@ public class ConfigImpl extends MinimalEObjectImpl.Container implements Config {
 		result.append(name);
 		result.append(", requestURL: ");
 		result.append(requestURL);
-		result.append(", verb: ");
-		result.append(verb);
+		result.append(", httpVerb: ");
+		result.append(httpVerb);
 		result.append(", contentType: ");
 		result.append(contentType);
 		result.append(", requestBody: ");

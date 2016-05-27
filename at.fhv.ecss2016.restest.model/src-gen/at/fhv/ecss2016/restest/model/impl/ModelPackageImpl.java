@@ -3,7 +3,7 @@
 package at.fhv.ecss2016.restest.model.impl;
 
 import at.fhv.ecss2016.restest.model.Config;
-import at.fhv.ecss2016.restest.model.ConfigResultPair;
+import at.fhv.ecss2016.restest.model.ConfigExpectedResultPair;
 import at.fhv.ecss2016.restest.model.ContentType;
 import at.fhv.ecss2016.restest.model.ExpectedResult;
 import at.fhv.ecss2016.restest.model.HttpVerb;
@@ -61,7 +61,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass configResultPairEClass = null;
+	private EClass configExpectedResultPairEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -177,7 +177,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConfig_Verb() {
+	public EAttribute getConfig_HttpVerb() {
 		return (EAttribute)configEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -204,7 +204,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConfig_ExpectedResult() {
+	public EReference getConfig_Response() {
 		return (EReference)configEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -222,7 +222,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getScenario_ScenariosFile() {
+	public EAttribute getScenario_ScenarioFilePath() {
 		return (EAttribute)scenarioEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -231,7 +231,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getScenario_ConfigResultPairs() {
+	public EReference getScenario_ConfigExpectedResultPairList() {
 		return (EReference)scenarioEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -249,7 +249,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getResponse_ResponseCode() {
+	public EAttribute getResponse_StatusCode() {
 		return (EAttribute)responseEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -258,7 +258,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getResponse_ResponseContentType() {
+	public EAttribute getResponse_ContentType() {
 		return (EAttribute)responseEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -294,7 +294,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getExpectedResult_ResponseCode() {
+	public EAttribute getExpectedResult_StatusCode() {
 		return (EAttribute)expectedResultEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -303,7 +303,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getExpectedResult_ResponseContentType() {
+	public EAttribute getExpectedResult_ContentType() {
 		return (EAttribute)expectedResultEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -321,8 +321,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getConfigResultPair() {
-		return configResultPairEClass;
+	public EClass getConfigExpectedResultPair() {
+		return configExpectedResultPairEClass;
 	}
 
 	/**
@@ -330,8 +330,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConfigResultPair_Config() {
-		return (EReference)configResultPairEClass.getEStructuralFeatures().get(0);
+	public EReference getConfigExpectedResultPair_Config() {
+		return (EReference)configExpectedResultPairEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -339,8 +339,8 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConfigResultPair_Response() {
-		return (EReference)configResultPairEClass.getEStructuralFeatures().get(1);
+	public EReference getConfigExpectedResultPair_ExpectedResult() {
+		return (EReference)configExpectedResultPairEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -401,29 +401,29 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		configEClass = createEClass(CONFIG);
 		createEAttribute(configEClass, CONFIG__NAME);
 		createEAttribute(configEClass, CONFIG__REQUEST_URL);
-		createEAttribute(configEClass, CONFIG__VERB);
+		createEAttribute(configEClass, CONFIG__HTTP_VERB);
 		createEAttribute(configEClass, CONFIG__CONTENT_TYPE);
 		createEAttribute(configEClass, CONFIG__REQUEST_BODY);
-		createEReference(configEClass, CONFIG__EXPECTED_RESULT);
+		createEReference(configEClass, CONFIG__RESPONSE);
 
 		scenarioEClass = createEClass(SCENARIO);
-		createEAttribute(scenarioEClass, SCENARIO__SCENARIOS_FILE);
-		createEReference(scenarioEClass, SCENARIO__CONFIG_RESULT_PAIRS);
+		createEAttribute(scenarioEClass, SCENARIO__SCENARIO_FILE_PATH);
+		createEReference(scenarioEClass, SCENARIO__CONFIG_EXPECTED_RESULT_PAIR_LIST);
 
 		responseEClass = createEClass(RESPONSE);
-		createEAttribute(responseEClass, RESPONSE__RESPONSE_CODE);
-		createEAttribute(responseEClass, RESPONSE__RESPONSE_CONTENT_TYPE);
+		createEAttribute(responseEClass, RESPONSE__STATUS_CODE);
+		createEAttribute(responseEClass, RESPONSE__CONTENT_TYPE);
 		createEAttribute(responseEClass, RESPONSE__RESPONSE_TIME);
 		createEAttribute(responseEClass, RESPONSE__RESPONSE_BODY);
 
 		expectedResultEClass = createEClass(EXPECTED_RESULT);
-		createEAttribute(expectedResultEClass, EXPECTED_RESULT__RESPONSE_CODE);
-		createEAttribute(expectedResultEClass, EXPECTED_RESULT__RESPONSE_CONTENT_TYPE);
+		createEAttribute(expectedResultEClass, EXPECTED_RESULT__STATUS_CODE);
+		createEAttribute(expectedResultEClass, EXPECTED_RESULT__CONTENT_TYPE);
 		createEAttribute(expectedResultEClass, EXPECTED_RESULT__RESPONSE_BODY);
 
-		configResultPairEClass = createEClass(CONFIG_RESULT_PAIR);
-		createEReference(configResultPairEClass, CONFIG_RESULT_PAIR__CONFIG);
-		createEReference(configResultPairEClass, CONFIG_RESULT_PAIR__RESPONSE);
+		configExpectedResultPairEClass = createEClass(CONFIG_EXPECTED_RESULT_PAIR);
+		createEReference(configExpectedResultPairEClass, CONFIG_EXPECTED_RESULT_PAIR__CONFIG);
+		createEReference(configExpectedResultPairEClass, CONFIG_EXPECTED_RESULT_PAIR__EXPECTED_RESULT);
 
 		// Create enums
 		contentTypeEEnum = createEEnum(CONTENT_TYPE);
@@ -464,29 +464,29 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		initEClass(configEClass, Config.class, "Config", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getConfig_Name(), ecorePackage.getEString(), "name", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConfig_RequestURL(), ecorePackage.getEString(), "requestURL", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConfig_Verb(), this.getHttpVerb(), "verb", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getConfig_HttpVerb(), this.getHttpVerb(), "httpVerb", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConfig_ContentType(), this.getContentType(), "contentType", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConfig_RequestBody(), ecorePackage.getEString(), "requestBody", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getConfig_ExpectedResult(), this.getExpectedResult(), null, "expectedResult", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConfig_Response(), this.getResponse(), null, "response", null, 0, 1, Config.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(scenarioEClass, Scenario.class, "Scenario", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getScenario_ScenariosFile(), ecorePackage.getEString(), "scenariosFile", null, 0, 1, Scenario.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getScenario_ConfigResultPairs(), this.getConfigResultPair(), null, "configResultPairs", null, 0, -1, Scenario.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getScenario_ScenarioFilePath(), ecorePackage.getEString(), "scenarioFilePath", null, 0, 1, Scenario.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getScenario_ConfigExpectedResultPairList(), this.getConfigExpectedResultPair(), null, "configExpectedResultPairList", null, 0, -1, Scenario.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(responseEClass, Response.class, "Response", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getResponse_ResponseCode(), this.getStatusCode(), "responseCode", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getResponse_ResponseContentType(), this.getContentType(), "responseContentType", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getResponse_StatusCode(), this.getStatusCode(), "statusCode", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getResponse_ContentType(), this.getContentType(), "contentType", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getResponse_ResponseTime(), ecorePackage.getEString(), "responseTime", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getResponse_ResponseBody(), ecorePackage.getEString(), "responseBody", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(expectedResultEClass, ExpectedResult.class, "ExpectedResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getExpectedResult_ResponseCode(), this.getStatusCode(), "responseCode", null, 0, 1, ExpectedResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getExpectedResult_ResponseContentType(), this.getContentType(), "responseContentType", null, 0, 1, ExpectedResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getExpectedResult_StatusCode(), this.getStatusCode(), "statusCode", null, 0, 1, ExpectedResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getExpectedResult_ContentType(), this.getContentType(), "contentType", null, 0, 1, ExpectedResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getExpectedResult_ResponseBody(), ecorePackage.getEString(), "responseBody", null, 0, 1, ExpectedResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(configResultPairEClass, ConfigResultPair.class, "ConfigResultPair", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getConfigResultPair_Config(), this.getConfig(), null, "config", null, 0, 1, ConfigResultPair.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getConfigResultPair_Response(), this.getResponse(), null, "response", null, 0, 1, ConfigResultPair.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(configExpectedResultPairEClass, ConfigExpectedResultPair.class, "ConfigExpectedResultPair", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getConfigExpectedResultPair_Config(), this.getConfig(), null, "config", null, 0, 1, ConfigExpectedResultPair.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConfigExpectedResultPair_ExpectedResult(), this.getExpectedResult(), null, "expectedResult", null, 0, 1, ConfigExpectedResultPair.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(contentTypeEEnum, ContentType.class, "ContentType");

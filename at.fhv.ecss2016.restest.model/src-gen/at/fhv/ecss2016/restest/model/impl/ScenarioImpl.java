@@ -2,7 +2,7 @@
  */
 package at.fhv.ecss2016.restest.model.impl;
 
-import at.fhv.ecss2016.restest.model.ConfigResultPair;
+import at.fhv.ecss2016.restest.model.ConfigExpectedResultPair;
 import at.fhv.ecss2016.restest.model.ModelPackage;
 import at.fhv.ecss2016.restest.model.Scenario;
 
@@ -27,42 +27,42 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link at.fhv.ecss2016.restest.model.impl.ScenarioImpl#getScenariosFile <em>Scenarios File</em>}</li>
- *   <li>{@link at.fhv.ecss2016.restest.model.impl.ScenarioImpl#getConfigResultPairs <em>Config Result Pairs</em>}</li>
+ *   <li>{@link at.fhv.ecss2016.restest.model.impl.ScenarioImpl#getScenarioFilePath <em>Scenario File Path</em>}</li>
+ *   <li>{@link at.fhv.ecss2016.restest.model.impl.ScenarioImpl#getConfigExpectedResultPairList <em>Config Expected Result Pair List</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class ScenarioImpl extends MinimalEObjectImpl.Container implements Scenario {
 	/**
-	 * The default value of the '{@link #getScenariosFile() <em>Scenarios File</em>}' attribute.
+	 * The default value of the '{@link #getScenarioFilePath() <em>Scenario File Path</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getScenariosFile()
+	 * @see #getScenarioFilePath()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String SCENARIOS_FILE_EDEFAULT = null;
+	protected static final String SCENARIO_FILE_PATH_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getScenariosFile() <em>Scenarios File</em>}' attribute.
+	 * The cached value of the '{@link #getScenarioFilePath() <em>Scenario File Path</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getScenariosFile()
+	 * @see #getScenarioFilePath()
 	 * @generated
 	 * @ordered
 	 */
-	protected String scenariosFile = SCENARIOS_FILE_EDEFAULT;
+	protected String scenarioFilePath = SCENARIO_FILE_PATH_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getConfigResultPairs() <em>Config Result Pairs</em>}' reference list.
+	 * The cached value of the '{@link #getConfigExpectedResultPairList() <em>Config Expected Result Pair List</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getConfigResultPairs()
+	 * @see #getConfigExpectedResultPairList()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ConfigResultPair> configResultPairs;
+	protected EList<ConfigExpectedResultPair> configExpectedResultPairList;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -88,8 +88,8 @@ public class ScenarioImpl extends MinimalEObjectImpl.Container implements Scenar
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getScenariosFile() {
-		return scenariosFile;
+	public String getScenarioFilePath() {
+		return scenarioFilePath;
 	}
 
 	/**
@@ -97,11 +97,11 @@ public class ScenarioImpl extends MinimalEObjectImpl.Container implements Scenar
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setScenariosFile(String newScenariosFile) {
-		String oldScenariosFile = scenariosFile;
-		scenariosFile = newScenariosFile;
+	public void setScenarioFilePath(String newScenarioFilePath) {
+		String oldScenarioFilePath = scenarioFilePath;
+		scenarioFilePath = newScenarioFilePath;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.SCENARIO__SCENARIOS_FILE, oldScenariosFile, scenariosFile));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.SCENARIO__SCENARIO_FILE_PATH, oldScenarioFilePath, scenarioFilePath));
 	}
 
 	/**
@@ -109,11 +109,11 @@ public class ScenarioImpl extends MinimalEObjectImpl.Container implements Scenar
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ConfigResultPair> getConfigResultPairs() {
-		if (configResultPairs == null) {
-			configResultPairs = new EObjectResolvingEList<ConfigResultPair>(ConfigResultPair.class, this, ModelPackage.SCENARIO__CONFIG_RESULT_PAIRS);
+	public EList<ConfigExpectedResultPair> getConfigExpectedResultPairList() {
+		if (configExpectedResultPairList == null) {
+			configExpectedResultPairList = new EObjectResolvingEList<ConfigExpectedResultPair>(ConfigExpectedResultPair.class, this, ModelPackage.SCENARIO__CONFIG_EXPECTED_RESULT_PAIR_LIST);
 		}
-		return configResultPairs;
+		return configExpectedResultPairList;
 	}
 
 	/**
@@ -124,10 +124,10 @@ public class ScenarioImpl extends MinimalEObjectImpl.Container implements Scenar
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ModelPackage.SCENARIO__SCENARIOS_FILE:
-				return getScenariosFile();
-			case ModelPackage.SCENARIO__CONFIG_RESULT_PAIRS:
-				return getConfigResultPairs();
+			case ModelPackage.SCENARIO__SCENARIO_FILE_PATH:
+				return getScenarioFilePath();
+			case ModelPackage.SCENARIO__CONFIG_EXPECTED_RESULT_PAIR_LIST:
+				return getConfigExpectedResultPairList();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -141,12 +141,12 @@ public class ScenarioImpl extends MinimalEObjectImpl.Container implements Scenar
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ModelPackage.SCENARIO__SCENARIOS_FILE:
-				setScenariosFile((String)newValue);
+			case ModelPackage.SCENARIO__SCENARIO_FILE_PATH:
+				setScenarioFilePath((String)newValue);
 				return;
-			case ModelPackage.SCENARIO__CONFIG_RESULT_PAIRS:
-				getConfigResultPairs().clear();
-				getConfigResultPairs().addAll((Collection<? extends ConfigResultPair>)newValue);
+			case ModelPackage.SCENARIO__CONFIG_EXPECTED_RESULT_PAIR_LIST:
+				getConfigExpectedResultPairList().clear();
+				getConfigExpectedResultPairList().addAll((Collection<? extends ConfigExpectedResultPair>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -160,11 +160,11 @@ public class ScenarioImpl extends MinimalEObjectImpl.Container implements Scenar
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ModelPackage.SCENARIO__SCENARIOS_FILE:
-				setScenariosFile(SCENARIOS_FILE_EDEFAULT);
+			case ModelPackage.SCENARIO__SCENARIO_FILE_PATH:
+				setScenarioFilePath(SCENARIO_FILE_PATH_EDEFAULT);
 				return;
-			case ModelPackage.SCENARIO__CONFIG_RESULT_PAIRS:
-				getConfigResultPairs().clear();
+			case ModelPackage.SCENARIO__CONFIG_EXPECTED_RESULT_PAIR_LIST:
+				getConfigExpectedResultPairList().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -178,10 +178,10 @@ public class ScenarioImpl extends MinimalEObjectImpl.Container implements Scenar
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ModelPackage.SCENARIO__SCENARIOS_FILE:
-				return SCENARIOS_FILE_EDEFAULT == null ? scenariosFile != null : !SCENARIOS_FILE_EDEFAULT.equals(scenariosFile);
-			case ModelPackage.SCENARIO__CONFIG_RESULT_PAIRS:
-				return configResultPairs != null && !configResultPairs.isEmpty();
+			case ModelPackage.SCENARIO__SCENARIO_FILE_PATH:
+				return SCENARIO_FILE_PATH_EDEFAULT == null ? scenarioFilePath != null : !SCENARIO_FILE_PATH_EDEFAULT.equals(scenarioFilePath);
+			case ModelPackage.SCENARIO__CONFIG_EXPECTED_RESULT_PAIR_LIST:
+				return configExpectedResultPairList != null && !configExpectedResultPairList.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -196,8 +196,8 @@ public class ScenarioImpl extends MinimalEObjectImpl.Container implements Scenar
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (scenariosFile: ");
-		result.append(scenariosFile);
+		result.append(" (scenarioFilePath: ");
+		result.append(scenarioFilePath);
 		result.append(')');
 		return result.toString();
 	}

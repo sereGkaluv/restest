@@ -90,9 +90,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ModelPackage.CONFIG_RESULT_PAIR: {
-				ConfigResultPair configResultPair = (ConfigResultPair)theEObject;
-				T result = caseConfigResultPair(configResultPair);
+			case ModelPackage.CONFIG_EXPECTED_RESULT_PAIR: {
+				ConfigExpectedResultPair configExpectedResultPair = (ConfigExpectedResultPair)theEObject;
+				T result = caseConfigExpectedResultPair(configExpectedResultPair);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -161,17 +161,17 @@ public class ModelSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Config Result Pair</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Config Expected Result Pair</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Config Result Pair</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Config Expected Result Pair</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseConfigResultPair(ConfigResultPair object) {
+	public T caseConfigExpectedResultPair(ConfigExpectedResultPair object) {
 		return null;
 	}
 

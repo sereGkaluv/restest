@@ -62,10 +62,10 @@ public class ConfigItemProvider
 
 			addNamePropertyDescriptor(object);
 			addRequestURLPropertyDescriptor(object);
-			addVerbPropertyDescriptor(object);
+			addHttpVerbPropertyDescriptor(object);
 			addContentTypePropertyDescriptor(object);
 			addRequestBodyPropertyDescriptor(object);
-			addExpectedResultPropertyDescriptor(object);
+			addResponsePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -115,19 +115,19 @@ public class ConfigItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Verb feature.
+	 * This adds a property descriptor for the Http Verb feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addVerbPropertyDescriptor(Object object) {
+	protected void addHttpVerbPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Config_verb_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Config_verb_feature", "_UI_Config_type"),
-				 ModelPackage.Literals.CONFIG__VERB,
+				 getString("_UI_Config_httpVerb_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Config_httpVerb_feature", "_UI_Config_type"),
+				 ModelPackage.Literals.CONFIG__HTTP_VERB,
 				 true,
 				 false,
 				 false,
@@ -181,19 +181,19 @@ public class ConfigItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Expected Result feature.
+	 * This adds a property descriptor for the Response feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addExpectedResultPropertyDescriptor(Object object) {
+	protected void addResponsePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Config_expectedResult_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Config_expectedResult_feature", "_UI_Config_type"),
-				 ModelPackage.Literals.CONFIG__EXPECTED_RESULT,
+				 getString("_UI_Config_response_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Config_response_feature", "_UI_Config_type"),
+				 ModelPackage.Literals.CONFIG__RESPONSE,
 				 true,
 				 false,
 				 true,
@@ -242,7 +242,7 @@ public class ConfigItemProvider
 		switch (notification.getFeatureID(Config.class)) {
 			case ModelPackage.CONFIG__NAME:
 			case ModelPackage.CONFIG__REQUEST_URL:
-			case ModelPackage.CONFIG__VERB:
+			case ModelPackage.CONFIG__HTTP_VERB:
 			case ModelPackage.CONFIG__CONTENT_TYPE:
 			case ModelPackage.CONFIG__REQUEST_BODY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

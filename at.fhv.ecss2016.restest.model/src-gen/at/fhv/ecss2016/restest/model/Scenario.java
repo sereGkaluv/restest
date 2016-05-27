@@ -15,8 +15,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link at.fhv.ecss2016.restest.model.Scenario#getScenariosFile <em>Scenarios File</em>}</li>
- *   <li>{@link at.fhv.ecss2016.restest.model.Scenario#getConfigResultPairs <em>Config Result Pairs</em>}</li>
+ *   <li>{@link at.fhv.ecss2016.restest.model.Scenario#getScenarioFilePath <em>Scenario File Path</em>}</li>
+ *   <li>{@link at.fhv.ecss2016.restest.model.Scenario#getConfigExpectedResultPairList <em>Config Expected Result Pair List</em>}</li>
  * </ul>
  *
  * @see at.fhv.ecss2016.restest.model.ModelPackage#getScenario()
@@ -25,45 +25,45 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Scenario extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Scenarios File</b></em>' attribute.
+	 * Returns the value of the '<em><b>Scenario File Path</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Scenarios File</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Scenario File Path</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Scenarios File</em>' attribute.
-	 * @see #setScenariosFile(String)
-	 * @see at.fhv.ecss2016.restest.model.ModelPackage#getScenario_ScenariosFile()
+	 * @return the value of the '<em>Scenario File Path</em>' attribute.
+	 * @see #setScenarioFilePath(String)
+	 * @see at.fhv.ecss2016.restest.model.ModelPackage#getScenario_ScenarioFilePath()
 	 * @model
 	 * @generated
 	 */
-	String getScenariosFile();
+	String getScenarioFilePath();
 
 	/**
-	 * Sets the value of the '{@link at.fhv.ecss2016.restest.model.Scenario#getScenariosFile <em>Scenarios File</em>}' attribute.
+	 * Sets the value of the '{@link at.fhv.ecss2016.restest.model.Scenario#getScenarioFilePath <em>Scenario File Path</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Scenarios File</em>' attribute.
-	 * @see #getScenariosFile()
+	 * @param value the new value of the '<em>Scenario File Path</em>' attribute.
+	 * @see #getScenarioFilePath()
 	 * @generated
 	 */
-	void setScenariosFile(String value);
+	void setScenarioFilePath(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Config Result Pairs</b></em>' reference list.
-	 * The list contents are of type {@link at.fhv.ecss2016.restest.model.ConfigResultPair}.
+	 * Returns the value of the '<em><b>Config Expected Result Pair List</b></em>' reference list.
+	 * The list contents are of type {@link at.fhv.ecss2016.restest.model.ConfigExpectedResultPair}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Config Result Pairs</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Config Expected Result Pair List</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Config Result Pairs</em>' reference list.
-	 * @see at.fhv.ecss2016.restest.model.ModelPackage#getScenario_ConfigResultPairs()
+	 * @return the value of the '<em>Config Expected Result Pair List</em>' reference list.
+	 * @see at.fhv.ecss2016.restest.model.ModelPackage#getScenario_ConfigExpectedResultPairList()
 	 * @model
 	 * @generated
 	 */
-	EList<ConfigResultPair> getConfigResultPairs();
+	EList<ConfigExpectedResultPair> getConfigExpectedResultPairList();
 
 } // Scenario

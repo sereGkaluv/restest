@@ -61,27 +61,27 @@ public class ExpectedResultItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addResponseCodePropertyDescriptor(object);
-			addResponseContentTypePropertyDescriptor(object);
+			addStatusCodePropertyDescriptor(object);
+			addContentTypePropertyDescriptor(object);
 			addResponseBodyPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Response Code feature.
+	 * This adds a property descriptor for the Status Code feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addResponseCodePropertyDescriptor(Object object) {
+	protected void addStatusCodePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ExpectedResult_responseCode_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExpectedResult_responseCode_feature", "_UI_ExpectedResult_type"),
-				 ModelPackage.Literals.EXPECTED_RESULT__RESPONSE_CODE,
+				 getString("_UI_ExpectedResult_statusCode_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExpectedResult_statusCode_feature", "_UI_ExpectedResult_type"),
+				 ModelPackage.Literals.EXPECTED_RESULT__STATUS_CODE,
 				 true,
 				 false,
 				 false,
@@ -91,19 +91,19 @@ public class ExpectedResultItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Response Content Type feature.
+	 * This adds a property descriptor for the Content Type feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addResponseContentTypePropertyDescriptor(Object object) {
+	protected void addContentTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ExpectedResult_responseContentType_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExpectedResult_responseContentType_feature", "_UI_ExpectedResult_type"),
-				 ModelPackage.Literals.EXPECTED_RESULT__RESPONSE_CONTENT_TYPE,
+				 getString("_UI_ExpectedResult_contentType_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExpectedResult_contentType_feature", "_UI_ExpectedResult_type"),
+				 ModelPackage.Literals.EXPECTED_RESULT__CONTENT_TYPE,
 				 true,
 				 false,
 				 false,
@@ -153,7 +153,7 @@ public class ExpectedResultItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		StatusCode labelValue = ((ExpectedResult)object).getResponseCode();
+		StatusCode labelValue = ((ExpectedResult)object).getStatusCode();
 		String label = labelValue == null ? null : labelValue.toString();
 		return label == null || label.length() == 0 ?
 			getString("_UI_ExpectedResult_type") :
@@ -173,8 +173,8 @@ public class ExpectedResultItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ExpectedResult.class)) {
-			case ModelPackage.EXPECTED_RESULT__RESPONSE_CODE:
-			case ModelPackage.EXPECTED_RESULT__RESPONSE_CONTENT_TYPE:
+			case ModelPackage.EXPECTED_RESULT__STATUS_CODE:
+			case ModelPackage.EXPECTED_RESULT__CONTENT_TYPE:
 			case ModelPackage.EXPECTED_RESULT__RESPONSE_BODY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

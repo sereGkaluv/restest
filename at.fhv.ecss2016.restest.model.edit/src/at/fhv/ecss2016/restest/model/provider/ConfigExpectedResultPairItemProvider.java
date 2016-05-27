@@ -23,12 +23,12 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 
 /**
- * This is the item provider adapter for a {@link at.fhv.ecss2016.restest.model.ConfigResultPair} object.
+ * This is the item provider adapter for a {@link at.fhv.ecss2016.restest.model.ConfigExpectedResultPair} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ConfigResultPairItemProvider 
+public class ConfigExpectedResultPairItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -42,7 +42,7 @@ public class ConfigResultPairItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ConfigResultPairItemProvider(AdapterFactory adapterFactory) {
+	public ConfigExpectedResultPairItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -58,7 +58,7 @@ public class ConfigResultPairItemProvider
 			super.getPropertyDescriptors(object);
 
 			addConfigPropertyDescriptor(object);
-			addResponsePropertyDescriptor(object);
+			addExpectedResultPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -74,9 +74,9 @@ public class ConfigResultPairItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ConfigResultPair_config_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ConfigResultPair_config_feature", "_UI_ConfigResultPair_type"),
-				 ModelPackage.Literals.CONFIG_RESULT_PAIR__CONFIG,
+				 getString("_UI_ConfigExpectedResultPair_config_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ConfigExpectedResultPair_config_feature", "_UI_ConfigExpectedResultPair_type"),
+				 ModelPackage.Literals.CONFIG_EXPECTED_RESULT_PAIR__CONFIG,
 				 true,
 				 false,
 				 true,
@@ -86,19 +86,19 @@ public class ConfigResultPairItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Response feature.
+	 * This adds a property descriptor for the Expected Result feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addResponsePropertyDescriptor(Object object) {
+	protected void addExpectedResultPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ConfigResultPair_response_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ConfigResultPair_response_feature", "_UI_ConfigResultPair_type"),
-				 ModelPackage.Literals.CONFIG_RESULT_PAIR__RESPONSE,
+				 getString("_UI_ConfigExpectedResultPair_expectedResult_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ConfigExpectedResultPair_expectedResult_feature", "_UI_ConfigExpectedResultPair_type"),
+				 ModelPackage.Literals.CONFIG_EXPECTED_RESULT_PAIR__EXPECTED_RESULT,
 				 true,
 				 false,
 				 true,
@@ -108,14 +108,14 @@ public class ConfigResultPairItemProvider
 	}
 
 	/**
-	 * This returns ConfigResultPair.gif.
+	 * This returns ConfigExpectedResultPair.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ConfigResultPair"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ConfigExpectedResultPair"));
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class ConfigResultPairItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_ConfigResultPair_type");
+		return getString("_UI_ConfigExpectedResultPair_type");
 	}
 	
 

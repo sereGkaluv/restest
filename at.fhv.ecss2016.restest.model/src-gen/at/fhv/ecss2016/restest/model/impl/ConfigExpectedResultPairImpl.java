@@ -3,9 +3,9 @@
 package at.fhv.ecss2016.restest.model.impl;
 
 import at.fhv.ecss2016.restest.model.Config;
-import at.fhv.ecss2016.restest.model.ConfigResultPair;
+import at.fhv.ecss2016.restest.model.ConfigExpectedResultPair;
+import at.fhv.ecss2016.restest.model.ExpectedResult;
 import at.fhv.ecss2016.restest.model.ModelPackage;
-import at.fhv.ecss2016.restest.model.Response;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -17,19 +17,19 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Config Result Pair</b></em>'.
+ * An implementation of the model object '<em><b>Config Expected Result Pair</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link at.fhv.ecss2016.restest.model.impl.ConfigResultPairImpl#getConfig <em>Config</em>}</li>
- *   <li>{@link at.fhv.ecss2016.restest.model.impl.ConfigResultPairImpl#getResponse <em>Response</em>}</li>
+ *   <li>{@link at.fhv.ecss2016.restest.model.impl.ConfigExpectedResultPairImpl#getConfig <em>Config</em>}</li>
+ *   <li>{@link at.fhv.ecss2016.restest.model.impl.ConfigExpectedResultPairImpl#getExpectedResult <em>Expected Result</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ConfigResultPairImpl extends MinimalEObjectImpl.Container implements ConfigResultPair {
+public class ConfigExpectedResultPairImpl extends MinimalEObjectImpl.Container implements ConfigExpectedResultPair {
 	/**
 	 * The cached value of the '{@link #getConfig() <em>Config</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -41,21 +41,21 @@ public class ConfigResultPairImpl extends MinimalEObjectImpl.Container implement
 	protected Config config;
 
 	/**
-	 * The cached value of the '{@link #getResponse() <em>Response</em>}' reference.
+	 * The cached value of the '{@link #getExpectedResult() <em>Expected Result</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getResponse()
+	 * @see #getExpectedResult()
 	 * @generated
 	 * @ordered
 	 */
-	protected Response response;
+	protected ExpectedResult expectedResult;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ConfigResultPairImpl() {
+	protected ConfigExpectedResultPairImpl() {
 		super();
 	}
 
@@ -66,7 +66,7 @@ public class ConfigResultPairImpl extends MinimalEObjectImpl.Container implement
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ModelPackage.Literals.CONFIG_RESULT_PAIR;
+		return ModelPackage.Literals.CONFIG_EXPECTED_RESULT_PAIR;
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class ConfigResultPairImpl extends MinimalEObjectImpl.Container implement
 			config = (Config)eResolveProxy(oldConfig);
 			if (config != oldConfig) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.CONFIG_RESULT_PAIR__CONFIG, oldConfig, config));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.CONFIG_EXPECTED_RESULT_PAIR__CONFIG, oldConfig, config));
 			}
 		}
 		return config;
@@ -104,7 +104,7 @@ public class ConfigResultPairImpl extends MinimalEObjectImpl.Container implement
 		Config oldConfig = config;
 		config = newConfig;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.CONFIG_RESULT_PAIR__CONFIG, oldConfig, config));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.CONFIG_EXPECTED_RESULT_PAIR__CONFIG, oldConfig, config));
 	}
 
 	/**
@@ -112,16 +112,16 @@ public class ConfigResultPairImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Response getResponse() {
-		if (response != null && response.eIsProxy()) {
-			InternalEObject oldResponse = (InternalEObject)response;
-			response = (Response)eResolveProxy(oldResponse);
-			if (response != oldResponse) {
+	public ExpectedResult getExpectedResult() {
+		if (expectedResult != null && expectedResult.eIsProxy()) {
+			InternalEObject oldExpectedResult = (InternalEObject)expectedResult;
+			expectedResult = (ExpectedResult)eResolveProxy(oldExpectedResult);
+			if (expectedResult != oldExpectedResult) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.CONFIG_RESULT_PAIR__RESPONSE, oldResponse, response));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModelPackage.CONFIG_EXPECTED_RESULT_PAIR__EXPECTED_RESULT, oldExpectedResult, expectedResult));
 			}
 		}
-		return response;
+		return expectedResult;
 	}
 
 	/**
@@ -129,8 +129,8 @@ public class ConfigResultPairImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Response basicGetResponse() {
-		return response;
+	public ExpectedResult basicGetExpectedResult() {
+		return expectedResult;
 	}
 
 	/**
@@ -138,11 +138,11 @@ public class ConfigResultPairImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setResponse(Response newResponse) {
-		Response oldResponse = response;
-		response = newResponse;
+	public void setExpectedResult(ExpectedResult newExpectedResult) {
+		ExpectedResult oldExpectedResult = expectedResult;
+		expectedResult = newExpectedResult;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.CONFIG_RESULT_PAIR__RESPONSE, oldResponse, response));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.CONFIG_EXPECTED_RESULT_PAIR__EXPECTED_RESULT, oldExpectedResult, expectedResult));
 	}
 
 	/**
@@ -153,12 +153,12 @@ public class ConfigResultPairImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ModelPackage.CONFIG_RESULT_PAIR__CONFIG:
+			case ModelPackage.CONFIG_EXPECTED_RESULT_PAIR__CONFIG:
 				if (resolve) return getConfig();
 				return basicGetConfig();
-			case ModelPackage.CONFIG_RESULT_PAIR__RESPONSE:
-				if (resolve) return getResponse();
-				return basicGetResponse();
+			case ModelPackage.CONFIG_EXPECTED_RESULT_PAIR__EXPECTED_RESULT:
+				if (resolve) return getExpectedResult();
+				return basicGetExpectedResult();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -171,11 +171,11 @@ public class ConfigResultPairImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ModelPackage.CONFIG_RESULT_PAIR__CONFIG:
+			case ModelPackage.CONFIG_EXPECTED_RESULT_PAIR__CONFIG:
 				setConfig((Config)newValue);
 				return;
-			case ModelPackage.CONFIG_RESULT_PAIR__RESPONSE:
-				setResponse((Response)newValue);
+			case ModelPackage.CONFIG_EXPECTED_RESULT_PAIR__EXPECTED_RESULT:
+				setExpectedResult((ExpectedResult)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -189,11 +189,11 @@ public class ConfigResultPairImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ModelPackage.CONFIG_RESULT_PAIR__CONFIG:
+			case ModelPackage.CONFIG_EXPECTED_RESULT_PAIR__CONFIG:
 				setConfig((Config)null);
 				return;
-			case ModelPackage.CONFIG_RESULT_PAIR__RESPONSE:
-				setResponse((Response)null);
+			case ModelPackage.CONFIG_EXPECTED_RESULT_PAIR__EXPECTED_RESULT:
+				setExpectedResult((ExpectedResult)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -207,12 +207,12 @@ public class ConfigResultPairImpl extends MinimalEObjectImpl.Container implement
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ModelPackage.CONFIG_RESULT_PAIR__CONFIG:
+			case ModelPackage.CONFIG_EXPECTED_RESULT_PAIR__CONFIG:
 				return config != null;
-			case ModelPackage.CONFIG_RESULT_PAIR__RESPONSE:
-				return response != null;
+			case ModelPackage.CONFIG_EXPECTED_RESULT_PAIR__EXPECTED_RESULT:
+				return expectedResult != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //ConfigResultPairImpl
+} //ConfigExpectedResultPairImpl

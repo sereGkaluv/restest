@@ -61,7 +61,7 @@ import at.fhv.ecss2016.restest.controller.JsonProvider;
 import at.fhv.ecss2016.restest.controller.RemoteConnection;
 import at.fhv.ecss2016.restest.controller.util.ConfigMapper;
 import at.fhv.ecss2016.restest.model.Config;
-import at.fhv.ecss2016.restest.model.ConfigResultPair;
+import at.fhv.ecss2016.restest.model.ConfigExpectedResultPair;
 import at.fhv.ecss2016.restest.model.ContentType;
 import at.fhv.ecss2016.restest.model.ExpectedResult;
 import at.fhv.ecss2016.restest.model.ModelFactory;
@@ -262,12 +262,12 @@ public class ScenarioPart {
 		tableViewer.setLabelProvider(new LabelProvider() {
 			@Override
 			public Image getImage(Object element) {
-				if (element instanceof ConfigResultPair) return _imageStatusUnknown;
+				if (element instanceof ConfigExpectedResultPair) return _imageStatusUnknown;
 				else return super.getImage(element);
 			}
 			@Override
 			public String getText(Object element) {
-				if (element instanceof ConfigResultPair) return ((ConfigResultPair) element).getConfig().getName();
+				if (element instanceof ConfigExpectedResultPair) return ((ConfigExpectedResultPair) element).getConfig().getName();
 				else return super.getText(element);
 			}
 		});
@@ -282,8 +282,8 @@ public class ScenarioPart {
 			public void doubleClick(DoubleClickEvent event) {
 				StructuredSelection selection = (StructuredSelection) tableViewer.getSelection();
 				if (selection != null && !selection.isEmpty()) {
-					ConfigResultPair pair = (ConfigResultPair) selection.getFirstElement();
-					Response response = pair.getResponse();
+					ConfigExpectedResultPair pair = (ConfigExpectedResultPair) selection.getFirstElement();
+					Response response = pair.getConfig().getResponse();
 					
 					if (response != null) openResponsePerspective(response, perspective, partService, modelService, display);
 				}
@@ -378,11 +378,11 @@ public class ScenarioPart {
 				TableItem[] tableItems = tableViewer.getTable().getItems();
 				
 				// Yes, it should be linked hash map if we want to execute tests from the first to the last order
-				Map<TableItem, ConfigResultPair> tableMap = new LinkedHashMap<>();
+				Map<TableItem, ConfigExpectedResultPair> tableMap = new LinkedHashMap<>();
 				for (TableItem tableItem : tableItems) {
 					Object dataObject = tableItem.getData();
-					if (dataObject instanceof ConfigResultPair) {
-						tableMap.put(tableItem, (ConfigResultPair) dataObject);
+					if (dataObject instanceof ConfigExpectedResultPair) {
+						tableMap.put(tableItem, (ConfigExpectedResultPair) dataObject);
 					}
 				}
 				
@@ -398,17 +398,17 @@ public class ScenarioPart {
 							
 							// At this point we have a reference to ConfigResultPair instance
 							// which is also stored in CONFIG_RESULT_PAIR_LIST
-							ConfigResultPair pair = tableMap.get(tableItem);
+							ConfigExpectedResultPair pair = tableMap.get(tableItem);
 							
 							// Doing HTTP request
 							Config config = pair.getConfig();
+							ExpectedResult expectedResult = pair.getExpectedResult();
+							
 							Response response = new RemoteConnection().sendNewRequest(config);
 							
 							// Updating response (will also affect entry in CONFIG_RESULT_PAIR_LIST,
 							// because we referencing exactly THAT object stored in list.
-							pair.setResponse(response);
-							
-							ExpectedResult expectedResult = config.getExpectedResult();
+							config.setResponse(response);
 						
 							if (isExpectationMatch(expectedResult, response)) {
 								
@@ -452,11 +452,11 @@ public class ScenarioPart {
 			_currentScenario = scenario;
 			
 			// Set new values for the map entries from a model object
-			BIND_HELPER.updateAttributeValue(SCENARIO_FILE_ATTRIBUTE, scenario.getScenariosFile());
+			BIND_HELPER.updateAttributeValue(SCENARIO_FILE_ATTRIBUTE, scenario.getScenarioFilePath());
 			
 			// Partial workaround for table input list
 			CONFIG_RESULT_PAIR_LIST.clear();
-			CONFIG_RESULT_PAIR_LIST.addAll(scenario.getConfigResultPairs());
+			CONFIG_RESULT_PAIR_LIST.addAll(scenario.getConfigExpectedResultPairList());
 			BIND_HELPER.updateAttributeValue(CONFIG_RESULT_PAIRS_ATTRIBUTE, CONFIG_RESULT_PAIR_LIST);
 	    }
 	}
@@ -475,16 +475,33 @@ public class ScenarioPart {
 	    	
 	    	// Assembling scenario
 	    	String curerntFilePath = (String) BIND_HELPER.getAttributeValue(SCENARIO_FILE_ATTRIBUTE);
-			IObservableList currentPairList = (IObservableList) BIND_HELPER.getAttributeValue(CONFIG_RESULT_PAIRS_ATTRIBUTE);
 			
 	    	Scenario scenario = getCurrentOrDefaultScenario();
-	    	scenario.setScenariosFile(curerntFilePath);
+	    	scenario.setScenarioFilePath(curerntFilePath);
 	    	
-			List<ConfigResultPair> configResultPairs = scenario.getConfigResultPairs();
+			List<ConfigExpectedResultPair> configResultPairs = scenario.getConfigExpectedResultPairList();
 			configResultPairs.clear();
 			
-			for (Object pair : currentPairList) {
-				if (pair instanceof ConfigResultPair) configResultPairs.add((ConfigResultPair) pair);
+			for (Object pair : CONFIG_RESULT_PAIR_LIST) {
+				if (pair instanceof ConfigExpectedResultPair) {
+					
+					// This step is required to eliminate saving of the response into the scenario file.
+					ConfigExpectedResultPair currentConfigExpectedResultPair = (ConfigExpectedResultPair) pair;
+					Config currentConfig = currentConfigExpectedResultPair.getConfig();
+					
+					Config adoptedConfig = ModelFactory.eINSTANCE.createConfig();
+					adoptedConfig.setName(currentConfig.getName());
+					adoptedConfig.setRequestURL(currentConfig.getRequestURL());
+					adoptedConfig.setHttpVerb(currentConfig.getHttpVerb());
+					adoptedConfig.setContentType(currentConfig.getContentType());
+					adoptedConfig.setRequestBody(currentConfig.getRequestBody());
+					
+					ConfigExpectedResultPair adoptedConfigExpectedResultPair = ModelFactory.eINSTANCE.createConfigExpectedResultPair();
+					adoptedConfigExpectedResultPair.setConfig(adoptedConfig);
+					adoptedConfigExpectedResultPair.setExpectedResult(currentConfigExpectedResultPair.getExpectedResult());
+					
+					configResultPairs.add(adoptedConfigExpectedResultPair);
+				}
 			}
 	    	
 			// Saving assembled scenario			
@@ -540,11 +557,11 @@ public class ScenarioPart {
 		boolean isContentTypeMatch = false;
 		boolean isBodyMatch = false;
 		
-		if (expectedResult.getResponseCode() == null && response.getResponseCode() == null) isStatusCodeMatch = true;
-		else if (expectedResult.getResponseCode() != null && expectedResult.getResponseCode().equals(response.getResponseCode())) isStatusCodeMatch = true;
+		if (expectedResult.getStatusCode() == null && response.getStatusCode() == null) isStatusCodeMatch = true;
+		else if (expectedResult.getStatusCode() != null && expectedResult.getStatusCode().equals(response.getStatusCode())) isStatusCodeMatch = true;
 		
-		if (expectedResult.getResponseContentType() == null && response.getResponseContentType() == null) isContentTypeMatch = true;
-		else if (expectedResult.getResponseContentType() != null && expectedResult.getResponseContentType().equals(response.getResponseContentType())) isContentTypeMatch = true;
+		if (expectedResult.getContentType() == null && response.getContentType() == null) isContentTypeMatch = true;
+		else if (expectedResult.getContentType() != null && expectedResult.getContentType().equals(response.getContentType())) isContentTypeMatch = true;
 		
 		if (expectedResult.getResponseBody() == null && response.getResponseBody() == null) isBodyMatch = true;
 		else if (expectedResult.getResponseBody() != null && expectedResult.getResponseBody().equals(response.getResponseBody())) isBodyMatch = true;
@@ -564,16 +581,17 @@ public class ScenarioPart {
 		try {
 			
 			ExpectedResult expectedResult = ModelFactory.eINSTANCE.createExpectedResult();
-			expectedResult.setResponseCode(resultStatusCode);
-			expectedResult.setResponseContentType(resultContentType);
+			expectedResult.setStatusCode(resultStatusCode);
+			expectedResult.setContentType(resultContentType);
 			expectedResult.setResponseBody(resultBody);
 			
 			if (filePath != null) {
-				Config config = new JsonProvider().deserialize(filePath, new ConfigMapper());
-				config.setExpectedResult(expectedResult);
 				
-				ConfigResultPair configResultPair = ModelFactory.eINSTANCE.createConfigResultPair();
+				Config config = new JsonProvider().deserialize(filePath, new ConfigMapper());
+				
+				ConfigExpectedResultPair configResultPair = ModelFactory.eINSTANCE.createConfigExpectedResultPair();
 				configResultPair.setConfig(config);
+				configResultPair.setExpectedResult(expectedResult);
 				
 				CONFIG_RESULT_PAIR_LIST.getRealm().asyncExec(() -> CONFIG_RESULT_PAIR_LIST.add(configResultPair));
 			}

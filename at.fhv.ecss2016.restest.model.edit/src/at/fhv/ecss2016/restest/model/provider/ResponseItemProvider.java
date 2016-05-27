@@ -61,8 +61,8 @@ public class ResponseItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addResponseCodePropertyDescriptor(object);
-			addResponseContentTypePropertyDescriptor(object);
+			addStatusCodePropertyDescriptor(object);
+			addContentTypePropertyDescriptor(object);
 			addResponseTimePropertyDescriptor(object);
 			addResponseBodyPropertyDescriptor(object);
 		}
@@ -70,19 +70,19 @@ public class ResponseItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Response Code feature.
+	 * This adds a property descriptor for the Status Code feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addResponseCodePropertyDescriptor(Object object) {
+	protected void addStatusCodePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Response_responseCode_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Response_responseCode_feature", "_UI_Response_type"),
-				 ModelPackage.Literals.RESPONSE__RESPONSE_CODE,
+				 getString("_UI_Response_statusCode_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Response_statusCode_feature", "_UI_Response_type"),
+				 ModelPackage.Literals.RESPONSE__STATUS_CODE,
 				 true,
 				 false,
 				 false,
@@ -92,19 +92,19 @@ public class ResponseItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Response Content Type feature.
+	 * This adds a property descriptor for the Content Type feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addResponseContentTypePropertyDescriptor(Object object) {
+	protected void addContentTypePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Response_responseContentType_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Response_responseContentType_feature", "_UI_Response_type"),
-				 ModelPackage.Literals.RESPONSE__RESPONSE_CONTENT_TYPE,
+				 getString("_UI_Response_contentType_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Response_contentType_feature", "_UI_Response_type"),
+				 ModelPackage.Literals.RESPONSE__CONTENT_TYPE,
 				 true,
 				 false,
 				 false,
@@ -176,7 +176,7 @@ public class ResponseItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		StatusCode labelValue = ((Response)object).getResponseCode();
+		StatusCode labelValue = ((Response)object).getStatusCode();
 		String label = labelValue == null ? null : labelValue.toString();
 		return label == null || label.length() == 0 ?
 			getString("_UI_Response_type") :
@@ -196,8 +196,8 @@ public class ResponseItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Response.class)) {
-			case ModelPackage.RESPONSE__RESPONSE_CODE:
-			case ModelPackage.RESPONSE__RESPONSE_CONTENT_TYPE:
+			case ModelPackage.RESPONSE__STATUS_CODE:
+			case ModelPackage.RESPONSE__CONTENT_TYPE:
 			case ModelPackage.RESPONSE__RESPONSE_TIME:
 			case ModelPackage.RESPONSE__RESPONSE_BODY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

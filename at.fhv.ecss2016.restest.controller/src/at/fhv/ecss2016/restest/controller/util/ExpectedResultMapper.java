@@ -11,8 +11,8 @@ import at.fhv.ecss2016.restest.model.StatusCode;
 
 public class ExpectedResultMapper implements Function<JsonNode, ExpectedResult>{
 
-	private final static String RESPONSE_CODE = "responseCode";
-	private final static String RESPONSE_CONTENT_TYPE = "responseContentType";
+	private final static String STATUS_CODE = "statusCode";
+	private final static String CONTENT_TYPE = "contentType";
 	private final static String RESPONSE_BODY = "responseBody";
 	
 	@Override
@@ -20,14 +20,14 @@ public class ExpectedResultMapper implements Function<JsonNode, ExpectedResult>{
 		
 		ExpectedResult expectedResult = ModelFactory.eINSTANCE.createExpectedResult();
 		
-		JsonNode responseCode = jsonNode.get(RESPONSE_CODE);
-		if (isNonNullValueNode(responseCode)) expectedResult.setResponseCode(StatusCode.get(responseCode.asInt()));
+		JsonNode statusCodeNode = jsonNode.get(STATUS_CODE);
+		if (isNonNullValueNode(statusCodeNode)) expectedResult.setStatusCode(StatusCode.getByName(statusCodeNode.asText()));
 		
-		JsonNode responseContentType = jsonNode.get(RESPONSE_CONTENT_TYPE);
-		if (isNonNullValueNode(responseContentType)) expectedResult.setResponseContentType(ContentType.get(responseContentType.asText()));
+		JsonNode contentTypeNode = jsonNode.get(CONTENT_TYPE);
+		if (isNonNullValueNode(contentTypeNode)) expectedResult.setContentType(ContentType.getByName(contentTypeNode.asText()));
 		
-		JsonNode responseBody = jsonNode.get(RESPONSE_BODY);
-		if (isNonNullValueNode(responseBody)) expectedResult.setResponseBody(responseBody.asText());
+		JsonNode responseBodyNode = jsonNode.get(RESPONSE_BODY);
+		if (isNonNullValueNode(responseBodyNode)) expectedResult.setResponseBody(responseBodyNode.asText());
 
 		return expectedResult;
 	}

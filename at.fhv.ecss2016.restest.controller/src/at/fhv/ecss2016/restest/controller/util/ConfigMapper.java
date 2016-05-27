@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import at.fhv.ecss2016.restest.model.Config;
 import at.fhv.ecss2016.restest.model.ContentType;
-import at.fhv.ecss2016.restest.model.ExpectedResult;
 import at.fhv.ecss2016.restest.model.HttpVerb;
 import at.fhv.ecss2016.restest.model.ModelFactory;
 
@@ -14,36 +13,33 @@ public class ConfigMapper implements Function<JsonNode, Config> {
 	
 	private static final String NAME = "name";
 	private static final String REQUEST_URL = "requestURL";
-	private static final String VERB = "verb";
+	private static final String HTTP_VERB = "httpVerb";
 	private static final String CONTENT_TYPE = "contentType";
 	private static final String REQUEST_BODY = "requestBody";
-	private static final String EXPECTED_RESULT= "expectedResult";
+	private static final String RESPONSE = "response";
 	
 	@Override
 	public Config apply(JsonNode jsonNode) {
 		
 		Config config = ModelFactory.eINSTANCE.createConfig();
 		
-		JsonNode name = jsonNode.get(NAME);
-		if (isNonNullValueNode(name)) config.setName(name.asText());
+		JsonNode nameNode = jsonNode.get(NAME);
+		if (isNonNullValueNode(nameNode)) config.setName(nameNode.asText());
 		
-		JsonNode requestURL = jsonNode.get(REQUEST_URL);
-		if (isNonNullValueNode(requestURL)) config.setRequestURL(requestURL.asText());
+		JsonNode requestURLNode = jsonNode.get(REQUEST_URL);
+		if (isNonNullValueNode(requestURLNode)) config.setRequestURL(requestURLNode.asText());
 		
-		JsonNode verb = jsonNode.get(VERB);
-		if (isNonNullValueNode(verb)) config.setVerb(HttpVerb.get(verb.asText()));
+		JsonNode verbNode = jsonNode.get(HTTP_VERB);
+		if (isNonNullValueNode(verbNode)) config.setHttpVerb(HttpVerb.getByName(verbNode.asText()));
 		
-		JsonNode contentType = jsonNode.get(CONTENT_TYPE);
-		if (isNonNullValueNode(contentType)) config.setContentType(ContentType.get(contentType.asText()));
+		JsonNode contentTypeNode = jsonNode.get(CONTENT_TYPE);
+		if (isNonNullValueNode(contentTypeNode)) config.setContentType(ContentType.getByName(contentTypeNode.asText()));
 		
-		JsonNode requestBody = jsonNode.get(REQUEST_BODY);
-		if (isNonNullValueNode(requestBody)) config.setRequestBody(requestBody.asText());
+		JsonNode requestBodyNode = jsonNode.get(REQUEST_BODY);
+		if (isNonNullValueNode(requestBodyNode)) config.setRequestBody(requestBodyNode.asText());
 		
-		JsonNode expectedResultNode = jsonNode.get(EXPECTED_RESULT);
-		if (isNonNullArrayNode(expectedResultNode)) {
-			ExpectedResult expectedResult = new ExpectedResultMapper().apply(expectedResultNode);
-			config.setExpectedResult(expectedResult);
-		}
+		JsonNode responseNode = jsonNode.get(RESPONSE);
+		if (isNonNullObjectNode(responseNode)) config.setResponse(new ResponseMapper().apply(responseNode));
 		
 		return config;
 	}
@@ -52,7 +48,7 @@ public class ConfigMapper implements Function<JsonNode, Config> {
 		return jsonNode != null && jsonNode.isValueNode();
 	}
 	
-	private boolean isNonNullArrayNode(JsonNode jsonNode) {
-		return jsonNode != null && jsonNode.isArray();
+	private boolean isNonNullObjectNode(JsonNode jsonNode) {
+		return jsonNode != null && jsonNode.isObject();
 	}
 }

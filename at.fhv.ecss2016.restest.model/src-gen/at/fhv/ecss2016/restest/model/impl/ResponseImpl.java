@@ -22,8 +22,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link at.fhv.ecss2016.restest.model.impl.ResponseImpl#getResponseCode <em>Response Code</em>}</li>
- *   <li>{@link at.fhv.ecss2016.restest.model.impl.ResponseImpl#getResponseContentType <em>Response Content Type</em>}</li>
+ *   <li>{@link at.fhv.ecss2016.restest.model.impl.ResponseImpl#getStatusCode <em>Status Code</em>}</li>
+ *   <li>{@link at.fhv.ecss2016.restest.model.impl.ResponseImpl#getContentType <em>Content Type</em>}</li>
  *   <li>{@link at.fhv.ecss2016.restest.model.impl.ResponseImpl#getResponseTime <em>Response Time</em>}</li>
  *   <li>{@link at.fhv.ecss2016.restest.model.impl.ResponseImpl#getResponseBody <em>Response Body</em>}</li>
  * </ul>
@@ -32,44 +32,44 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  */
 public class ResponseImpl extends MinimalEObjectImpl.Container implements Response {
 	/**
-	 * The default value of the '{@link #getResponseCode() <em>Response Code</em>}' attribute.
+	 * The default value of the '{@link #getStatusCode() <em>Status Code</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getResponseCode()
+	 * @see #getStatusCode()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final StatusCode RESPONSE_CODE_EDEFAULT = StatusCode.CONTINUE;
+	protected static final StatusCode STATUS_CODE_EDEFAULT = StatusCode.CONTINUE;
 
 	/**
-	 * The cached value of the '{@link #getResponseCode() <em>Response Code</em>}' attribute.
+	 * The cached value of the '{@link #getStatusCode() <em>Status Code</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getResponseCode()
+	 * @see #getStatusCode()
 	 * @generated
 	 * @ordered
 	 */
-	protected StatusCode responseCode = RESPONSE_CODE_EDEFAULT;
+	protected StatusCode statusCode = STATUS_CODE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getResponseContentType() <em>Response Content Type</em>}' attribute.
+	 * The default value of the '{@link #getContentType() <em>Content Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getResponseContentType()
+	 * @see #getContentType()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final ContentType RESPONSE_CONTENT_TYPE_EDEFAULT = ContentType.TEXT;
+	protected static final ContentType CONTENT_TYPE_EDEFAULT = ContentType.TEXT;
 
 	/**
-	 * The cached value of the '{@link #getResponseContentType() <em>Response Content Type</em>}' attribute.
+	 * The cached value of the '{@link #getContentType() <em>Content Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getResponseContentType()
+	 * @see #getContentType()
 	 * @generated
 	 * @ordered
 	 */
-	protected ContentType responseContentType = RESPONSE_CONTENT_TYPE_EDEFAULT;
+	protected ContentType contentType = CONTENT_TYPE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getResponseTime() <em>Response Time</em>}' attribute.
@@ -135,8 +135,8 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public StatusCode getResponseCode() {
-		return responseCode;
+	public StatusCode getStatusCode() {
+		return statusCode;
 	}
 
 	/**
@@ -144,11 +144,11 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setResponseCode(StatusCode newResponseCode) {
-		StatusCode oldResponseCode = responseCode;
-		responseCode = newResponseCode == null ? RESPONSE_CODE_EDEFAULT : newResponseCode;
+	public void setStatusCode(StatusCode newStatusCode) {
+		StatusCode oldStatusCode = statusCode;
+		statusCode = newStatusCode == null ? STATUS_CODE_EDEFAULT : newStatusCode;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.RESPONSE__RESPONSE_CODE, oldResponseCode, responseCode));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.RESPONSE__STATUS_CODE, oldStatusCode, statusCode));
 	}
 
 	/**
@@ -156,8 +156,8 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ContentType getResponseContentType() {
-		return responseContentType;
+	public ContentType getContentType() {
+		return contentType;
 	}
 
 	/**
@@ -165,11 +165,11 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setResponseContentType(ContentType newResponseContentType) {
-		ContentType oldResponseContentType = responseContentType;
-		responseContentType = newResponseContentType == null ? RESPONSE_CONTENT_TYPE_EDEFAULT : newResponseContentType;
+	public void setContentType(ContentType newContentType) {
+		ContentType oldContentType = contentType;
+		contentType = newContentType == null ? CONTENT_TYPE_EDEFAULT : newContentType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.RESPONSE__RESPONSE_CONTENT_TYPE, oldResponseContentType, responseContentType));
+			eNotify(new ENotificationImpl(this, Notification.SET, ModelPackage.RESPONSE__CONTENT_TYPE, oldContentType, contentType));
 	}
 
 	/**
@@ -222,10 +222,10 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ModelPackage.RESPONSE__RESPONSE_CODE:
-				return getResponseCode();
-			case ModelPackage.RESPONSE__RESPONSE_CONTENT_TYPE:
-				return getResponseContentType();
+			case ModelPackage.RESPONSE__STATUS_CODE:
+				return getStatusCode();
+			case ModelPackage.RESPONSE__CONTENT_TYPE:
+				return getContentType();
 			case ModelPackage.RESPONSE__RESPONSE_TIME:
 				return getResponseTime();
 			case ModelPackage.RESPONSE__RESPONSE_BODY:
@@ -242,11 +242,11 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ModelPackage.RESPONSE__RESPONSE_CODE:
-				setResponseCode((StatusCode)newValue);
+			case ModelPackage.RESPONSE__STATUS_CODE:
+				setStatusCode((StatusCode)newValue);
 				return;
-			case ModelPackage.RESPONSE__RESPONSE_CONTENT_TYPE:
-				setResponseContentType((ContentType)newValue);
+			case ModelPackage.RESPONSE__CONTENT_TYPE:
+				setContentType((ContentType)newValue);
 				return;
 			case ModelPackage.RESPONSE__RESPONSE_TIME:
 				setResponseTime((String)newValue);
@@ -266,11 +266,11 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ModelPackage.RESPONSE__RESPONSE_CODE:
-				setResponseCode(RESPONSE_CODE_EDEFAULT);
+			case ModelPackage.RESPONSE__STATUS_CODE:
+				setStatusCode(STATUS_CODE_EDEFAULT);
 				return;
-			case ModelPackage.RESPONSE__RESPONSE_CONTENT_TYPE:
-				setResponseContentType(RESPONSE_CONTENT_TYPE_EDEFAULT);
+			case ModelPackage.RESPONSE__CONTENT_TYPE:
+				setContentType(CONTENT_TYPE_EDEFAULT);
 				return;
 			case ModelPackage.RESPONSE__RESPONSE_TIME:
 				setResponseTime(RESPONSE_TIME_EDEFAULT);
@@ -290,10 +290,10 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ModelPackage.RESPONSE__RESPONSE_CODE:
-				return responseCode != RESPONSE_CODE_EDEFAULT;
-			case ModelPackage.RESPONSE__RESPONSE_CONTENT_TYPE:
-				return responseContentType != RESPONSE_CONTENT_TYPE_EDEFAULT;
+			case ModelPackage.RESPONSE__STATUS_CODE:
+				return statusCode != STATUS_CODE_EDEFAULT;
+			case ModelPackage.RESPONSE__CONTENT_TYPE:
+				return contentType != CONTENT_TYPE_EDEFAULT;
 			case ModelPackage.RESPONSE__RESPONSE_TIME:
 				return RESPONSE_TIME_EDEFAULT == null ? responseTime != null : !RESPONSE_TIME_EDEFAULT.equals(responseTime);
 			case ModelPackage.RESPONSE__RESPONSE_BODY:
@@ -312,10 +312,10 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (responseCode: ");
-		result.append(responseCode);
-		result.append(", responseContentType: ");
-		result.append(responseContentType);
+		result.append(" (statusCode: ");
+		result.append(statusCode);
+		result.append(", contentType: ");
+		result.append(contentType);
 		result.append(", responseTime: ");
 		result.append(responseTime);
 		result.append(", responseBody: ");

@@ -44,7 +44,7 @@ public class LoadScenarioHandler {
 
 			if (scenario != null) {
 				
-				scenario.setScenariosFile(filePath);
+				scenario.setScenarioFilePath(filePath);
 				_selectionService.setSelection(scenario);
 				
 			} else {

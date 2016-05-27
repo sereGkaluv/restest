@@ -60,26 +60,26 @@ public class ScenarioItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addScenariosFilePropertyDescriptor(object);
-			addConfigResultPairsPropertyDescriptor(object);
+			addScenarioFilePathPropertyDescriptor(object);
+			addConfigExpectedResultPairListPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Scenarios File feature.
+	 * This adds a property descriptor for the Scenario File Path feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addScenariosFilePropertyDescriptor(Object object) {
+	protected void addScenarioFilePathPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Scenario_scenariosFile_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Scenario_scenariosFile_feature", "_UI_Scenario_type"),
-				 ModelPackage.Literals.SCENARIO__SCENARIOS_FILE,
+				 getString("_UI_Scenario_scenarioFilePath_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Scenario_scenarioFilePath_feature", "_UI_Scenario_type"),
+				 ModelPackage.Literals.SCENARIO__SCENARIO_FILE_PATH,
 				 true,
 				 false,
 				 false,
@@ -89,19 +89,19 @@ public class ScenarioItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Config Result Pairs feature.
+	 * This adds a property descriptor for the Config Expected Result Pair List feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addConfigResultPairsPropertyDescriptor(Object object) {
+	protected void addConfigExpectedResultPairListPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Scenario_configResultPairs_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Scenario_configResultPairs_feature", "_UI_Scenario_type"),
-				 ModelPackage.Literals.SCENARIO__CONFIG_RESULT_PAIRS,
+				 getString("_UI_Scenario_configExpectedResultPairList_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Scenario_configExpectedResultPairList_feature", "_UI_Scenario_type"),
+				 ModelPackage.Literals.SCENARIO__CONFIG_EXPECTED_RESULT_PAIR_LIST,
 				 true,
 				 false,
 				 true,
@@ -129,7 +129,7 @@ public class ScenarioItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Scenario)object).getScenariosFile();
+		String label = ((Scenario)object).getScenarioFilePath();
 		return label == null || label.length() == 0 ?
 			getString("_UI_Scenario_type") :
 			getString("_UI_Scenario_type") + " " + label;
@@ -148,7 +148,7 @@ public class ScenarioItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Scenario.class)) {
-			case ModelPackage.SCENARIO__SCENARIOS_FILE:
+			case ModelPackage.SCENARIO__SCENARIO_FILE_PATH:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

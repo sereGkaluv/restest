@@ -44,8 +44,8 @@ public class RemoteConnection {
 	public Response sendNewRequest(Config config)
 	throws IllegalArgumentException, IOException {
 		
-		if (config != null && config.getVerb() != null) {
-			switch (config.getVerb()) {
+		if (config != null && config.getHttpVerb() != null) {
+			switch (config.getHttpVerb()) {
 				case GET: {
 					return sendGetRequest(
 						config.getRequestURL(),
@@ -216,8 +216,8 @@ public class RemoteConnection {
 		
 		// Preparing internal response object
 		Response response = ModelFactory.eINSTANCE.createResponse();
-		response.setResponseCode(StatusCode.get(fetchedStatusCode));
-		response.setResponseContentType(at.fhv.ecss2016.restest.model.ContentType.get(fetchedContentType));
+		response.setStatusCode(StatusCode.get(fetchedStatusCode));
+		response.setContentType(at.fhv.ecss2016.restest.model.ContentType.get(fetchedContentType));
 		response.setResponseBody(fetchedBody);
 		
 		return response;
