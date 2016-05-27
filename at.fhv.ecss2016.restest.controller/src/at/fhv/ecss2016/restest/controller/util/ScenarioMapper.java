@@ -24,7 +24,7 @@ public class ScenarioMapper implements Function<JsonNode, Scenario>{
 		
 		JsonNode configResultPairs = jsonNode.get(CONFIG_RESULT_PAIRS);
 		List<ConfigResultPair> configResultPairsList = scenario.getConfigResultPairs();
-		if (isNonNullContainerNode(configResultPairs) && configResultPairs.isArray()) {
+		if (isNonNullArrayNode(configResultPairs)) {
 			for (JsonNode pairNode : configResultPairs) {
 				ConfigResultPair configResultPair = new ConfigResultPairMapper().apply(pairNode);
 				configResultPairsList.add(configResultPair);
@@ -37,8 +37,8 @@ public class ScenarioMapper implements Function<JsonNode, Scenario>{
 	private boolean isNonNullValueNode(JsonNode jsonNode) {
 		return jsonNode != null && jsonNode.isValueNode();
 	}
-
-	private boolean isNonNullContainerNode(JsonNode jsonNode) {
-		return jsonNode != null && jsonNode.isContainerNode();
+	
+	private boolean isNonNullArrayNode(JsonNode jsonNode) {
+		return jsonNode != null && jsonNode.isArray();
 	}
 }

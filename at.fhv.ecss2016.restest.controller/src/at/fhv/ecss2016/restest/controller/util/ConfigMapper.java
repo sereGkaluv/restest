@@ -40,7 +40,7 @@ public class ConfigMapper implements Function<JsonNode, Config> {
 		if (isNonNullValueNode(requestBody)) config.setRequestBody(requestBody.asText());
 		
 		JsonNode expectedResultNode = jsonNode.get(EXPECTED_RESULT);
-		if (isNonNullContainerNode(expectedResultNode) && expectedResultNode.isArray()) {
+		if (isNonNullArrayNode(expectedResultNode)) {
 			ExpectedResult expectedResult = new ExpectedResultMapper().apply(expectedResultNode);
 			config.setExpectedResult(expectedResult);
 		}
@@ -52,7 +52,7 @@ public class ConfigMapper implements Function<JsonNode, Config> {
 		return jsonNode != null && jsonNode.isValueNode();
 	}
 	
-	private boolean isNonNullContainerNode(JsonNode jsonNode) {
-		return jsonNode != null && jsonNode.isContainerNode();
+	private boolean isNonNullArrayNode(JsonNode jsonNode) {
+		return jsonNode != null && jsonNode.isArray();
 	}
 }

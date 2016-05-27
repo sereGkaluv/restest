@@ -36,13 +36,14 @@ public class JsonProvider {
 	public Iterator<Entry<String, JsonNode>> readUnknownJSON(String jsonString)
 	throws JsonProcessingException, IOException {
         
-        //Need to remove [] from the JSON string to work with Jackson
+        
 		String json = jsonString;
 		
 		if (json.startsWith("[") && json.endsWith("]")) {
-			json = json.substring(1, json.length() - 1);
+			//Need to add {"JSON": *} to the JSON string to be compatible with Jackson
+			json = "{\"JSON\":" + json + "}";	
 		}
-        
+		
     	JsonNode root = new ObjectMapper().readTree(json);
         return root.fields();
 	}

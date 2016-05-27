@@ -9,6 +9,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.graphics.Font;
@@ -208,6 +210,13 @@ public class NewConfigDialog extends Dialog {
 			public void modifyText(ModifyEvent e) {
 				_resultBodyText = bodyText.getText().trim();
 			}
+		});
+		bodyText.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyPressed(KeyEvent e) 
+		    {
+		        if(e.stateMask == SWT.CTRL && e.keyCode == 'a') bodyText.selectAll();
+		    }
 		});
 		
 		return container;

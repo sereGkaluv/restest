@@ -21,7 +21,6 @@ import at.fhv.ecss2016.restest.util.FileDialogHelper;
 public class LoadScenarioHandler {
 	
 	private static final String FILE_DIALOG_TITLE = "Load scenario?";
-	private static final String DEFAULT_LOAD_MESSAGE = "Scenario was loaded.";
 	private static final String DEFAULT_ERROR_MESSAGE = "Not supported scenario file.";
 
 
@@ -44,12 +43,12 @@ public class LoadScenarioHandler {
 			Scenario scenario = new JsonProvider().deserialize(filePath, new ScenarioMapper());
 
 			if (scenario != null) {
+				
+				scenario.setScenariosFile(filePath);
 				_selectionService.setSelection(scenario);
 				
-				MessageBox messageBox = new MessageBox(parentShell, SWT.ICON_INFORMATION);
-				messageBox.setMessage(DEFAULT_LOAD_MESSAGE);
-				messageBox.open();
 			} else {
+				
 				MessageBox messageBox = new MessageBox(parentShell, SWT.ICON_ERROR);
 				messageBox.setMessage(DEFAULT_ERROR_MESSAGE);
 				messageBox.open();

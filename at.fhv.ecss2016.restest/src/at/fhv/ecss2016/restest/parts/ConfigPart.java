@@ -21,14 +21,18 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.databinding.viewers.ViewerProperties;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -63,6 +67,8 @@ public class ConfigPart {
 	private static final String CREATABLE_PART_ID = "at.fhv.ecss2016.restest.partdescriptor.response";
 	private static final String RIGHT_PART_STACK_ID = "at.fhv.ecss2016.restest.config.partstack.right";
 	
+	private static final String ICON_CONTROL_SEND = "icons/control/send.png";
+	
 	private static final String NAME_ATTRIBUTE = "NAME_ATTRIBUTE";
 	private static final String URL_ATTRIBUTE = "URL_ATTRIBUTE";
 	private static final String VERB_ATTRIBUTE = "VERB_ATTRIBUTE";
@@ -70,7 +76,8 @@ public class ConfigPart {
 	private static final String CONTENT_BODY_ATTRIBUTE = "CONTENT_BODY_ATTRIBUTE";
 	
 	private static final String FILE_DIALOG_TITLE = "Save config?";
-	private static final String DEFAULT_ERROR_MESSAGE = "Error occurred while saving config file.";
+	private static final String DEFAULT_SAVE_ERROR_MESSAGE = "Error occurred while saving config file.";
+	private static final String DEFAULT_SEND_ERROR_MESSAGE = "Error occurred while processing current config.";
 	
 	private static final int ELEMENT_VERTICAL_SPACING = 5;
 	private static final int ELEMENT_HORIZONTAL_SPACING = 15;
@@ -78,6 +85,8 @@ public class ConfigPart {
 	private static final int SIZE_HINT = 35;
 	
 	private static final BindHelper BIND_HELPER = new BindHelper();
+
+	private final Image _imageControlSend;
 	
 	private Config _currentConfig;
 	
@@ -86,10 +95,16 @@ public class ConfigPart {
 	
 	@Inject
 	public ConfigPart() {
+		// Caching images
+		ClassLoader classLoader = getClass().getClassLoader();
+		
+		_imageControlSend = ImageDescriptor.createFromURL(
+			classLoader.getResource(ICON_CONTROL_SEND)
+		).createImage();
 	}
 	
 	@PostConstruct
-	private void postConstruct(Display display, Composite parent, EMenuService menuService, EPartService partService, EModelService modelService, MPerspective perspective) {
+	private void postConstruct(Display display, Shell shell, Composite parent, EMenuService menuService, EPartService partService, EModelService modelService, MPerspective perspective) {
 		
 		// Setting parent layout
 		GridLayout gridLayout = new GridLayout(2, false);
@@ -111,7 +126,7 @@ public class ConfigPart {
 		
 		Text nameText = new Text(parent, SWT.BORDER);
 		nameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		BIND_HELPER.bindWidget(NAME_ATTRIBUTE, nameText);
+		BIND_HELPER.bindWidgetText(NAME_ATTRIBUTE, nameText);
 		
 		Label separator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
 		separator.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
@@ -122,7 +137,7 @@ public class ConfigPart {
 		
 		Text urlText = new Text(parent, SWT.BORDER);
 		urlText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		BIND_HELPER.bindWidget(URL_ATTRIBUTE, urlText);
+		BIND_HELPER.bindWidgetText(URL_ATTRIBUTE, urlText);
 		
 		Label verbLabel = new Label(parent, SWT.NONE);
 		verbLabel.setText("Verb:");
@@ -140,7 +155,7 @@ public class ConfigPart {
 		});
 		verbCombo.setInput(HttpVerb.values());
 		verbCombo.setSelection(new StructuredSelection(HttpVerb.GET));
-		BIND_HELPER.bindViewer(VERB_ATTRIBUTE, verbCombo);
+		BIND_HELPER.bindViewerSelection(VERB_ATTRIBUTE, verbCombo);
 		
 		Label contentTypeLabel = new Label(parent, SWT.NONE);
 		contentTypeLabel.setText("Content-Type:");
@@ -158,7 +173,7 @@ public class ConfigPart {
 		});
 		contentTypeCombo.setInput(ContentType.values());
 		contentTypeCombo.setSelection(new StructuredSelection(ContentType.TEXT));
-		BIND_HELPER.bindViewer(CONTENT_TYPE_ATTRIBUTE, contentTypeCombo);
+		BIND_HELPER.bindViewerSelection(CONTENT_TYPE_ATTRIBUTE, contentTypeCombo);
 		
 		Label separator2 = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
 		separator2.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
@@ -168,19 +183,28 @@ public class ConfigPart {
 		bodyLabel.setFont(defaultFont);
 		
 		Text contentBodyText = new Text(parent, SWT.BORDER | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
+		contentBodyText.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyPressed(KeyEvent e) 
+		    {
+		        if(e.stateMask == SWT.CTRL && e.keyCode == 'a') contentBodyText.selectAll();
+		    }
+		});
 		contentBodyText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
-		BIND_HELPER.bindWidget(CONTENT_BODY_ATTRIBUTE, contentBodyText);
+		BIND_HELPER.bindWidgetText(CONTENT_BODY_ATTRIBUTE, contentBodyText);
 		
-		Button sendButton = new Button(parent, SWT.BOLD);
+		Button startButton = new Button(parent, SWT.BOLD);
+		startButton.setFont(defaultFont);
 		
-		GridData sendButtonGridData = new GridData(SWT.RIGHT, SWT.CENTER, true, false, 2, 1);
-		sendButtonGridData.widthHint = SIZE_HINT * 3;
-		sendButtonGridData.heightHint = SIZE_HINT;
+		GridData startButtonGridData = new GridData(SWT.RIGHT, SWT.CENTER, true, false, 2, 1);
+		startButtonGridData.widthHint = SIZE_HINT * 3;
+		startButtonGridData.heightHint = SIZE_HINT;
 		
-		sendButton.setLayoutData(sendButtonGridData);
-		sendButton.setText("Send");
+		startButton.setLayoutData(startButtonGridData);
+		startButton.setImage(_imageControlSend);
+		startButton.setText("Start");
 
-		sendButton.addListener(SWT.Selection, new Listener() {
+		startButton.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {				
 				// Sending request
@@ -190,7 +214,13 @@ public class ConfigPart {
 						Response response = new RemoteConnection().sendNewRequest(getCurrentOrDefaultConfig());
 						openResponsePerspective(response, perspective, partService, modelService, display);
 						
-					} catch (IllegalArgumentException | IOException e) { e.printStackTrace(); }
+					} catch (IllegalArgumentException | NullPointerException | IOException e) { 
+						display.asyncExec(() -> {
+							MessageBox messageBox = new MessageBox(shell, SWT.ICON_ERROR);
+							messageBox.setMessage(DEFAULT_SEND_ERROR_MESSAGE);
+							messageBox.open();
+						});
+					}
 				}).start();
 			}
 		});
@@ -298,10 +328,8 @@ public class ConfigPart {
 
 	    } catch (IOException e) { 
 			MessageBox messageBox = new MessageBox(parentShell, SWT.ICON_ERROR);
-			messageBox.setMessage(DEFAULT_ERROR_MESSAGE);
+			messageBox.setMessage(DEFAULT_SAVE_ERROR_MESSAGE);
 			messageBox.open();
-			
-			e.printStackTrace();
 	    }
     }
 	

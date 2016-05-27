@@ -1,8 +1,8 @@
 package at.fhv.ecss2016.restest.parts;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +10,11 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.eclipse.core.databinding.observable.Realm;
+import org.eclipse.core.databinding.observable.list.IListChangeListener;
+import org.eclipse.core.databinding.observable.list.IObservableList;
+import org.eclipse.core.databinding.observable.list.ListChangeEvent;
+import org.eclipse.core.databinding.observable.list.WritableList;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.Persist;
 import org.eclipse.e4.ui.model.application.ui.MDirtyable;
@@ -21,7 +26,10 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
-import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
+import org.eclipse.jface.layout.TableColumnLayout;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -29,8 +37,11 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -42,6 +53,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
@@ -70,8 +82,19 @@ public class ScenarioPart {
 	private static final String CREATABLE_PART_ID = "at.fhv.ecss2016.restest.partdescriptor.response";
 	private static final String RIGHT_PART_STACK_ID = "at.fhv.ecss2016.restest.scenario.partstack.right";
 	
+	private static final String ICON_STATUS_UNKNOWN = "icons/status/unknown.png";
+	private static final String ICON_STATUS_PROGRESS = "icons/status/progress.png";
+	private static final String ICON_STATUS_OK = "icons/status/ok.png";
+	private static final String ICON_STATUS_FAIL = "icons/status/fail.png";
+	private static final String ICON_STATUS_EXCEPTION = "icons/status/exception.png";
+	
+	private static final String ICON_CONTROL_UP = "icons/control/up.png";
+	private static final String ICON_CONTROL_DOWN = "icons/control/down.png";
+	private static final String ICON_CONTROL_ADD = "icons/control/add.png";
+	private static final String ICON_CONTROL_DELETE = "icons/control/delete.png";
+	private static final String ICON_CONTROL_SEND = "icons/control/send.png";
+	
 	private static final String SCENARIO_FILE_ATTRIBUTE = "SCENARIO_FILE_ATTRIBUTE";
-	private static final String CONFIG_RESULT_PAIRS_ATTRIBUTE = "CONFIG_RESULT_PAIRS_ATTRIBUTE";
 	
 	private static final String FILE_DIALOG_TITLE = "Save scenario?";
 	private static final String DEFAULT_ERROR_MESSAGE = "Error occurred while saving scenario file.";
@@ -86,8 +109,20 @@ public class ScenarioPart {
 	
 	private static final BindHelper BIND_HELPER = new BindHelper();
 	
-	private static final List<ConfigResultPair> CONFIG_RESULT_PAIR_LIST = new LinkedList<>();
+	private static final IObservableList CONFIG_RESULT_PAIR_LIST = new WritableList(Realm.getDefault());
 
+	private final Image _imageStatusUnknown;
+	private final Image _imageStatusProgress;
+	private final Image _imageStatusOk;
+	private final Image _imageStatusFail;
+	private final Image _imageStatusException;
+	
+	private final Image _imageControlUp;
+	private final Image _imageControlDown;
+	private final Image _imageControlAdd;
+	private final Image _imageControlDelete;
+	private final Image _imageControlSend;
+	
 	private Scenario _currentScenario;
 	
 	@Inject
@@ -95,6 +130,49 @@ public class ScenarioPart {
 	
 	@Inject
 	public ScenarioPart() {
+		
+		// Caching images
+		ClassLoader classLoader = getClass().getClassLoader();
+
+		_imageStatusUnknown = ImageDescriptor.createFromURL(
+			classLoader.getResource(ICON_STATUS_UNKNOWN)
+		).createImage();
+		
+		_imageStatusProgress = ImageDescriptor.createFromURL(
+			classLoader.getResource(ICON_STATUS_PROGRESS)
+		).createImage();
+		
+		_imageStatusOk = ImageDescriptor.createFromURL(
+			classLoader.getResource(ICON_STATUS_OK)
+		).createImage();
+		
+		_imageStatusFail = ImageDescriptor.createFromURL(
+			classLoader.getResource(ICON_STATUS_FAIL)
+		).createImage();
+		
+		_imageStatusException = ImageDescriptor.createFromURL(
+			classLoader.getResource(ICON_STATUS_EXCEPTION)
+		).createImage();
+		
+		_imageControlUp = ImageDescriptor.createFromURL(
+			classLoader.getResource(ICON_CONTROL_UP)
+		).createImage();
+		
+		_imageControlDown = ImageDescriptor.createFromURL(
+			classLoader.getResource(ICON_CONTROL_DOWN)
+		).createImage();
+		
+		_imageControlAdd = ImageDescriptor.createFromURL(
+			classLoader.getResource(ICON_CONTROL_ADD)
+		).createImage();
+		
+		_imageControlDelete = ImageDescriptor.createFromURL(
+			classLoader.getResource(ICON_CONTROL_DELETE)
+		).createImage();
+		
+		_imageControlSend = ImageDescriptor.createFromURL(
+			classLoader.getResource(ICON_CONTROL_SEND)
+		).createImage();
 	}
 	
 	@PostConstruct
@@ -120,7 +198,14 @@ public class ScenarioPart {
 		
 		Text filePathText = new Text(parent, SWT.BORDER | SWT.READ_ONLY);
 		filePathText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
-		BIND_HELPER.bindWidget(SCENARIO_FILE_ATTRIBUTE, filePathText);
+		filePathText.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyPressed(KeyEvent e) 
+		    {
+		        if(e.stateMask == SWT.CTRL && e.keyCode == 'a') filePathText.selectAll();
+		    }
+		});
+		BIND_HELPER.bindWidgetText(SCENARIO_FILE_ATTRIBUTE, filePathText);
 		
 		Label horizontalSeparator = new Label(parent, SWT.SEPARATOR | SWT.HORIZONTAL);
 		horizontalSeparator.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 3, 1));
@@ -133,47 +218,62 @@ public class ScenarioPart {
 		Label placeholderLabel = new Label(parent, SWT.NONE);
 		placeholderLabel.setLayoutData(new GridData(SWT.FILL, SWT.DEFAULT, true, false));
 		
-	    Composite scenrioControlComposite = new Composite(parent, SWT.BORDER);
-	    scenrioControlComposite.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
-	    scenrioControlComposite.setLayout(new GridLayout(5, false));
+	    Composite scenarioControlComposite = new Composite(parent, SWT.BORDER);
+	    scenarioControlComposite.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
+	    scenarioControlComposite.setLayout(new GridLayout(5, false));
 		
 		GridData buttonGridData = new GridData(SWT.RIGHT, SWT.CENTER, false, false);
 		buttonGridData.widthHint = SIZE_HINT;
 		buttonGridData.heightHint = SIZE_HINT;
 		
-		Button scenarioUpButton = new Button(scenrioControlComposite, SWT.NONE);
+		Button scenarioUpButton = new Button(scenarioControlComposite, SWT.NONE);
 		scenarioUpButton.setLayoutData(buttonGridData);
-		scenarioUpButton.setText("⬆");
+		scenarioUpButton.setImage(_imageControlUp);
 		
-		Button scenarioDownButton = new Button(scenrioControlComposite, SWT.NONE);
+		Button scenarioDownButton = new Button(scenarioControlComposite, SWT.NONE);
 		scenarioDownButton.setLayoutData(buttonGridData);
-		scenarioDownButton.setText("⬇");
+		scenarioDownButton.setImage(_imageControlDown);
 		
 		
-		Label verticalSeparator = new Label(scenrioControlComposite, SWT.NONE);
+		Label verticalSeparator = new Label(scenarioControlComposite, SWT.NONE);
 		verticalSeparator.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
 		verticalSeparator.setText("|");
 		
-		Button addScenarioButton = new Button(scenrioControlComposite, SWT.NONE);
+		Button addScenarioButton = new Button(scenarioControlComposite, SWT.NONE);
 		addScenarioButton.setLayoutData(buttonGridData);
-		addScenarioButton.setText("+");
+		addScenarioButton.setImage(_imageControlAdd);
 
-		Button removeScenarioButton = new Button(scenrioControlComposite, SWT.NONE);
+		Button removeScenarioButton = new Button(scenarioControlComposite, SWT.NONE);
 		removeScenarioButton.setLayoutData(buttonGridData);
-		removeScenarioButton.setText("-");
+		removeScenarioButton.setImage(_imageControlDelete);
 		
-		TableViewer tableViewer = new TableViewer(parent, SWT.BORDER | SWT.V_SCROLL);
-		tableViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
-		tableViewer.setContentProvider(new ArrayContentProvider());
+		Composite tableComposite = new Composite(parent, SWT.NONE);
+		tableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
+		
+		TableViewer tableViewer = new TableViewer(tableComposite, SWT.BORDER | SWT.V_SCROLL | SWT.SINGLE | SWT.FULL_SELECTION);
+		
+		TableColumn singleColumn = new TableColumn(tableViewer.getTable(), SWT.NONE);
+		TableColumnLayout tableColumnLayout = new TableColumnLayout();
+		tableColumnLayout.setColumnData(singleColumn, new ColumnWeightData(100));
+		tableComposite.setLayout(tableColumnLayout);
+		
+		ObservableListContentProvider tableViewerContentProvider = new ObservableListContentProvider();
+		tableViewer.setContentProvider(tableViewerContentProvider);
 		tableViewer.setLabelProvider(new LabelProvider() {
+			@Override
+			public Image getImage(Object element) {
+				if (element instanceof ConfigResultPair) return _imageStatusUnknown;
+				else return super.getImage(element);
+			}
 			@Override
 			public String getText(Object element) {
 				if (element instanceof ConfigResultPair) return ((ConfigResultPair) element).getConfig().getName();
 				else return super.getText(element);
 			}
-		});		
+		});
+		
+		// Setting input and binding table viewer values
 		tableViewer.setInput(CONFIG_RESULT_PAIR_LIST);
-		BIND_HELPER.bindViewer(CONFIG_RESULT_PAIRS_ATTRIBUTE, tableViewer);
 		
 		// Double-click list Listener -> opens Response perspective
 		tableViewer.addDoubleClickListener(new IDoubleClickListener() {
@@ -182,7 +282,9 @@ public class ScenarioPart {
 				StructuredSelection selection = (StructuredSelection) tableViewer.getSelection();
 				if (selection != null && !selection.isEmpty()) {
 					ConfigResultPair pair = (ConfigResultPair) selection.getFirstElement();
-					openResponsePerspective(pair.getResponse(), perspective, partService, modelService, display);
+					Response response = pair.getResponse();
+					
+					if (response != null) openResponsePerspective(response, perspective, partService, modelService, display);
 				}
 			}
 		});
@@ -193,9 +295,8 @@ public class ScenarioPart {
 			public void handleEvent(Event event) {
 				int selectionIndex = tableViewer.getTable().getSelectionIndex();
 				if (selectionIndex > 0 && selectionIndex < CONFIG_RESULT_PAIR_LIST.size()) {
-					ConfigResultPair selectedConfig = CONFIG_RESULT_PAIR_LIST.remove(selectionIndex);
-					CONFIG_RESULT_PAIR_LIST.add(selectionIndex -1, selectedConfig);
-					tableViewer.refresh();
+					Collections.swap(CONFIG_RESULT_PAIR_LIST, selectionIndex - 1, selectionIndex);
+					tableViewer.refresh(true);
 				}
 			}
 		});
@@ -206,9 +307,8 @@ public class ScenarioPart {
 			public void handleEvent(Event event) {
 				int selectionIndex = tableViewer.getTable().getSelectionIndex();
 				if (selectionIndex >= 0 && selectionIndex < CONFIG_RESULT_PAIR_LIST.size() - 1) {
-					ConfigResultPair selectedConfig = CONFIG_RESULT_PAIR_LIST.remove(selectionIndex);
-					CONFIG_RESULT_PAIR_LIST.add(selectionIndex +1, selectedConfig);
-					tableViewer.refresh();
+					Collections.swap(CONFIG_RESULT_PAIR_LIST, selectionIndex, selectionIndex + 1);
+					tableViewer.refresh(true);
 				}
 			}
 		});
@@ -234,7 +334,7 @@ public class ScenarioPart {
 							newConfigDialog.getResultBodyText()
 						);
 						
-						display.asyncExec(() -> tableViewer.refresh());
+						display.asyncExec(() -> tableViewer.refresh(true));
 					}).start();
 				}
 			}
@@ -245,9 +345,10 @@ public class ScenarioPart {
 			@Override
 			public void handleEvent(Event event) {
 				int selectionIndex = tableViewer.getTable().getSelectionIndex();
-				CONFIG_RESULT_PAIR_LIST.remove(selectionIndex);
-				
-				tableViewer.refresh();
+				if (selectionIndex >= 0 && selectionIndex < CONFIG_RESULT_PAIR_LIST.size()) {
+					CONFIG_RESULT_PAIR_LIST.remove(selectionIndex);
+					tableViewer.refresh(true);
+				}
 			}
 		});
 		
@@ -261,6 +362,8 @@ public class ScenarioPart {
 		successfulTestsValueLabel.setFont(defaultFont);
 		
 		Button startButton = new Button(parent, SWT.BOLD);
+		startButton.setImage(_imageControlSend);
+		startButton.setFont(defaultFont);
 		
 		GridData startButtonGridData = new GridData(SWT.RIGHT, SWT.CENTER, false, false);
 		startButtonGridData.widthHint = SIZE_HINT * 3;
@@ -272,10 +375,14 @@ public class ScenarioPart {
 			@Override
 			public void handleEvent(Event event) {
 				
+				// Disabling scenario controls
+				scenarioControlComposite.setEnabled(false);
+				
 				// Fetching data
 				TableItem[] tableItems = tableViewer.getTable().getItems();
 				
-				Map<TableItem, ConfigResultPair> tableMap = new HashMap<>();
+				// Yes, it should be linked hash map if we want to execute tests from the first to the last order
+				Map<TableItem, ConfigResultPair> tableMap = new LinkedHashMap<>();
 				for (TableItem tableItem : tableItems) {
 					Object dataObject = tableItem.getData();
 					if (dataObject instanceof ConfigResultPair) {
@@ -291,6 +398,8 @@ public class ScenarioPart {
 					for (TableItem tableItem : tableMap.keySet()) {
 						try {
 					
+							display.syncExec(() -> tableItem.setImage(_imageStatusProgress));
+							
 							// At this point we have a reference to ConfigResultPair instance
 							// which is also stored in CONFIG_RESULT_PAIR_LIST
 							ConfigResultPair pair = tableMap.get(tableItem);
@@ -307,35 +416,44 @@ public class ScenarioPart {
 						
 							if (isExpectationMatch(expectedResult, response)) {
 								
-								display.asyncExec(() -> tableItem.setForeground(display.getSystemColor(SWT.COLOR_DARK_GREEN)));
-								++successfulTests;
+								display.asyncExec(() -> tableItem.setImage(_imageStatusOk));
+								 ++successfulTests;
 
 							} else {
-								display.asyncExec(() -> tableItem.setForeground(display.getSystemColor(SWT.COLOR_DARK_YELLOW)));
+								display.asyncExec(() -> tableItem.setImage(_imageStatusFail));
 							}
+							
 						} catch (IllegalArgumentException | IOException e) { 
-							display.asyncExec(() -> tableItem.setForeground(display.getSystemColor(SWT.COLOR_DARK_RED)));
+							display.asyncExec(() -> tableItem.setImage(_imageStatusException));
+							
 							e.printStackTrace();
 						}
+						
+						int successfulTestsHolder = successfulTests;
+						display.asyncExec(() -> successfulTestsValueLabel.setText(successfulTestsHolder + " / " + tableItems.length));
 					}
 					
-					int successfulTestsHolder = successfulTests;
-					display.asyncExec(() -> successfulTestsValueLabel.setText(successfulTestsHolder + " / " + tableItems.length));
+					// Enabling scenario controls
+					display.asyncExec(() -> scenarioControlComposite.setEnabled(true));
 					
 				}).start();
 			}
 		});
 		
-//TODO add listener to collection
-//		text(SWT.Modify).observe(tableViewer).addValueChangeListener(new IValueChangeListener() {
-//			@Override
-//			public void handleValueChange(ValueChangeEvent event) {
-//				Config config = getCurrentOrDefaultConfig();
-//				config.setName(nameText.getText());
-//				
-//				_dirty.setDirty(true);
-//			}
-//		});
+		CONFIG_RESULT_PAIR_LIST.addListChangeListener(new IListChangeListener() {
+			@Override
+			public void handleListChange(ListChangeEvent event) {
+				Scenario scenario = getCurrentOrDefaultScenario();
+				List<ConfigResultPair> configResultPairs = scenario.getConfigResultPairs();
+				configResultPairs.clear();
+				
+				for (Object pair : CONFIG_RESULT_PAIR_LIST) {
+					if (pair instanceof ConfigResultPair) configResultPairs.add((ConfigResultPair) pair);
+				}
+				
+				_dirty.setDirty(true);
+			}
+		});
 	}
 	
 	@Inject
@@ -346,7 +464,9 @@ public class ScenarioPart {
 			
 			// Set new values for the map entries from a model object
 			BIND_HELPER.updateAttributeValue(SCENARIO_FILE_ATTRIBUTE, scenario.getScenariosFile());
-			BIND_HELPER.updateAttributeValue(CONFIG_RESULT_PAIRS_ATTRIBUTE, scenario.getConfigResultPairs());
+			
+			// Half-working workaround for writable list
+			CONFIG_RESULT_PAIR_LIST.addAll(scenario.getConfigResultPairs());
 	    }
 	}
 	
@@ -442,13 +562,15 @@ public class ScenarioPart {
 			expectedResult.setResponseContentType(resultContentType);
 			expectedResult.setResponseBody(resultBody);
 			
-			Config config = new JsonProvider().deserialize(filePath, new ConfigMapper());
-			config.setExpectedResult(expectedResult);
-			
-			ConfigResultPair configResultPair = ModelFactory.eINSTANCE.createConfigResultPair();
-			configResultPair.setConfig(config);
-			
-			CONFIG_RESULT_PAIR_LIST.add(configResultPair);
+			if (filePath != null) {
+				Config config = new JsonProvider().deserialize(filePath, new ConfigMapper());
+				config.setExpectedResult(expectedResult);
+				
+				ConfigResultPair configResultPair = ModelFactory.eINSTANCE.createConfigResultPair();
+				configResultPair.setConfig(config);
+				
+				CONFIG_RESULT_PAIR_LIST.getRealm().asyncExec(() -> CONFIG_RESULT_PAIR_LIST.add(configResultPair));
+			}
 			
 		} catch (IOException e) { e.printStackTrace(); }
 	}

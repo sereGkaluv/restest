@@ -28,25 +28,25 @@ public class BindHelper {
 	}
 
 	/**
-	 * Associates {@code Widget} content with the given attribute.
+	 * Associates {@code Widget} text with the given attribute.
 	 * 
 	 * @param attribute attribute with which the specified {@code Widget} is to be associated.
 	 * @param widget widget content of which will be associated to the given attribute.
 	 * @return {@code Binding} - created binding.
 	 */
-	public Binding bindWidget(String attribute, Widget widget) {
+	public Binding bindWidgetText(String attribute, Widget widget) {
 	    ISWTObservableValue widgetAttributeObservable = WidgetProperties.text(SWT.Modify).observe(widget);
 		return bindObservableValue(attribute, widgetAttributeObservable);
 	}
 	
 	/**
-	 * Associates {@code Viewer} content with the given attribute.
+	 * Associates {@code Viewer} selection with the given attribute.
 	 * 
 	 * @param attribute attribute with which the specified {@code Viewer} is to be associated.
 	 * @param viewer viewer content of which will be associated to the given attribute.
 	 * @return {@code Binding} - created binding.
 	 */
-	public Binding bindViewer(String attribute, Viewer viewer) {
+	public Binding bindViewerSelection(String attribute, Viewer viewer) {
 		IViewerObservableValue viewerAttributeObservable = ViewerProperties.singleSelection().observe(viewer);
 		return bindObservableValue(attribute, viewerAttributeObservable);
 	}
