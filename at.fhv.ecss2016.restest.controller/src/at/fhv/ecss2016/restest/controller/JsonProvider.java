@@ -39,7 +39,7 @@ public class JsonProvider {
         
 		String json = jsonString;
 		
-		if (json.startsWith("[") && json.endsWith("]")) {
+		if (!json.startsWith("{") && !json.endsWith("}")) {
 			//Need to add {"JSON": *} to the JSON string to be compatible with Jackson
 			json = "{\"JSON\":" + json + "}";	
 		}
