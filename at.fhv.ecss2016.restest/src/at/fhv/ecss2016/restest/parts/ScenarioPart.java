@@ -59,15 +59,12 @@ import org.eclipse.swt.widgets.Text;
 
 import at.fhv.ecss2016.restest.controller.JsonProvider;
 import at.fhv.ecss2016.restest.controller.RemoteConnection;
-import at.fhv.ecss2016.restest.controller.util.ConfigMapper;
 import at.fhv.ecss2016.restest.model.Config;
 import at.fhv.ecss2016.restest.model.ConfigExpectedResultPair;
-import at.fhv.ecss2016.restest.model.ContentType;
 import at.fhv.ecss2016.restest.model.ExpectedResult;
 import at.fhv.ecss2016.restest.model.ModelFactory;
 import at.fhv.ecss2016.restest.model.Response;
 import at.fhv.ecss2016.restest.model.Scenario;
-import at.fhv.ecss2016.restest.model.StatusCode;
 import at.fhv.ecss2016.restest.util.BindHelper;
 import at.fhv.ecss2016.restest.util.FileDialogHelper;
 import at.fhv.ecss2016.restest.util.StringConstants;
@@ -88,16 +85,19 @@ public class ScenarioPart {
 	private static final String ICON_STATUS_FAIL = "icons/status/fail.png";
 	private static final String ICON_STATUS_EXCEPTION = "icons/status/exception.png";
 	
-	private static final String ICON_CONTROL_UP = "icons/control/up.png";
-	private static final String ICON_CONTROL_DOWN = "icons/control/down.png";
+	private static final String ICON_CONTROL_EDIT = "icons/control/edit.png";
 	private static final String ICON_CONTROL_ADD = "icons/control/add.png";
 	private static final String ICON_CONTROL_DELETE = "icons/control/delete.png";
+	private static final String ICON_CONTROL_UP = "icons/control/up.png";
+	private static final String ICON_CONTROL_DOWN = "icons/control/down.png";
+	private static final String ICON_CONTROL_CLEAR_ALL = "icons/control/clear_all.png";
 	private static final String ICON_CONTROL_SEND = "icons/control/send.png";
 	
 	private static final String SCENARIO_FILE_ATTRIBUTE = "SCENARIO_FILE_ATTRIBUTE";
 	private static final String CONFIG_RESULT_PAIRS_ATTRIBUTE = "CONFIG_RESULT_PAIRS_ATTRIBUTE";
 	
 	private static final String FILE_DIALOG_TITLE = "Save scenario?";
+	private static final String DEFAULT_SAVE_OK_MESSAGE = "Changes were saved.";
 	private static final String DEFAULT_ERROR_MESSAGE = "Error occurred while saving scenario file.";
 	
 	private static final int ELEMENT_VERTICAL_SPACING = 5;
@@ -118,10 +118,12 @@ public class ScenarioPart {
 	private final Image _imageStatusFail;
 	private final Image _imageStatusException;
 	
-	private final Image _imageControlUp;
-	private final Image _imageControlDown;
+	private final Image _imageControlEdit;
 	private final Image _imageControlAdd;
 	private final Image _imageControlDelete;
+	private final Image _imageControlUp;
+	private final Image _imageControlDown;
+	private final Image _imageControlClearAll;
 	private final Image _imageControlSend;
 	
 	private Scenario _currentScenario;
@@ -155,12 +157,8 @@ public class ScenarioPart {
 			classLoader.getResource(ICON_STATUS_EXCEPTION)
 		).createImage();
 		
-		_imageControlUp = ImageDescriptor.createFromURL(
-			classLoader.getResource(ICON_CONTROL_UP)
-		).createImage();
-		
-		_imageControlDown = ImageDescriptor.createFromURL(
-			classLoader.getResource(ICON_CONTROL_DOWN)
+		_imageControlEdit = ImageDescriptor.createFromURL(
+			classLoader.getResource(ICON_CONTROL_EDIT)
 		).createImage();
 		
 		_imageControlAdd = ImageDescriptor.createFromURL(
@@ -169,6 +167,18 @@ public class ScenarioPart {
 		
 		_imageControlDelete = ImageDescriptor.createFromURL(
 			classLoader.getResource(ICON_CONTROL_DELETE)
+		).createImage();
+		
+		_imageControlUp = ImageDescriptor.createFromURL(
+			classLoader.getResource(ICON_CONTROL_UP)
+		).createImage();
+		
+		_imageControlDown = ImageDescriptor.createFromURL(
+			classLoader.getResource(ICON_CONTROL_DOWN)
+		).createImage();
+		
+		_imageControlClearAll = ImageDescriptor.createFromURL(
+			classLoader.getResource(ICON_CONTROL_CLEAR_ALL)
 		).createImage();
 		
 		_imageControlSend = ImageDescriptor.createFromURL(
@@ -221,32 +231,47 @@ public class ScenarioPart {
 		
 	    Composite scenarioControlComposite = new Composite(parent, SWT.BORDER);
 	    scenarioControlComposite.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
-	    scenarioControlComposite.setLayout(new GridLayout(5, false));
+	    scenarioControlComposite.setLayout(new GridLayout(9, false));
 		
 		GridData buttonGridData = new GridData(SWT.RIGHT, SWT.CENTER, false, false);
 		buttonGridData.widthHint = SIZE_HINT;
 		buttonGridData.heightHint = SIZE_HINT;
 		
-		Button scenarioUpButton = new Button(scenarioControlComposite, SWT.NONE);
-		scenarioUpButton.setLayoutData(buttonGridData);
-		scenarioUpButton.setImage(_imageControlUp);
-		
-		Button scenarioDownButton = new Button(scenarioControlComposite, SWT.NONE);
-		scenarioDownButton.setLayoutData(buttonGridData);
-		scenarioDownButton.setImage(_imageControlDown);
-		
+		Button editConfigButton = new Button(scenarioControlComposite, SWT.NONE);
+		editConfigButton.setLayoutData(buttonGridData);
+		editConfigButton.setImage(_imageControlEdit);
 		
 		Label verticalSeparator = new Label(scenarioControlComposite, SWT.NONE);
 		verticalSeparator.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
 		verticalSeparator.setText("|");
 		
-		Button addScenarioButton = new Button(scenarioControlComposite, SWT.NONE);
-		addScenarioButton.setLayoutData(buttonGridData);
-		addScenarioButton.setImage(_imageControlAdd);
+		Button addConfigButton = new Button(scenarioControlComposite, SWT.NONE);
+		addConfigButton.setLayoutData(buttonGridData);
+		addConfigButton.setImage(_imageControlAdd);
 
-		Button removeScenarioButton = new Button(scenarioControlComposite, SWT.NONE);
-		removeScenarioButton.setLayoutData(buttonGridData);
-		removeScenarioButton.setImage(_imageControlDelete);
+		Button deleteConfigButton = new Button(scenarioControlComposite, SWT.NONE);
+		deleteConfigButton.setLayoutData(buttonGridData);
+		deleteConfigButton.setImage(_imageControlDelete);
+		
+		Label verticalSeparator2 = new Label(scenarioControlComposite, SWT.NONE);
+		verticalSeparator2.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
+		verticalSeparator2.setText("|");
+		
+		Button configUpButton = new Button(scenarioControlComposite, SWT.NONE);
+		configUpButton.setLayoutData(buttonGridData);
+		configUpButton.setImage(_imageControlUp);
+		
+		Button configDownButton = new Button(scenarioControlComposite, SWT.NONE);
+		configDownButton.setLayoutData(buttonGridData);
+		configDownButton.setImage(_imageControlDown);
+		
+		Label verticalSeparator3 = new Label(scenarioControlComposite, SWT.NONE);
+		verticalSeparator3.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
+		verticalSeparator3.setText("|");
+		
+		Button clearAllConfigButton = new Button(scenarioControlComposite, SWT.NONE);
+		clearAllConfigButton.setLayoutData(buttonGridData);
+		clearAllConfigButton.setImage(_imageControlClearAll);
 		
 		Composite tableComposite = new Composite(parent, SWT.NONE);
 		tableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
@@ -290,32 +315,37 @@ public class ScenarioPart {
 			}
 		});
 		
-		// Shift list elements up
-		scenarioUpButton.addListener(SWT.Selection, new Listener() {
+		// Edit config
+		editConfigButton.addListener(SWT.Selection, new Listener(){
 			@Override
 			public void handleEvent(Event event) {
 				int selectionIndex = tableViewer.getTable().getSelectionIndex();
-				if (selectionIndex > 0 && selectionIndex < CONFIG_RESULT_PAIR_LIST.size()) {
-					Collections.swap(CONFIG_RESULT_PAIR_LIST, selectionIndex - 1, selectionIndex);
-					tableViewer.getTable().setSelection(selectionIndex - 1);
-				}
-			}
-		});
-				
-		// Shift list elements down
-		scenarioDownButton.addListener(SWT.Selection, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				int selectionIndex = tableViewer.getTable().getSelectionIndex();
-				if (selectionIndex >= 0 && selectionIndex < CONFIG_RESULT_PAIR_LIST.size() - 1) {
-					Collections.swap(CONFIG_RESULT_PAIR_LIST, selectionIndex, selectionIndex + 1);
-					tableViewer.getTable().setSelection(selectionIndex + 1);
+				if (selectionIndex >= 0 && selectionIndex < CONFIG_RESULT_PAIR_LIST.size()) {
+					
+					ConfigExpectedResultPair oldPair = (ConfigExpectedResultPair) tableViewer.getTable().getItem(selectionIndex).getData();
+					
+					// opens new config dialog to modify existing pair
+					NewConfigDialog newConfigDialog = new NewConfigDialog(
+						oldPair,
+						FILE_DIALOG_WIDTH,
+						FILE_DIALOG_HEIGHT,
+						shell
+					);
+					
+					int statusCode = newConfigDialog.open();
+					if (statusCode == Window.OK) {
+						newConfigDialog.assembleConfigExpectedResultPair(oldPair);
+						
+						MessageBox messageBox = new MessageBox(shell, SWT.ICON_INFORMATION);
+						messageBox.setMessage(DEFAULT_SAVE_OK_MESSAGE);
+						messageBox.open();
+					}
 				}
 			}
 		});
 		
 		// Add config
-		addScenarioButton.addListener(SWT.Selection, new Listener(){
+		addConfigButton.addListener(SWT.Selection, new Listener(){
 			@Override
 			public void handleEvent(Event event) {
 				// opens new config dialog
@@ -327,24 +357,55 @@ public class ScenarioPart {
 				
 				int statusCode = newConfigDialog.open();
 				if (statusCode == Window.OK) {
-					new Thread(() -> addConfigToScenario(
-						newConfigDialog.getFilePath(),
-						newConfigDialog.getResultStatusCode(),
-						newConfigDialog.getResultContentType(),
-						newConfigDialog.getResultBodyText()
-					)).start();
+					new Thread(() -> {
+						ConfigExpectedResultPair pair = newConfigDialog.assembleConfigExpectedResultPair();
+						if (pair != null) CONFIG_RESULT_PAIR_LIST.getRealm().asyncExec(() -> CONFIG_RESULT_PAIR_LIST.add(pair));
+					}).start();
 				}
 			}
 		});
 		
-		// Remove config
-		removeScenarioButton.addListener(SWT.Selection, new Listener() {
+		// Delete config
+		deleteConfigButton.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
 				int selectionIndex = tableViewer.getTable().getSelectionIndex();
 				if (selectionIndex >= 0 && selectionIndex < CONFIG_RESULT_PAIR_LIST.size()) {
 					CONFIG_RESULT_PAIR_LIST.remove(selectionIndex);
+					if (tableViewer.getTable().getItemCount() > selectionIndex) tableViewer.getTable().setSelection(selectionIndex);
 				}
+			}
+		});
+		
+		// Shift list elements up
+		configUpButton.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				int selectionIndex = tableViewer.getTable().getSelectionIndex();
+				if (selectionIndex > 0 && selectionIndex < CONFIG_RESULT_PAIR_LIST.size()) {
+					Collections.swap(CONFIG_RESULT_PAIR_LIST, selectionIndex - 1, selectionIndex);
+					tableViewer.getTable().setSelection(selectionIndex - 1);
+				}
+			}
+		});
+				
+		// Shift list elements down
+		configDownButton.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				int selectionIndex = tableViewer.getTable().getSelectionIndex();
+				if (selectionIndex >= 0 && selectionIndex < CONFIG_RESULT_PAIR_LIST.size() - 1) {
+					Collections.swap(CONFIG_RESULT_PAIR_LIST, selectionIndex, selectionIndex + 1);
+					tableViewer.getTable().setSelection(selectionIndex + 1);
+				}
+			}
+		});
+		
+		// Clears element list
+		clearAllConfigButton.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				if (!CONFIG_RESULT_PAIR_LIST.isEmpty()) CONFIG_RESULT_PAIR_LIST.clear();
 			}
 		});
 		
@@ -567,36 +628,6 @@ public class ScenarioPart {
 		else if (expectedResult.getResponseBody() != null && expectedResult.getResponseBody().equals(response.getResponseBody())) isBodyMatch = true;
 		
 		return isStatusCodeMatch && isContentTypeMatch && isBodyMatch;
-	}
-	
-	/**
-	 * Helper method that adds a config entry to the list view.
-	 * 
-	 * @param filePath path to the config file.
-	 * @param resultStatusCode expected result status code value for the config file.
-	 * @param resultContentType expected result content type value for the config file.
-	 * @param resultBody expected result body value for the config file.
-	 */
-	private void addConfigToScenario(String filePath, StatusCode resultStatusCode, ContentType resultContentType, String resultBody) {
-		try {
-			
-			ExpectedResult expectedResult = ModelFactory.eINSTANCE.createExpectedResult();
-			expectedResult.setStatusCode(resultStatusCode);
-			expectedResult.setContentType(resultContentType);
-			expectedResult.setResponseBody(resultBody);
-			
-			if (filePath != null) {
-				
-				Config config = new JsonProvider().deserialize(filePath, new ConfigMapper());
-				
-				ConfigExpectedResultPair configResultPair = ModelFactory.eINSTANCE.createConfigExpectedResultPair();
-				configResultPair.setConfig(config);
-				configResultPair.setExpectedResult(expectedResult);
-				
-				CONFIG_RESULT_PAIR_LIST.getRealm().asyncExec(() -> CONFIG_RESULT_PAIR_LIST.add(configResultPair));
-			}
-			
-		} catch (IOException e) { e.printStackTrace(); }
 	}
 	
 	/**

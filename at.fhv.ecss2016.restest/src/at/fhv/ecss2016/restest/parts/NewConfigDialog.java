@@ -1,6 +1,8 @@
 
 package at.fhv.ecss2016.restest.parts;
 
+import java.io.IOException;
+
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
@@ -8,6 +10,7 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
@@ -20,6 +23,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
@@ -27,7 +31,13 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import at.fhv.ecss2016.restest.controller.JsonProvider;
+import at.fhv.ecss2016.restest.controller.util.ConfigMapper;
+import at.fhv.ecss2016.restest.model.Config;
+import at.fhv.ecss2016.restest.model.ConfigExpectedResultPair;
 import at.fhv.ecss2016.restest.model.ContentType;
+import at.fhv.ecss2016.restest.model.ExpectedResult;
+import at.fhv.ecss2016.restest.model.ModelFactory;
 import at.fhv.ecss2016.restest.model.StatusCode;
 import at.fhv.ecss2016.restest.util.FileDialogHelper;
 
@@ -36,6 +46,7 @@ public class NewConfigDialog extends Dialog {
 	private static final String DIALOG_TITLE = "Add a new config to scenario?";
 	private static final String FILE_DIALOG_TITLE = "Load config?";
 	private static final String FILE_SELECTOR_TEXT = "Please select a file...";
+	private static final String NO_NAME = "NO_NAME";
 			
 	private static final int ELEMENT_VERTICAL_SPACING = 5;
 	private static final int ELEMENT_HORIZONTAL_SPACING = 15;
@@ -45,7 +56,8 @@ public class NewConfigDialog extends Dialog {
 	private final int _width;
 	private final int _height;
 
-	private String _filePath;
+	private Config _config;
+	
 	private StatusCode _resultStatusCode;
 	private ContentType _resultContentType;
 	private String _resultBodyText;
@@ -56,22 +68,61 @@ public class NewConfigDialog extends Dialog {
 		_width = width;
 		_height = height;
 	}
+	
+	public NewConfigDialog(ConfigExpectedResultPair prototypePair, int width, int height, Shell shell) {
+		super(shell);
+		
+		_width = width;
+		_height = height;
+		
+		if (prototypePair != null) {
+			_config = prototypePair.getConfig();
+			
+			ExpectedResult expectedResult = prototypePair.getExpectedResult();
+			_resultStatusCode = expectedResult.getStatusCode();
+			_resultContentType = expectedResult.getContentType();
+			_resultBodyText = expectedResult.getResponseBody();
+		}
+	}
 
-	
-	public String getFilePath(){
-		return _filePath;
+	/**
+	 * Helper method that assembles a {@code ConfigExpectedResultPair} instance.
+	 * 
+	 * @return assembled {@code ConfigExpectedResultPair} instance.
+	 */
+	public ConfigExpectedResultPair assembleConfigExpectedResultPair() {
+		ExpectedResult expectedResult = ModelFactory.eINSTANCE.createExpectedResult();
+		expectedResult.setStatusCode(_resultStatusCode);
+		expectedResult.setContentType(_resultContentType);
+		expectedResult.setResponseBody(_resultBodyText);
+		
+		ConfigExpectedResultPair configResultPair = ModelFactory.eINSTANCE.createConfigExpectedResultPair();
+		configResultPair.setConfig(_config);
+		configResultPair.setExpectedResult(expectedResult);
+		
+		return configResultPair;
 	}
 	
-	public StatusCode getResultStatusCode() {
-		return _resultStatusCode;
-	}
-	
-	public ContentType getResultContentType(){
-		return _resultContentType;
-	}
-	
-	public String getResultBodyText(){
-		return _resultBodyText;
+	/**
+	 * Helper method that re-assembles a {@code ConfigExpectedResultPair} instance.
+	 * 
+	 * @return re-assembled {@code ConfigExpectedResultPair} instance.
+	 */
+	public ConfigExpectedResultPair assembleConfigExpectedResultPair(ConfigExpectedResultPair targetPair) {		
+		if (targetPair != null) {
+			
+			ExpectedResult expectedResult = targetPair.getExpectedResult();
+			if (expectedResult == null) expectedResult = ModelFactory.eINSTANCE.createExpectedResult();
+			
+			expectedResult.setStatusCode(_resultStatusCode);
+			expectedResult.setContentType(_resultContentType);
+			expectedResult.setResponseBody(_resultBodyText);
+			
+			targetPair.setConfig(_config);
+			targetPair.setExpectedResult(expectedResult);
+		}
+		
+		return targetPair;
 	}
 	
 	@Override
@@ -100,7 +151,7 @@ public class NewConfigDialog extends Dialog {
 		FontData fontData = new FontData(initFontData.getName(), initFontData.getHeight(), SWT.BOLD);
 		Font defaultFont = new Font(container.getDisplay(), fontData);
 
-		// file for new config
+		// File for new config
 		Label lblFileName = new Label(container, SWT.NONE);
 		lblFileName.setFont(defaultFont);
 		lblFileName.setText("Config file:");
@@ -116,20 +167,23 @@ public class NewConfigDialog extends Dialog {
 		fileSelectComposite.setLayoutData(compositeGridData);
 		fileSelectComposite.setLayout(fileSelectCompositeLayout);
 
-		Text txtFilePath = new Text(fileSelectComposite, SWT.BORDER);		
+		Text txtFilePath = new Text(fileSelectComposite, SWT.BORDER | SWT.READ_ONLY);		
 		txtFilePath.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		txtFilePath.setMessage(FILE_SELECTOR_TEXT);
-		txtFilePath.addModifyListener(new ModifyListener(){
-			@Override
-			public void modifyText(ModifyEvent e) {
-				_filePath = txtFilePath.getText().trim();
-			}
+		txtFilePath.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyPressed(KeyEvent e) 
+		    {
+		        if(e.stateMask == SWT.CTRL && e.keyCode == 'a') txtFilePath.selectAll();
+		    }
 		});
+		if (_config != null) txtFilePath.setText(_config.getName());
 
 		Button btnChooseFile = new Button(fileSelectComposite, SWT.PUSH);
 		btnChooseFile.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false));
 		btnChooseFile.setText("Select file...");
-		btnChooseFile.addListener(SWT.Selection, new Listener() {
+
+		Listener fileSelectionListener = new Listener() {
 			@Override
 			public void handleEvent(Event event) {
 				// open file dialog when button is clicked
@@ -141,10 +195,25 @@ public class NewConfigDialog extends Dialog {
 					SWT.OPEN
 				);
 				
-				String responseValue = fileDialog.open();
-				if(responseValue != null) txtFilePath.setText(responseValue);
+				String filePath = fileDialog.open();
+				if(filePath != null && !filePath.isEmpty()){
+					new Thread(() ->  {
+						try {
+
+							_config = new JsonProvider().deserialize(filePath, new ConfigMapper());
+							if (_config != null) {
+								String configName = _config.getName() != null && !_config.getName().isEmpty() ? _config.getName() : NO_NAME;
+								Display.getDefault().asyncExec(() -> txtFilePath.setText(configName));
+							}
+								
+						} catch (IOException e) { e.printStackTrace(); }
+					}).start();
+				}
 			}
-		});
+		};
+		
+		txtFilePath.addListener(SWT.MouseDown, fileSelectionListener);
+		btnChooseFile.addListener(SWT.Selection, fileSelectionListener);
 
 		Label separator = new Label(container, SWT.SEPARATOR | SWT.HORIZONTAL);
 		separator.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
@@ -174,6 +243,7 @@ public class NewConfigDialog extends Dialog {
 				_resultStatusCode = (StatusCode) sSelection.getFirstElement();
 			}
 		});
+		if (_resultStatusCode != null) resultStatusCodeCombo.setSelection(new StructuredSelection(_resultStatusCode));
 		
 		Label lblResultContentType = new Label(container, SWT.NONE);
 		lblResultContentType.setFont(defaultFont);
@@ -197,6 +267,7 @@ public class NewConfigDialog extends Dialog {
 				_resultContentType = (ContentType) rSelection.getFirstElement();
 			}
 		});
+		if (_resultContentType != null) resultContentTypeCombo.setSelection(new StructuredSelection(_resultContentType));
 		
 		Label separator2 = new Label(container, SWT.SEPARATOR | SWT.HORIZONTAL);
 		separator2.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
@@ -221,6 +292,7 @@ public class NewConfigDialog extends Dialog {
 		        if(e.stateMask == SWT.CTRL && e.keyCode == 'a') bodyText.selectAll();
 		    }
 		});
+		if (_resultBodyText != null) bodyText.setText(_resultBodyText);
 		
 		return container;
 	}
