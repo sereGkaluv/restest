@@ -26,9 +26,9 @@ import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
-import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
@@ -257,8 +257,7 @@ public class ScenarioPart {
 		tableColumnLayout.setColumnData(singleColumn, new ColumnWeightData(100));
 		tableComposite.setLayout(tableColumnLayout);
 		
-		ObservableListContentProvider tableViewerContentProvider = new ObservableListContentProvider();
-		tableViewer.setContentProvider(tableViewerContentProvider);
+		tableViewer.setContentProvider(new ArrayContentProvider());
 		tableViewer.setLabelProvider(new LabelProvider() {
 			@Override
 			public Image getImage(Object element) {
@@ -296,6 +295,7 @@ public class ScenarioPart {
 				int selectionIndex = tableViewer.getTable().getSelectionIndex();
 				if (selectionIndex > 0 && selectionIndex < CONFIG_RESULT_PAIR_LIST.size()) {
 					Collections.swap(CONFIG_RESULT_PAIR_LIST, selectionIndex - 1, selectionIndex);
+					tableViewer.getTable().setSelection(selectionIndex - 1);
 					tableViewer.refresh(true);
 				}
 			}
@@ -308,6 +308,7 @@ public class ScenarioPart {
 				int selectionIndex = tableViewer.getTable().getSelectionIndex();
 				if (selectionIndex >= 0 && selectionIndex < CONFIG_RESULT_PAIR_LIST.size() - 1) {
 					Collections.swap(CONFIG_RESULT_PAIR_LIST, selectionIndex, selectionIndex + 1);
+					tableViewer.getTable().setSelection(selectionIndex + 1);
 					tableViewer.refresh(true);
 				}
 			}
@@ -441,6 +442,7 @@ public class ScenarioPart {
 		});
 		
 		CONFIG_RESULT_PAIR_LIST.addListChangeListener(new IListChangeListener() {
+			
 			@Override
 			public void handleListChange(ListChangeEvent event) {
 				Scenario scenario = getCurrentOrDefaultScenario();
