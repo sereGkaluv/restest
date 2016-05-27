@@ -173,6 +173,7 @@ public class ResponsePart {
 				
 				Browser browser = new Browser(tabFolder, SWT.NONE);
 				browser.setText(response.getResponseBody());
+				browser.setJavascriptEnabled(true);
 				browserTab.setControl(browser);
 			}
 			

@@ -43,11 +43,23 @@ public class BindHelper {
 	 * Associates {@code Viewer} selection with the given attribute.
 	 * 
 	 * @param attribute attribute with which the specified {@code Viewer} is to be associated.
-	 * @param viewer viewer content of which will be associated to the given attribute.
+	 * @param viewer viewer selection of which will be associated to the given attribute.
 	 * @return {@code Binding} - created binding.
 	 */
 	public Binding bindViewerSelection(String attribute, Viewer viewer) {
 		IViewerObservableValue viewerAttributeObservable = ViewerProperties.singleSelection().observe(viewer);
+		return bindObservableValue(attribute, viewerAttributeObservable);
+	}
+	
+	/**
+	 * Associates {@code Viewer} input with the given attribute.
+	 * 
+	 * @param attribute attribute with which the specified {@code Viewer} is to be associated.
+	 * @param viewer viewer input of which will be associated to the given attribute.
+	 * @return {@code Binding} - created binding.
+	 */
+	public Binding bindViewerInput(String attribute, Viewer viewer) {
+		IViewerObservableValue viewerAttributeObservable = ViewerProperties.input().observe(viewer);
 		return bindObservableValue(attribute, viewerAttributeObservable);
 	}
 	
@@ -61,6 +73,16 @@ public class BindHelper {
 	public Binding bindObservableValue(String attribute, IObservableValue observableValue) {
 		IObservableValue widgetObservable = Observables.observeMapEntry(ATTRIBUTES_MAP, attribute);
 		return DBC.bindValue(observableValue, widgetObservable);
+	}
+	
+	/**
+	 * Returns value for the given attribute key.
+	 * 
+	 * @param attributeKey attribute with which the specified value is associated.
+	 * @return the current value associated with key, or null if there was no mapping for key.
+	 */
+	public Object getAttributeValue(String attributeKey) {
+		return ATTRIBUTES_MAP.get(attributeKey);
 	}
 	
 	/**

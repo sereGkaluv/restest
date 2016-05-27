@@ -95,6 +95,7 @@ public class ScenarioPart {
 	private static final String ICON_CONTROL_SEND = "icons/control/send.png";
 	
 	private static final String SCENARIO_FILE_ATTRIBUTE = "SCENARIO_FILE_ATTRIBUTE";
+	private static final String CONFIG_RESULT_PAIRS_ATTRIBUTE = "CONFIG_RESULT_PAIRS_ATTRIBUTE";
 	
 	private static final String FILE_DIALOG_TITLE = "Save scenario?";
 	private static final String DEFAULT_ERROR_MESSAGE = "Error occurred while saving scenario file.";
@@ -272,6 +273,7 @@ public class ScenarioPart {
 		});
 		
 		// Setting input and binding table viewer values
+		BIND_HELPER.bindViewerInput(CONFIG_RESULT_PAIRS_ATTRIBUTE, tableViewer);
 		tableViewer.setInput(CONFIG_RESULT_PAIR_LIST);
 		
 		// Double-click list Listener -> opens Response perspective
@@ -296,7 +298,6 @@ public class ScenarioPart {
 				if (selectionIndex > 0 && selectionIndex < CONFIG_RESULT_PAIR_LIST.size()) {
 					Collections.swap(CONFIG_RESULT_PAIR_LIST, selectionIndex - 1, selectionIndex);
 					tableViewer.getTable().setSelection(selectionIndex - 1);
-					tableViewer.refresh(true);
 				}
 			}
 		});
@@ -309,7 +310,6 @@ public class ScenarioPart {
 				if (selectionIndex >= 0 && selectionIndex < CONFIG_RESULT_PAIR_LIST.size() - 1) {
 					Collections.swap(CONFIG_RESULT_PAIR_LIST, selectionIndex, selectionIndex + 1);
 					tableViewer.getTable().setSelection(selectionIndex + 1);
-					tableViewer.refresh(true);
 				}
 			}
 		});
@@ -327,28 +327,23 @@ public class ScenarioPart {
 				
 				int statusCode = newConfigDialog.open();
 				if (statusCode == Window.OK) {
-					new Thread(() -> {
-						addConfigToScenario(
-							newConfigDialog.getFilePath(),
-							newConfigDialog.getResultStatusCode(),
-							newConfigDialog.getResultContentType(),
-							newConfigDialog.getResultBodyText()
-						);
-						
-						display.asyncExec(() -> tableViewer.refresh(true));
-					}).start();
+					new Thread(() -> addConfigToScenario(
+						newConfigDialog.getFilePath(),
+						newConfigDialog.getResultStatusCode(),
+						newConfigDialog.getResultContentType(),
+						newConfigDialog.getResultBodyText()
+					)).start();
 				}
 			}
 		});
 		
 		// Remove config
-		removeScenarioButton.addListener(SWT.MouseDown, new Listener() {
+		removeScenarioButton.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
 				int selectionIndex = tableViewer.getTable().getSelectionIndex();
 				if (selectionIndex >= 0 && selectionIndex < CONFIG_RESULT_PAIR_LIST.size()) {
 					CONFIG_RESULT_PAIR_LIST.remove(selectionIndex);
-					tableViewer.refresh(true);
 				}
 			}
 		});
@@ -442,17 +437,9 @@ public class ScenarioPart {
 		});
 		
 		CONFIG_RESULT_PAIR_LIST.addListChangeListener(new IListChangeListener() {
-			
 			@Override
 			public void handleListChange(ListChangeEvent event) {
-				Scenario scenario = getCurrentOrDefaultScenario();
-				List<ConfigResultPair> configResultPairs = scenario.getConfigResultPairs();
-				configResultPairs.clear();
-				
-				for (Object pair : CONFIG_RESULT_PAIR_LIST) {
-					if (pair instanceof ConfigResultPair) configResultPairs.add((ConfigResultPair) pair);
-				}
-				
+				tableViewer.refresh();
 				_dirty.setDirty(true);
 			}
 		});
@@ -467,8 +454,10 @@ public class ScenarioPart {
 			// Set new values for the map entries from a model object
 			BIND_HELPER.updateAttributeValue(SCENARIO_FILE_ATTRIBUTE, scenario.getScenariosFile());
 			
-			// Half-working workaround for writable list
+			// Partial workaround for table input list
+			CONFIG_RESULT_PAIR_LIST.clear();
 			CONFIG_RESULT_PAIR_LIST.addAll(scenario.getConfigResultPairs());
+			BIND_HELPER.updateAttributeValue(CONFIG_RESULT_PAIRS_ATTRIBUTE, CONFIG_RESULT_PAIR_LIST);
 	    }
 	}
 	
@@ -484,6 +473,21 @@ public class ScenarioPart {
 	private void save(Shell parentShell) {
 	    try {
 	    	
+	    	// Assembling scenario
+	    	String curerntFilePath = (String) BIND_HELPER.getAttributeValue(SCENARIO_FILE_ATTRIBUTE);
+			IObservableList currentPairList = (IObservableList) BIND_HELPER.getAttributeValue(CONFIG_RESULT_PAIRS_ATTRIBUTE);
+			
+	    	Scenario scenario = getCurrentOrDefaultScenario();
+	    	scenario.setScenariosFile(curerntFilePath);
+	    	
+			List<ConfigResultPair> configResultPairs = scenario.getConfigResultPairs();
+			configResultPairs.clear();
+			
+			for (Object pair : currentPairList) {
+				if (pair instanceof ConfigResultPair) configResultPairs.add((ConfigResultPair) pair);
+			}
+	    	
+			// Saving assembled scenario			
 			FileDialog fileDialog = FileDialogHelper.getFileDialog(
 				FILE_DIALOG_TITLE,
 				FileDialogHelper.FILTER_NAMES_SCENARIO,
