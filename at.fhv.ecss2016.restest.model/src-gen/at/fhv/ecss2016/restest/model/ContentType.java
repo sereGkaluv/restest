@@ -86,7 +86,17 @@ public enum ContentType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	HTML(6, "HTML", "text/html");
+	HTML(6, "HTML", "text/html"),
+
+	/**
+	 * The '<em><b>JAVA LANG EXCEPTION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #JAVA_LANG_EXCEPTION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	JAVA_LANG_EXCEPTION(7, "JAVA_LANG_EXCEPTION", "java.lang.Exception");
 
 	/**
 	 * The '<em><b>TEXT</b></em>' literal value.
@@ -194,6 +204,21 @@ public enum ContentType implements Enumerator {
 	public static final int HTML_VALUE = 6;
 
 	/**
+	 * The '<em><b>JAVA LANG EXCEPTION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>JAVA LANG EXCEPTION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #JAVA_LANG_EXCEPTION
+	 * @model literal="java.lang.Exception"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int JAVA_LANG_EXCEPTION_VALUE = 7;
+
+	/**
 	 * An array of all the '<em><b>Content Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -208,6 +233,7 @@ public enum ContentType implements Enumerator {
 			XML_TEXT,
 			XML_APPLICATION,
 			HTML,
+			JAVA_LANG_EXCEPTION,
 		};
 
 	/**
@@ -271,6 +297,7 @@ public enum ContentType implements Enumerator {
 			case XML_TEXT_VALUE: return XML_TEXT;
 			case XML_APPLICATION_VALUE: return XML_APPLICATION;
 			case HTML_VALUE: return HTML;
+			case JAVA_LANG_EXCEPTION_VALUE: return JAVA_LANG_EXCEPTION;
 		}
 		return null;
 	}

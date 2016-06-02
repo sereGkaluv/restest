@@ -35,12 +35,12 @@ import org.eclipse.swt.widgets.Widget;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import at.fhv.ecss2016.restest.controller.JsonProvider;
+import at.fhv.ecss2016.restest.model.ContentType;
 import at.fhv.ecss2016.restest.model.Response;
 import at.fhv.ecss2016.restest.util.StringConstants;
 
 public class ResponsePart {
-
-	private static final String CONTENT_TYPE_JSON = "application/json";
+	
 	private static final String KEY_VALUE_DELIMITER = " : ";
 	
 	private static final String ICON_REPRESENTATION_JSON_TREE = "icons/representation/json_tree.png";
@@ -130,7 +130,7 @@ public class ResponsePart {
 			TabFolder tabFolder = new TabFolder(parent, SWT.NONE);
 			tabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
 			
-			if (CONTENT_TYPE_JSON.equals(response.getContentType().getLiteral())) {
+			if (response.getContentType().equals(ContentType.JSON)) {
 				
 				// First display possibility 
 				TabItem jsonTreeTab = new TabItem(tabFolder, SWT.NULL);
@@ -164,7 +164,7 @@ public class ResponsePart {
 				
 				} catch (Exception e) { e.printStackTrace(); }
 			
-			} else {
+			} else if (!response.getContentType().equals(ContentType.JAVA_LANG_EXCEPTION)) {
 
 				// First display possibility 
 				TabItem browserTab = new TabItem(tabFolder, SWT.NULL);

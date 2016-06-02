@@ -15,6 +15,7 @@
       <genEnumLiterals ecoreEnumLiteral="restest_model.ecore#//ContentType/XML_TEXT"/>
       <genEnumLiterals ecoreEnumLiteral="restest_model.ecore#//ContentType/XML_APPLICATION"/>
       <genEnumLiterals ecoreEnumLiteral="restest_model.ecore#//ContentType/HTML"/>
+      <genEnumLiterals ecoreEnumLiteral="restest_model.ecore#//ContentType/JAVA_LANG_EXCEPTION"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="restest_model.ecore#//HttpVerb">
       <genEnumLiterals ecoreEnumLiteral="restest_model.ecore#//HttpVerb/GET"/>
@@ -71,6 +72,7 @@
       <genEnumLiterals ecoreEnumLiteral="restest_model.ecore#//StatusCode/GATEWAY_TIMEOUT"/>
       <genEnumLiterals ecoreEnumLiteral="restest_model.ecore#//StatusCode/HTTP_VERSION_NOT_SUPPORTED"/>
       <genEnumLiterals ecoreEnumLiteral="restest_model.ecore#//StatusCode/INSUFFICIENT_STORAGE"/>
+      <genEnumLiterals ecoreEnumLiteral="restest_model.ecore#//StatusCode/CONNECTION_EXCEPTION"/>
     </genEnums>
     <genClasses ecoreClass="restest_model.ecore#//Config">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute restest_model.ecore#//Config/name"/>

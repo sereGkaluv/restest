@@ -61,10 +61,12 @@ import at.fhv.ecss2016.restest.controller.JsonProvider;
 import at.fhv.ecss2016.restest.controller.RemoteConnection;
 import at.fhv.ecss2016.restest.model.Config;
 import at.fhv.ecss2016.restest.model.ConfigExpectedResultPair;
+import at.fhv.ecss2016.restest.model.ContentType;
 import at.fhv.ecss2016.restest.model.ExpectedResult;
 import at.fhv.ecss2016.restest.model.ModelFactory;
 import at.fhv.ecss2016.restest.model.Response;
 import at.fhv.ecss2016.restest.model.Scenario;
+import at.fhv.ecss2016.restest.model.StatusCode;
 import at.fhv.ecss2016.restest.util.BindHelper;
 import at.fhv.ecss2016.restest.util.FileDialogHelper;
 import at.fhv.ecss2016.restest.util.StringConstants;
@@ -339,6 +341,8 @@ public class ScenarioPart {
 						MessageBox messageBox = new MessageBox(shell, SWT.ICON_INFORMATION);
 						messageBox.setMessage(DEFAULT_SAVE_OK_MESSAGE);
 						messageBox.open();
+						
+						_dirty.setDirty(true);
 					}
 				}
 			}
@@ -453,18 +457,19 @@ public class ScenarioPart {
 					int successfulTests = 0;
 					
 					for (TableItem tableItem : tableMap.keySet()) {
+						
+						display.syncExec(() -> tableItem.setImage(_imageStatusProgress));
+						
+						// At this point we have a reference to ConfigResultPair instance
+						// which is also stored in CONFIG_RESULT_PAIR_LIST
+						ConfigExpectedResultPair pair = tableMap.get(tableItem);
+						
+						// Doing HTTP request
+						Config config = pair.getConfig();
+						ExpectedResult expectedResult = pair.getExpectedResult();
+						
 						try {
 					
-							display.syncExec(() -> tableItem.setImage(_imageStatusProgress));
-							
-							// At this point we have a reference to ConfigResultPair instance
-							// which is also stored in CONFIG_RESULT_PAIR_LIST
-							ConfigExpectedResultPair pair = tableMap.get(tableItem);
-							
-							// Doing HTTP request
-							Config config = pair.getConfig();
-							ExpectedResult expectedResult = pair.getExpectedResult();
-							
 							Response response = new RemoteConnection().sendNewRequest(config);
 							
 							// Updating response (will also affect entry in CONFIG_RESULT_PAIR_LIST,
@@ -483,7 +488,12 @@ public class ScenarioPart {
 						} catch (IllegalArgumentException | IOException e) { 
 							display.asyncExec(() -> tableItem.setImage(_imageStatusException));
 							
-							e.printStackTrace();
+							Response response = ModelFactory.eINSTANCE.createResponse();
+							
+							response.setContentType(ContentType.JAVA_LANG_EXCEPTION);
+							response.setStatusCode(StatusCode.CONNECTION_EXCEPTION);
+							response.setResponseBody(e.toString());
+							config.setResponse(response);
 						}
 						
 						int successfulTestsHolder = successfulTests;

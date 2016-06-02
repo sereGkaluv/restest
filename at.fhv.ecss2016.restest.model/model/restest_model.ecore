@@ -37,6 +37,7 @@
     <eLiterals name="XML_TEXT" value="4" literal="text/xml"/>
     <eLiterals name="XML_APPLICATION" value="5" literal="application/xml"/>
     <eLiterals name="HTML" value="6" literal="text/html"/>
+    <eLiterals name="JAVA_LANG_EXCEPTION" value="7" literal="java.lang.Exception"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="HttpVerb">
     <eLiterals name="GET"/>
@@ -93,5 +94,6 @@
     <eLiterals name="GATEWAY_TIMEOUT" value="504" literal="GATEWAY TIMEOUT"/>
     <eLiterals name="HTTP_VERSION_NOT_SUPPORTED" value="505" literal="HTTP VERSION NOT SUPPORTED"/>
     <eLiterals name="INSUFFICIENT_STORAGE" value="507" literal="INSUFFICIENT STORAGE"/>
+    <eLiterals name="CONNECTION_EXCEPTION" literal="CONNECTION EXCEPTION"/>
   </eClassifiers>
 </ecore:EPackage>

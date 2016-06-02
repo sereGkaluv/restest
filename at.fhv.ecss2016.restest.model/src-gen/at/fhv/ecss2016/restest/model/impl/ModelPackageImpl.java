@@ -497,6 +497,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEEnumLiteral(contentTypeEEnum, ContentType.XML_TEXT);
 		addEEnumLiteral(contentTypeEEnum, ContentType.XML_APPLICATION);
 		addEEnumLiteral(contentTypeEEnum, ContentType.HTML);
+		addEEnumLiteral(contentTypeEEnum, ContentType.JAVA_LANG_EXCEPTION);
 
 		initEEnum(httpVerbEEnum, HttpVerb.class, "HttpVerb");
 		addEEnumLiteral(httpVerbEEnum, HttpVerb.GET);
@@ -553,6 +554,7 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEEnumLiteral(statusCodeEEnum, StatusCode.GATEWAY_TIMEOUT);
 		addEEnumLiteral(statusCodeEEnum, StatusCode.HTTP_VERSION_NOT_SUPPORTED);
 		addEEnumLiteral(statusCodeEEnum, StatusCode.INSUFFICIENT_STORAGE);
+		addEEnumLiteral(statusCodeEEnum, StatusCode.CONNECTION_EXCEPTION);
 
 		// Create resource
 		createResource(eNS_URI);

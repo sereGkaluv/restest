@@ -496,7 +496,17 @@ public enum StatusCode implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	INSUFFICIENT_STORAGE(507, "INSUFFICIENT_STORAGE", "INSUFFICIENT STORAGE");
+	INSUFFICIENT_STORAGE(507, "INSUFFICIENT_STORAGE", "INSUFFICIENT STORAGE"),
+
+	/**
+	 * The '<em><b>CONNECTION EXCEPTION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CONNECTION_EXCEPTION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	CONNECTION_EXCEPTION(0, "CONNECTION_EXCEPTION", "CONNECTION EXCEPTION");
 
 	/**
 	 * The '<em><b>CONTINUE</b></em>' literal value.
@@ -1219,6 +1229,21 @@ public enum StatusCode implements Enumerator {
 	public static final int INSUFFICIENT_STORAGE_VALUE = 507;
 
 	/**
+	 * The '<em><b>CONNECTION EXCEPTION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>CONNECTION EXCEPTION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #CONNECTION_EXCEPTION
+	 * @model literal="CONNECTION EXCEPTION"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CONNECTION_EXCEPTION_VALUE = 0;
+
+	/**
 	 * An array of all the '<em><b>Status Code</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1274,6 +1299,7 @@ public enum StatusCode implements Enumerator {
 			GATEWAY_TIMEOUT,
 			HTTP_VERSION_NOT_SUPPORTED,
 			INSUFFICIENT_STORAGE,
+			CONNECTION_EXCEPTION,
 		};
 
 	/**
@@ -1378,6 +1404,7 @@ public enum StatusCode implements Enumerator {
 			case GATEWAY_TIMEOUT_VALUE: return GATEWAY_TIMEOUT;
 			case HTTP_VERSION_NOT_SUPPORTED_VALUE: return HTTP_VERSION_NOT_SUPPORTED;
 			case INSUFFICIENT_STORAGE_VALUE: return INSUFFICIENT_STORAGE;
+			case CONNECTION_EXCEPTION_VALUE: return CONNECTION_EXCEPTION;
 		}
 		return null;
 	}
