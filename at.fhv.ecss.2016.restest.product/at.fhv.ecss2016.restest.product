@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="at.fhv.ecss2016.restest" uid="RESTest" id="at.fhv.ecss2016.restest.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
+<product name="at.fhv.ecss2016.restest" uid="RESTest" id="at.fhv.ecss2016.restest.application.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
@@ -16,9 +16,10 @@
    <windowImages/>
 
    <plugins>
-      <plugin id="at.fhv.ecss2016.restest"/>
+      <plugin id="at.fhv.ecss2016.restest.application"/>
       <plugin id="at.fhv.ecss2016.restest.controller"/>
       <plugin id="at.fhv.ecss2016.restest.model"/>
+      <plugin id="at.fhv.ecss2016.restest.model.edit"/>
       <plugin id="com.fasterxml.jackson.core.jackson-annotations"/>
       <plugin id="com.fasterxml.jackson.core.jackson-core"/>
       <plugin id="com.fasterxml.jackson.core.jackson-databind"/>

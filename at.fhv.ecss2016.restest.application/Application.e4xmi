@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_c3AF0MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.application" bindingContexts="_c3AF2cjYEeSyMNYR5xypkQ">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_c3AF0cjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.window.main" label="RESTest" iconURI="platform:/plugin/at.fhv.ecss2016.restest.application/icons/restest.png" width="960" height="640">
+    <children xsi:type="advanced:PerspectiveStack" xmi:id="_iLaCwBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.perspectivestack.main">
+      <children xsi:type="advanced:Perspective" xmi:id="_jNiOIBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.perspective.config">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_l6QTEBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partsashcontainer.0" horizontal="true">
+          <children xsi:type="basic:PartStack" xmi:id="_q5VcMBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.config.partstack.left">
+            <children xsi:type="basic:Part" xmi:id="_s_iTsBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.part.configpart" contributionURI="bundleclass://at.fhv.ecss2016.restest.application/at.fhv.ecss2016.restest.parts.ConfigPart" label="CONFIG" iconURI="platform:/plugin/at.fhv.ecss2016.restest.application/icons/config.png">
+              <toolbar xmi:id="_lY-YcB5YEeaOiJcIT1En8w" elementId="at.fhv.ecss2016.restest.toolbar.0">
+                <children xsi:type="menu:HandledToolItem" xmi:id="_qlfgoB5YEeaOiJcIT1En8w" elementId="at.fhv.ecss2016.restest.handledmenuitem.config.save" label="Save" iconURI="" command="_6uj5QCG2Eea-JavvrGpDJg"/>
+                <children xsi:type="menu:ToolBarSeparator" xmi:id="_wFtQACN-EeapvPawi6H3Wg" elementId="at.fhv.ecss2016.restest.toolbarseparator.1"/>
+                <children xsi:type="menu:HandledToolItem" xmi:id="_DUohwCG4Eea-JavvrGpDJg" elementId="at.fhv.ecss2016.restest.handledmenuitem.config.load" label="Load" iconURI="" tooltip="" command="_-jsXwCG2Eea-JavvrGpDJg"/>
+              </toolbar>
+            </children>
+          </children>
+          <children xsi:type="basic:PartStack" xmi:id="_reDS0BjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.config.partstack.right"/>
+        </children>
+      </children>
+      <children xsi:type="advanced:Perspective" xmi:id="_jqVe4BjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.perspective.scenarios" iconURI="">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_HsXcACGBEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.partsashcontainer.1" horizontal="true">
+          <children xsi:type="basic:PartStack" xmi:id="_JYSyUCGBEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.scenario.partstack.left">
+            <children xsi:type="basic:Part" xmi:id="_LCj7wCGBEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.part.scenario" contributionURI="bundleclass://at.fhv.ecss2016.restest.application/at.fhv.ecss2016.restest.parts.ScenarioPart" label="SCENARIO" iconURI="platform:/plugin/at.fhv.ecss2016.restest.application/icons/scenario.png">
+              <toolbar xmi:id="_OPoUsCGBEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.toolbar.1">
+                <children xsi:type="menu:HandledToolItem" xmi:id="_AEd40CJ5EeafTqDrYbsSiQ" elementId="at.fhv.ecss2016.restest.handledmenuitem.scenario.save" label="Save" iconURI="" command="_6uj5QCG2Eea-JavvrGpDJg"/>
+                <children xsi:type="menu:ToolBarSeparator" xmi:id="_uiqv8CN-EeapvPawi6H3Wg" elementId="at.fhv.ecss2016.restest.toolbarseparator.0"/>
+                <children xsi:type="menu:HandledToolItem" xmi:id="_AoZFQCJ5EeafTqDrYbsSiQ" elementId="at.fhv.ecss2016.restest.handledmenuitem.scenario.load" label="Load" iconURI="" command="_v1E5ECJ4EeafTqDrYbsSiQ"/>
+              </toolbar>
+            </children>
+          </children>
+          <children xsi:type="basic:PartStack" xmi:id="_iJUTkCGPEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.scenario.partstack.right"/>
+        </children>
+      </children>
+    </children>
+    <mainMenu xmi:id="_C2PWkCGtEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.menu.1">
+      <children xsi:type="menu:Menu" xmi:id="_fM0DMCGwEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.menu.perspective" label="PERSPECTIVE" mnemonics="">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_MljpoCGvEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.handledmenuitem.switchtoconfigprterspective" label="Config perspective" selected="true" type="Radio" command="_1befwCGaEeaucOyU6NqSaA">
+          <parameters xmi:id="_PUQrkCGvEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.perspectivestack.id" name="at.fhv.ecss2016.restest.commandparameter.perspectivestack.id" value="at.fhv.ecss2016.restest.perspectivestack.main"/>
+          <parameters xmi:id="_P_rAECGvEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.perspectivestack.perspective.id" name="at.fhv.ecss2016.restest.commandparameter.perspectivestack.perspective.id" value="at.fhv.ecss2016.restest.perspective.config"/>
+        </children>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_FEbFYCGtEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.handledmenuitem.scenariosperspective" label="Scenarios perspective" type="Radio" command="_1befwCGaEeaucOyU6NqSaA">
+          <parameters xmi:id="_N1GQ0CGtEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.perspectivestack.id" name="at.fhv.ecss2016.restest.commandparameter.perspectivestack.id" value="at.fhv.ecss2016.restest.perspectivestack.main"/>
+          <parameters xmi:id="_OQhBgCGtEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.perspectivestack.perspective.id" name="at.fhv.ecss2016.restest.commandparameter.perspectivestack.perspective.id" value="at.fhv.ecss2016.restest.perspective.scenarios"/>
+        </children>
+      </children>
+    </mainMenu>
+  </children>
+  <handlers xmi:id="_q-_NkCGsEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.handler.0" contributionURI="bundleclass://at.fhv.ecss2016.restest.application/at.fhv.ecss2016.restest.handlers.SwitchPerspectiveHandler" command="_1befwCGaEeaucOyU6NqSaA"/>
+  <handlers xmi:id="_A95JUCG3Eea-JavvrGpDJg" elementId="at.fhv.ecss2016.restest.handler.save" contributionURI="bundleclass://at.fhv.ecss2016.restest.application/at.fhv.ecss2016.restest.handlers.SaveHandler" command="_6uj5QCG2Eea-JavvrGpDJg"/>
+  <handlers xmi:id="_HF_I8CG3Eea-JavvrGpDJg" elementId="at.fhv.ecss2016.restest.handler.config.load" contributionURI="bundleclass://at.fhv.ecss2016.restest.application/at.fhv.ecss2016.restest.handlers.LoadConfigHandler" command="_-jsXwCG2Eea-JavvrGpDJg"/>
+  <handlers xmi:id="_uX2tICJ4EeafTqDrYbsSiQ" elementId="at.fhv.ecss2016.restest.handler.1" contributionURI="bundleclass://at.fhv.ecss2016.restest.application/at.fhv.ecss2016.restest.handlers.LoadScenarioHandler" command="_v1E5ECJ4EeafTqDrYbsSiQ"/>
+  <rootContext xmi:id="_c3AF2cjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
+    <children xmi:id="_c3AF2sjYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
+    <children xmi:id="_c3AF28jYEeSyMNYR5xypkQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
+  </rootContext>
+  <descriptors xmi:id="_xriIwBjSEearYqMdtp6qdA" elementId="at.fhv.ecss2016.restest.partdescriptor.response" label="RESPONSE" iconURI="platform:/plugin/at.fhv.ecss2016.restest.application/icons/response.png" allowMultiple="true" closeable="true" contributionURI="bundleclass://at.fhv.ecss2016.restest.application/at.fhv.ecss2016.restest.parts.ResponsePart"/>
+  <commands xmi:id="_1befwCGaEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.command.switchperspective" commandName="switch perspective">
+    <parameters xmi:id="_9gffECGaEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.commandparameter.perspectivestack.id" name="prespective stack "/>
+    <parameters xmi:id="_96nPQCGaEeaucOyU6NqSaA" elementId="at.fhv.ecss2016.restest.commandparameter.perspectivestack.perspective.id" name="perspective id"/>
+  </commands>
+  <commands xmi:id="_6uj5QCG2Eea-JavvrGpDJg" elementId="at.fhv.ecss2016.restest.command.save" commandName="Save"/>
+  <commands xmi:id="_-jsXwCG2Eea-JavvrGpDJg" elementId="at.fhv.ecss2016.restest.command.config.load" commandName="Load config"/>
+  <commands xmi:id="_v1E5ECJ4EeafTqDrYbsSiQ" elementId="at.fhv.ecss2016.restest.command.scenario.load" commandName="Load scenario"/>
+  <addons xmi:id="_c3AF0sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
+  <addons xmi:id="_c3AF08jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
+  <addons xmi:id="_c3AF1MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
+  <addons xmi:id="_c3AF1cjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
+  <addons xmi:id="_c3AF1sjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.workbench.handler.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
+  <addons xmi:id="_c3AF18jYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+  <addons xmi:id="_c3AF2MjYEeSyMNYR5xypkQ" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
+</application:Application>
