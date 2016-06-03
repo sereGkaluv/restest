@@ -15,6 +15,7 @@ hs_err_pid*
 target/
 logs/
 .logs/
+products/at.fhv.ecss2016.restest.product/target/*
 
 
 #eclipse ignore
